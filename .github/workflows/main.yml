@@ -1,0 +1,26 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to server
+        run: |
+          ssh-keyscan 193.46.198.117 >> ~/.ssh/known_hosts
+          ssh -i ${{ secrets.realestateappsshsecretkey }} root@193.46.198.117 "mkdir -p /root/applications"
+          scp -i ${{ secrets.realestateappsshsecretkey }} -r ./dist/ root@193.46.198.117:/root/applications
