@@ -21,6 +21,6 @@ jobs:
 
       - name: Deploy to server
         run: |
-          ssh-keyscan 193.46.198.117 >> ~/.ssh/known_hosts
+          ssh-keyscan 193.46.198.117 >> ~/.ssh/authorized_keys
           ssh -i ${{ secrets.realestateappsshsecretkey }} root@193.46.198.117 "mkdir -p /root/applications"
           scp -i ${{ secrets.realestateappsshsecretkey }} -r ./dist/ root@193.46.198.117:/root/applications
