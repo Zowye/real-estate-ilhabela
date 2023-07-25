@@ -20,10 +20,7 @@ jobs:
         run: npm run build
 
       - name: Deploy to server
-        uses: appleboy/scp-action@master
-        with:
-          host: seu_servidor_ip
-          username: seu_usuário
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          source: ./dist/
-          target: /caminho/para/destino/
+        run: |
+          ssh-keyscan 193.46.198.117 >> ~/.ssh/known_hosts
+          ssh -i ${{ secrets.realestateappsshsecretkey }} root@193.46.198.117 "mkdir -p /root/applications"
+          scp -i ${{ secrets.realestateappsshsecretkey }} -r ./dist/ root@193.46.198.117:/root/applications
