@@ -1,0 +1,23 @@
+:root {
+    /* BASE FONTS */
+    --font-text: 'DM Sans', sans-serif;
+
+    /* BASE COLORS */
+    --cor-base: #573ab1;
+
+    --cor-text-base: #1a1a1a;
+    --cor-text-subbase: gray;
+    --cor-destaque: #382471;
+    --cor-clara: #907fa3;
+    --cor-pastel: #735494;
+    --cor-background-claro: #f4ebff;
+    --cor-fonte: white;
+    --cor-clarinha: #eae7fd;
+    --cor-clarinha2: #e0dbfa;
+    --golden: #ffb71b;
+
+    /* Calcula as cores mais escuras e mais claras */
+    --cor-darken:  color-mix(in srgb,var(--cor-base),#000 20%);
+    --cor-lighten: color-mix(in srgb,var(--cor-base),#ffffff 60%);
+  }
+  

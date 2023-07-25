@@ -1,4 +1,12 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
+import store from './store'; // Import the Vuex store
 
-createApp(App).mount('#app')
+import '@/assets/css/variables.css';
+import '@fortawesome/fontawesome-free/css/all.css';
+
+createApp(App)
+  .use(router)
+  .use(store) // Use the Vuex store
+  .mount('#app');
