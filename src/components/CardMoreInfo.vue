@@ -132,7 +132,7 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(256, 256, 256, 0.65);
+    background-color: rgba(0, 0, 0, 0.65);
     backdrop-filter: blur(10px);
     z-index: 10000;
 }
@@ -156,11 +156,20 @@ export default {
     background-color: #fff;
     padding: 20px;
     border-radius: 1em;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.01);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.31);
     z-index: 10001;
-    border: 3px solid #ae9ae3;
     display: flex;
     flex-direction: row;
+    border-radius: 0.5em;
+    border-right: 1px solid rgba(128, 128, 128, .2);
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: rgba(128, 128, 128, 0.2);
+    border-bottom: 1px solid rgba(128, 128, 128, .2);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgba(128, 128, 128, 0.2);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.01);
 }
 
 .close-button {
@@ -257,8 +266,8 @@ export default {
     background: none;
     color: #ffffff;
     font-size: 1em;
-    width:1.8em;
-    height:1.8em;
+    width: 1.8em;
+    height: 1.8em;
     border-radius: 0.33em;
     cursor: pointer;
     line-height: 1;
@@ -332,7 +341,6 @@ export default {
 .ver-mais-button2 {
     display: inline-block;
     background-color: var(--cor-pastel);
-    
     color: #333;
     border: none;
     border-radius: 4px;

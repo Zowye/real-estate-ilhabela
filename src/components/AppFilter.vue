@@ -112,16 +112,19 @@ export default {
     user-select: none;
 }
 
-.first {
+/* .first {
     width: 12em;
-}
+} */
 
 #filters {
+    width: 1400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: auto;
     margin-bottom: 40px;
+
     border-radius: 1em;
     bottom: 0;
 }
