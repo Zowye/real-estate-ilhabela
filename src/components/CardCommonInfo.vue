@@ -48,7 +48,7 @@
     margin-right: 0.35em;
     padding: 0.25em 0.6em;
     border-radius: 0.62em;
-    color: var(--cor-text-subbase);
+    color: rgb(159, 113, 208);
     /* border: 1px solid var(--cor-text-subbase); */
 }
 
@@ -62,7 +62,7 @@
 
 .value {
     margin-left: auto;
-    color:black;}
+    color:rgb(201, 200, 200);}
 </style>
   
 

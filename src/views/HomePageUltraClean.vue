@@ -1,7 +1,8 @@
 <template>
   <DefaultLayout>
     <div id="home-page-container">
-      <CardsList />
+      <AppFilter />
+      <CardsList :show_featured_card="false" />
     </div>
   </DefaultLayout>
 </template>
@@ -9,23 +10,26 @@
 <script>
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import CardsList from '@/components/CardsList.vue';
+import AppFilter from '@/components/AppFilter.vue';
 
 export default {
   components: {
     DefaultLayout,
-    CardsList
+    CardsList,
+    AppFilter
   },
 };
 </script>
 
-<style>
-
-*{
-  user-select: none ;
+<style scoped>
+* {
+  user-select: none;
 }
+
 #home-page-container {
+  width: 70%;
   margin-top: 100px;
+  align-items: center;
   justify-content: center;
 }
-
 </style>

@@ -1,11 +1,24 @@
 <template>
-  <router-view />
+  <div id="app">
+    <div v-if="isLoading">Carregando...</div>
+    <div v-else>
+      <router-view />
+    </div>
+  </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
-  name: 'App'
-};
+  name: 'App',
+  computed: {
+    ...mapState(["isLoading"]),
+  },
+  mounted() {
+    this.$store.commit('SET_LOADING_STATE', false);
+  },
+}
 </script>
 
 <style>

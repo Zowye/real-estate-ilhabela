@@ -2,12 +2,14 @@
     <div id="full-site">
         <Header />
         <div id="wrapper">
-                <main>
+            <div id="background">
+                <div id="gradient"></div>
+            </div>
+            <main>
                 <div class="container">
                     <slot></slot>
                 </div>
             </main>
-
         </div>
         <Footer />
     </div>
@@ -28,16 +30,17 @@ export default {
 </script>
   
 <style>
-
 #full-site {
     width: 100%;
-    background-color: rgb(255, 255, 255);
 }
 
 .container {
+    display: flex;
     max-width: 100%;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 0px;
+    align-items: center;
+    justify-content: center;
 }
 
 #wrapper {
@@ -46,25 +49,33 @@ export default {
     height: 100%;
     width: 100%;
     display: flex;
-    background-image: url("@/assets/images/bgTopper.jpg");
-    background-repeat: no-repeat;
-    background-size: 100% auto;
-    background-position: top;
     flex-direction: row;
     align-items: flex-end;
     justify-content: center;
     padding-top: 120px;
-    background-color: #f7f7f7;
 }
 
-#wrapper::before {
-    content: "";
+#background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30em;
+    background-image: url("@/assets/images/bgTopper.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position: top;
+    z-index: -1;
+}
+
+#gradient {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(255, 255, 255, 0.684), rgba(255, 255, 255, 1));
+    background-image: linear-gradient(to top, rgb(255, 255, 255), rgba(255, 255, 255, 0.631), rgba(255, 255, 255, 0.814));
+    z-index: 8888;
 }
 </style>
     

@@ -138,12 +138,14 @@ export default {
 .camera-button,
 .heart-button,
 .plus-button {
-    font-size: 0.8em;
+    font-size: 0.6em;
     background-color: white;
     border: none;
     cursor: pointer;
-    padding: 0.4em 0.6em;
+    padding: 0.3em 0.6em;
     display: flex;
+    border-radius: 1em;
+
     align-items: center;
     color: var(--cor-text-base);
 }
@@ -242,7 +244,6 @@ export default {
 
 /* Estilos para o botão tranding-button com base no status_level */
 .tranding-button {
-    font-size: 0.8em;
     background-color: white;
     border: none;
     cursor: pointer;

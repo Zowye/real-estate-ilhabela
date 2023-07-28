@@ -1,81 +1,37 @@
 <template>
     <div id="filters">
         <div class="filter-line top">
-            <div class="filter-item top-button active rounded_left">
+            <div @click="changeActive('ALUGAR')" class="filter-item top-button"
+                :class="{ active: activeButton === 'ALUGAR' }">
                 ALUGAR
             </div>
-            <div class="filter-item top-button">
+            <div @click="changeActive('COMPRAR')" class="filter-item top-button"
+                :class="{ active: activeButton === 'COMPRAR' }">
                 COMPRAR
             </div>
-            <div class="filter-item top-button rounded_right">
+            <div @click="changeActive('TEMPORADA')" class="filter-item top-button"
+                :class="{ active: activeButton === 'TEMPORADA' }">
                 TEMPORADA
             </div>
-
         </div>
         <div id="main_filter_content_wrapper">
             <div class="filter-line middle">
                 <div class="filter-item middle_column first">
                     <label for="procurando-por" class="filter-label">Procurando por:</label>
-                    <!-- <select id="procurando-por">
-                        <option value="opcao1">Opção 1</option>
-                        <option value="opcao2">Opção 2</option>
-                        <option value="opcao3">Opção 3</option>
-                        <option value="opcao4">Opção 4</option>
-                        <option value="opcao5">Opção 5</option>
-                        <option value="opcao6">Opção 6</option>
-                    </select> -->
                     <FilterBuildingType />
                 </div>
-                <div class="filter-item middle_column">
-
+                <div class="filter-item middle_column second">
                     <label for="bairro" class="filter-label">Bairro:</label>
                     <FilterNeighborhoods />
-                    <!-- <select id="bairro">
-                        <option value="bairro1">Bairro 1</option>
-                        <option value="bairro2">Bairro 2</option>
-                        <option value="bairro3">Bairro 3</option>
-                        <option value="bairro4">Bairro 4</option>
-                        <option value="bairro5">Bairro 5</option>
-                        <option value="bairro6">Bairro 6</option>
-                    </select> -->
                 </div>
-                <div class="filter-item middle_column">
+                <div class="filter-item middle_column third">
                     <label for="quartos" class="filter-label">Quantidade de quartos:</label>
                     <FilterRoomsN />
-                    <!-- <select id="quartos">
-                        <option value="1">1 quarto</option>
-                        <option value="2">2 quartos</option>
-                        <option value="3">3 quartos</option>
-                        <option value="4">4 quartos</option>
-                        <option value="5">5 quartos</option>
-                        <option value="6">6 quartos</option>
-                    </select> -->
+
                 </div>
-                <div class="filter-item middle_column">
+                <div class="filter-item middle_column fourth">
                     <label for="orcamento" class="filter-label">Seu orçamento:</label>
                     <FilterPriceRange />
-                    <!-- <select id="orcamento">
-                        <option value="1000">Até R$1.000</option>
-                        <option value="2000">Até R$2.000</option>
-                        <option value="3000">Até R$3.000</option>
-                        <option value="4000">Até R$4.000</option>
-                        <option value="5000">Até R$5.000</option>
-                        <option value="10000">Até R$10.000</option>
-                        <option value="20000">Até R$20.000</option>
-                        <option value="30000">Até R$30.000</option>
-                        <option value="40000">Até R$40.000</option>
-                        <option value="50000">Até R$50.000</option>
-                        <option value="100000">Até R$100.000</option>
-                        <option value="200000">Até R$200.000</option>
-                        <option value="300000">Até R$300.000</option>
-                        <option value="400000">Até R$400.000</option>
-                        <option value="500000">Até R$500.000</option>
-                        <option value="1000000">Até R$1.000.000</option>
-                        <option value="2000000">Até R$2.000.000</option>
-                        <option value="3000000">Até R$3.000.000</option>
-                        <option value="4000000">Até R$4.000.000</option>
-                        <option value="5000000">Até R$5.000.000</option>
-                    </select> -->
                 </div>
 
             </div>
@@ -97,6 +53,17 @@ import FilterPriceRange from "@/components/filter/FilterPriceRange.vue";
 
 
 export default {
+    data() {
+        return {
+            activeButton: 'ALUGAR',
+        }
+    },
+    methods: {
+        changeActive(button) {
+            this.activeButton = button;
+        }
+    }
+    ,
     components: {
         FilterBuildingType,
         FilterNeighborhoods,
@@ -112,9 +79,21 @@ export default {
     user-select: none;
 }
 
-/* .first {
-    width: 12em;
-} */
+.first {
+    width: 18%;
+}
+
+.second {
+    width: 30%;
+}
+
+.third {
+    width: 15%;
+}
+
+.fourth {
+    width: 20%;
+}
 
 #filters {
     width: 1400px;
@@ -156,7 +135,6 @@ export default {
 
 .filter-option {
     padding: 10px;
-    flex-basis: 33.33%;
 }
 
 .filter-option label {
@@ -271,7 +249,6 @@ export default {
 
 .middle_column {
     height: 100%;
-    flex-basis: 33%;
     padding: 1em 1.5em 1em 1.5em;
     justify-content: center;
 }
@@ -418,27 +395,31 @@ export default {
 }
 
 .active {
-    background-color: #573ab1;
+    background-color: #ffffff;
+    color: var(--cor-text-base);
 }
 
 .top-button:after {
     position: absolute;
     content: "";
     top: 0;
+    left: 0;
     width: 0;
     height: 100%;
-    background: #7d3ab1;
+    background: #ffffff;
     transition: all .35s;
-    z-index: -1; /* Definindo o z-index para ficar atrás do texto */
+    z-index: -1;
+    /* Definindo o z-index para ficar atrás do texto */
 }
 
 .top-button:hover {
-    color: #fff;
+    color: var(--cor-text-base);
 }
 
 .top-button:hover:after {
     width: 100%;
 }
+
 /* 
 .rounded_left {
     border-top-left-radius: 1em;
@@ -448,8 +429,6 @@ export default {
     border-top-right-radius: 1em;
 }
  */
-
-
 </style>
   
 

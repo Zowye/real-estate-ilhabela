@@ -1,47 +1,56 @@
 <template>
     <CardMoreInfo v-if="showModal" :card="selectedCard" @close="closeModal" />
-    <div class="card-list">
-    <CardFeatured :featured_data="card_featured" />
 
-        <!-- Loop pelos dados do arquivo data.json -->
-        <div v-for="card in items" :key="card.id" class="card">
-            <CardPhotoViewer :images="card.card_images" :status_level="card.status_level" />
-            <div class="cardInfos">
-                <CardStars :rating="card.stars_count" />
-                <div class="card_title">{{ card.title }}</div>
-                <div id="topInfos" class="inner_cardcard_padding">
-                    <IconPin :width="16" :height="16" />
-                    <div class="card_address"> {{ card.street }}, {{ card.streetNumber }} <div class="neigh">{{
-                        card.neighborhood }}</div>
+    <div id="wrapper_cards">
+        <CardFeatured v-if="show_featured_card" :featured_data="card_featured" />
+        <div class="card-list">
+
+            <!-- Loop pelos dados do arquivo data.json -->
+
+            <div v-for="card in items" :key="card.id" class="card" :style="{ width: cardWidth }">
+                <router-link :to="`/house_explorer/${card.id}`">
+
+                    <CardPhotoViewer :images="card.card_images" :status_level="card.status_level" />
+                </router-link>
+
+                <div class="cardInfos">
+                    <!-- <CardStars :rating="card.stars_count" /> -->
+                    <div class="card_title" @click="SetFocusHouse(card)">{{ card.title }}</div>
+                    <div id="topInfos" class="inner_cardcard_padding">
+                        <IconPin :width="16" :height="16" />
+                        <div class="card_address"> {{ card.street }}, {{ card.streetNumber }}
+                        </div>
+
                     </div>
-                </div>
+                    <div class="neigh">{{ card.neighborhood }}</div>
 
 
-                <div id="bottomInfos" class="inner_card_padding">
+                    <div id="bottomInfos" class="inner_card_padding">
 
-                    <CardCommonInfo />
+                        <CardCommonInfo />
 
-                    <p><span class="monetary"><span class="currency_name">R$</span> </span><span
-                            class="monetary_value_number">{{ card.formattedPrice }}</span>
-                        <span class="monetary_value_string">{{ card.suffix }}</span>
-                    </p>
-                    <!-- <p class="description">{{ card.description }}</p> -->
+                        <p><span class="monetary"><span class="currency_name">R$</span> </span><span
+                                class="monetary_value_number">{{ card.formattedPrice }}</span>
+                            <span class="monetary_value_string">{{ card.suffix }}</span>
+                        </p>
+                        <!-- <p class="description">{{ card.description }}</p> -->
 
-                    
 
-                    <div class="button-group">
-                        <!-- Adicione uma função anônima para passar o card como parâmetro -->
-                        <button class="ver-mais-button" @click="openCardMoreInfo(card)">Comparar</button>
-                        <!-- Adicione também uma função anônima para o outro botão -->
-                        <button class="olhadela-button" @click="openCardMoreInfo(card)">Visão Rápida</button>
-                    </div>
 
-                    <!-- <button class="ver-mais-button">Ver Mais</button> -->
-                    <!-- <a href="#" class="whatsapp-button">
+                        <div class="button-group">
+                            <!-- Adicione uma função anônima para passar o card como parâmetro -->
+                            <button class="ver-mais-button" @click="openCardMoreInfo(card)">Comparar</button>
+                            <!-- Adicione também uma função anônima para o outro botão -->
+                            <button class="olhadela-button" @click="openCardMoreInfo(card)">Visão Rápida</button>
+                        </div>
+
+                        <!-- <button class="ver-mais-button">Ver Mais</button> -->
+                        <!-- <a href="#" class="whatsapp-button">
                 <i class="fab fa-whatsapp"></i>
               </a> -->
-                    <!-- <CardAmenities :amenities="card.amenities" /> -->
+                        <!-- <CardAmenities :amenities="card.amenities" /> -->
 
+                    </div>
                 </div>
             </div>
         </div>
@@ -54,10 +63,11 @@ import CardPhotoViewer from '@/components/CardPhotoViewer.vue';
 // import CardAmenities from '@/components/CardAmenities.vue';
 import CardCommonInfo from '@/components/CardCommonInfo.vue';
 import IconPin from "@/components/icons/IconPin.vue";
-import CardStars from "@/components/CardStars.vue";
+// import CardStars from "@/components/CardStars.vue";
 import CardFeatured from '@/components/CardFeatured.vue';
 import data from '@/data.json';
 import CardMoreInfo from '@/components/CardMoreInfo.vue';
+import { mapActions } from 'vuex';
 
 
 export default {
@@ -66,7 +76,7 @@ export default {
         CardFeatured,
         CardCommonInfo,
         IconPin,
-        CardStars,
+        // CardStars,
         CardMoreInfo
     },
     data() {
@@ -81,7 +91,18 @@ export default {
             selectedCard: null
         };
     },
+    props: {
+        cardWidth: {
+            type: String,
+            default: '400px',
+        },
+        show_featured_card: Boolean,
+    },
     methods: {
+        ...mapActions(['updateHouseInfo']),
+        SetFocusHouse(card) {
+            this.updateHouseInfo(card);
+        },
         openCardMoreInfo(card) {
             console.log("Called for: ", card.title)
             this.selectedCard = card;
@@ -233,6 +254,12 @@ export default {
 }
 
 
+#wrapper_cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
 /* Estilos para os cards */
 .card-list {
@@ -241,16 +268,44 @@ export default {
     flex-wrap: wrap;
 }
 
+
+
+
 .card {
     cursor: pointer;
     position: relative;
     background-color: white;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.10);
-    margin: 20px;
+    margin: 1em;
+    width: 400px;
+    border-radius: 0.7em;
+    border-top-left-radius: 1.2em;
+    border-top-right-radius: 1.2em;
+    border-right: 1px solid rgba(128, 128, 128, .2);
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: rgba(128, 128, 128, 0.2);
+    border-bottom: 1px solid rgba(128, 128, 128, .2);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgba(128, 128, 128, 0.2);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.09);
+    overflow: hidden;
+}
+
+
+
+/*     
+.card {
+    cursor: pointer;
+    position: relative;
+    background-color: white;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.10);
+    margin: 1em;
     width: 400px;
     border-radius: 1.2em;
     overflow: hidden;
-}
+} */
 
 
 
@@ -266,7 +321,7 @@ export default {
 .cardInfos {
     display: flex;
     flex-direction: column;
-    padding: 1.4em;
+    padding: 1.8em 1.4em;
 }
 
 
@@ -310,7 +365,8 @@ export default {
 
 .neigh {
     font-weight: 600;
-    margin-top: 0.2em;
+    margin-top: 0.5em;
+    color: var(--cor-base);
 }
 
 

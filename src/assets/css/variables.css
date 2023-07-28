@@ -15,6 +15,8 @@
     --cor-clarinha: #eae7fd;
     --cor-clarinha2: #e0dbfa;
     --golden: #ffb71b;
+    --color-over-highlighted-content: #faf7f0;
+    --color-highlighted-content: #8771c4;
 
     /* Calcula as cores mais escuras e mais claras */
     --cor-darken:  color-mix(in srgb,var(--cor-base),#000 20%);

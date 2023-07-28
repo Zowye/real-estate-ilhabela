@@ -85,6 +85,7 @@ export default {
 }
 
 .card-featured {
+    width: 50%;
     position: relative;
     height: 400px;
     display: flex;
@@ -104,7 +105,6 @@ export default {
     border-radius: 1.2em;
     background-color: rgb(255, 255, 255);
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.10);
-
 }
 
 

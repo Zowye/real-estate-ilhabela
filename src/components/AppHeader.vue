@@ -3,7 +3,7 @@
     <div class="header_content_wrapper">
       <div id="left">
         <div id="logo">
-          <img src="@/assets/images/logoNidus.png" class="logo" alt="">
+          <img src="@/assets/images/logoNidus.png" class="logo" alt="nidus_real_estate" @click="goToHome">
         </div>
         <Menu />
       </div>
@@ -22,6 +22,11 @@ export default {
   components: {
     Menu,
     MenuPanel
+  },
+  methods: {
+    goToHome() {
+      this.$router.push('/');
+    }
   }
 };
 </script>
@@ -66,5 +71,6 @@ header {
   margin-left: 20px;
   margin-right: 20px;
   width: 199px;
+  cursor: pointer;
 }
 </style>
