@@ -31,13 +31,23 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Unna&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,900;1,100;1,200;1,300;1,600;1,900&display=swap');
 
+h1{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 2.4em;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
 * {
   font-family: Playfair, sans-serif;
 }
 
 p {
+  margin-top: 0.2em;
   font-size: 1.2em;
+  font-weight: 300;
   line-height: 1.3em;
   font-family: var(--font-text);
   color: var(--cor-text-base)

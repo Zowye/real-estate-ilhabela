@@ -1,6 +1,6 @@
 <template>
     <div class="card-featured" v-show="isVisible">
-        <div class="medal">FEATURED</div>
+        <div class="medal">NOVA</div>
         <button @click="closeCard" class="close-btn">
             <i class="fas fa-times"></i>
         </button>
@@ -73,10 +73,10 @@ export default {
 .medal {
     position: absolute;
     top: 0;
-    right: 80px;
+    right: 5em;
     transform-origin: 100% 0;
     transform: rotate(-90deg);
-    background-color: #f8b2b2;
+    background-color: #a6cf9d;
     color: white;
     padding: 0.3em 0.3em 0.3em 0.8em;
     font-family: 'Ysabeau Office', sans-serif;
@@ -90,7 +90,7 @@ export default {
     height: 400px;
     display: flex;
     flex-direction: row;
-    padding: 3em 2em;
+    padding: 1em 1em;
     border-right: 1px solid rgba(128, 128, 128, .2);
     border-right-width: 1px;
     border-right-style: solid;
