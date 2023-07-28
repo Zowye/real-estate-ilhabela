@@ -30,12 +30,17 @@ export default {
 </script>
   
 <style>
+
+main{
+    width: 100%;;
+}
 #full-site {
     width: 100%;
 }
 
 .container {
     display: flex;
+    flex-direction: column;
     max-width: 100%;
     margin: 0 auto;
     padding: 0 0px;

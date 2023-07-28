@@ -36,6 +36,13 @@ export default {
   font-family: Playfair, sans-serif;
 }
 
+p {
+  font-size: 1.2em;
+  line-height: 1.3em;
+  font-family: var(--font-text);
+  color: var(--cor-text-base)
+}
+
 body {
   display: flex;
   flex-direction: column;

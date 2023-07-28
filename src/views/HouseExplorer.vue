@@ -1,9 +1,15 @@
 <template>
     <DefaultLayout>
-        <div id="wrapper">
-            <div v-if="card">
-                <h1>Property Details</h1>
-                <div id="icons_wrapper">
+        <div id="wrapper_house_explorer">
+            <div class="gallary_container">
+                <div v-for="(image, index) in card_images" :key="index" :class="getImageClass(index)">
+                    <img :src="image" class="gallery-image" loading="lazy" alt="Property Image" />
+                </div>
+            </div>
+
+            <div id="info_wrapper">
+                <h1>Overview</h1>
+                <div id="icons_blocks_wrapper">
 
 
                     <div class="rh_ultra_prop_card__meta">
@@ -25,11 +31,6 @@
                     </div>
 
 
-
-
-
-
-
                     <div class="rh_ultra_prop_card__meta">
                         <div class="icon_and_info_wrapper">
                             <div class="icon-label">
@@ -71,9 +72,10 @@
                     <div class="rh_ultra_prop_card__meta">
                         <div class="icon_and_info_wrapper">
                             <div class="icon-label">
-                                Bathrooms </div>
+                                Area </div>
                             <div class="bottom_content">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    class="icon">
                                     <path class="ultra-meta rh-ultra-dark"
                                         d="M19.2 2L22 4.8v0.3L19.2 8l-1.4-2.9L17.7 5l0.1-0.1L19.2 2M5 17.7l0.1 0.1L8 19.2 5.2 22H4.8L2 19.2l2.9-1.4L5 17.7M20 0h-2l-2 4H4v12l-4 2v2l4 4h2l4-4v-2l-4-2V6h10l2 4h2l4-4V4L20 0 20 0zM24 10h-2v2h2V10L24 10zM24 14h-2v2h2V14L24 14zM24 18h-2v2h2V18L24 18zM24 22h-2v2h2V22L24 22zM20 22h-2v2h2V22L20 22zM16 22h-2v2h2V22L16 22zM12 22h-2v2h2V22L12 22z">
                                     </path>
@@ -83,27 +85,52 @@
 
                         </div>
                     </div>
-                </div>
-                <!-- <h1>Property Details</h1>
-                <p><strong>ID do cartão:</strong> {{ card.id }}</p>
-                <p><strong>Price:</strong> R$ {{ card.formattedPrice }} {{ card.suffix }}</p>
-                <p><strong>Address:</strong> {{ card.street }}, {{ card.streetNumber }}, {{ card.neighborhood }}, {{
-                    card.city }}, {{ card.state }}, {{ card.country }}</p>
-                <p><strong>Zip Code:</strong> {{ card.zipCode }}</p>
-                <p><strong>Usable Area:</strong> {{ card.usableAreas[0] }} sqm</p>
-                <p><strong>Yearly IPTU:</strong> R$ {{ card.pricingInfos[0].yearlyIptu }}</p>
-                <p><strong>Monthly Condo Fee:</strong> R$ {{ card.pricingInfos[0].monthlyCondoFee }}</p>
-                <p><strong>Usage Types:</strong> {{ card.usageTypes.join(', ') }}</p>
-                <p><strong>Unit Types:</strong> {{ card.unitTypes.join(', ') }}</p> -->
 
+
+
+
+                    <div class="rh_ultra_prop_card__meta">
+                        <div class="icon_and_info_wrapper">
+                            <div class="icon-label">
+                                Area
+                            </div>
+                            <div class="bottom_content">
+                                <img src="@/assets/images/garage.svg" alt="Garage Icon" style="width: 24px;" class="icon" />
+                                <!-- Definir a largura do SVG aqui -->
+                                <span>2</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <h1>Descrição</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing corporis, quae, nemo sunt commodi error optio rem
+                    magni ipsam. Ea pariatur sed provident? Ducimus, placeat, rem voluptas iure corrupti et quae doloremque
+                    sapiente voluptatem quos at dolores repellat pariatur voluptatum recusandae?</p>
+                <div class="price">R$ {{ card.formattedPrice }} {{ card.suffix }}</div>
 
             </div>
 
-            <div class="gallary_container">
-                <div v-for="(image, index) in card_images" :key="index" :class="getImageClass(index)">
-                    <img :src="image" class="gallery-image" loading="lazy" alt="Property Image" />
-                </div>
-            </div>
+
+
+
+
+
+            <!-- <h1>Property Details</h1>
+<p><strong>ID do cartão:</strong> {{ card.id }}</p>
+<p><strong>Price:</strong> R$ {{ card.formattedPrice }} {{ card.suffix }}</p>
+<p><strong>Address:</strong> {{ card.street }}, {{ card.streetNumber }}, {{ card.neighborhood }}, {{
+card.city }}, {{ card.state }}, {{ card.country }}</p>
+<p><strong>Zip Code:</strong> {{ card.zipCode }}</p>
+<p><strong>Usable Area:</strong> {{ card.usableAreas[0] }} sqm</p>
+<p><strong>Yearly IPTU:</strong> R$ {{ card.pricingInfos[0].yearlyIptu }}</p>
+<p><strong>Monthly Condo Fee:</strong> R$ {{ card.pricingInfos[0].monthlyCondoFee }}</p>
+<p><strong>Usage Types:</strong> {{ card.usageTypes.join(', ') }}</p>
+<p><strong>Unit Types:</strong> {{ card.unitTypes.join(', ') }}</p> -->
+
+
 
         </div>
 
@@ -131,7 +158,7 @@ export default {
             return [formattedPrice, suffix];
         },
         getImageClass(index) {
-            const pattern = ['image-wide image-tall', '', 'image-tall', '', 'image-wide'];
+            const pattern = ['image-wide image-tall', '', '', '', '', 'image-wide'];
             return 'image_container ' + pattern[index % pattern.length];
         }
     },
@@ -148,7 +175,7 @@ export default {
         this.card = data.find(item => item.id === this.$route.params.id);
 
         if (this.card) {
-            this.card_images = this.card.medias.map(
+            this.card_images = this.card.medias.slice(0, 6).map(
 
                 media => media.url
                     .replace("{action}", "fit-in")
@@ -170,12 +197,30 @@ export default {
 </script>
 
 <style scoped>
+.price {
+    font-size: 3em;
+}
 
-#icons_wrapper {
+#icons_blocks_wrapper {
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 50%;
     gap: 0.5em;
 }
+
+#info_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: white;
+    align-items: flex-start;
+    width: 50%;
+    padding: 1em;
+    height: 100%;
+}
+
 .icon-label {
     display: flex;
     flex-direction: row;
@@ -187,7 +232,9 @@ export default {
 
 
 .icon_and_info_wrapper {
-    background-color: rgb(227, 227, 227);
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: var(--cor-clarinha);
     width: 100px;
     padding: 0.8em;
     border-radius: 0.4em;
@@ -195,7 +242,7 @@ export default {
 
 .icon {
     margin-right: 0.3em;
-    color: red;
+    color: rgb(255, 255, 255);
 }
 
 .bottom_content {
@@ -207,17 +254,21 @@ export default {
 
 
 
-#wrapper {
+#wrapper_house_explorer {
     display: flex;
-    flex-direction: column;
-    background-color: white;
+    flex-direction: row;
+    align-content: flex-start;
+    width: 65%;
+    /* background-color: white; */
 }
 
 .gallary_container {
+    background-color: white;
     display: grid;
-    grid-gap: 0.3em;
+    grid-gap: 0.2em;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-auto-rows: 300px;
+    width: 50%;
     padding: 10px;
 }
 
@@ -228,6 +279,7 @@ export default {
 }
 
 .gallery-image {
+    border-radius: 0.5em;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -239,4 +291,5 @@ export default {
 
 .image-tall {
     grid-row: span 2;
-}</style>
+}
+</style>
