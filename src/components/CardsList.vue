@@ -291,6 +291,7 @@ export default {
     border-bottom-color: rgba(128, 128, 128, 0.2);
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.09);
     overflow: hidden;
+    
 }
 
 
