@@ -56,6 +56,7 @@ export default {
 
 .dropdown {
   width: 90%;
+  
   position: relative;
   display: inline-block;
 }
@@ -76,7 +77,6 @@ export default {
     padding: 1em;
     cursor: pointer;
     user-select: none;
-    color: var(--cor-texto-base);
     border-radius: 2em;
     display: flex; /* Alterado para flex */
     align-items: center;
@@ -95,8 +95,8 @@ export default {
   z-index: 1;
   top: 100%;
   left: 0;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
+  background-color: var(--card-background);
+  color: var(--cor-text-base);
   border-radius: 0.88em;
   border-top: none;
   min-width: 200px;

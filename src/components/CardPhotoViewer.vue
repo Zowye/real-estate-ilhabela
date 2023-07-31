@@ -139,7 +139,7 @@ export default {
 .heart-button,
 .plus-button {
     font-size: 0.6em;
-    background-color: white;
+    background-color: var(--card-background);
     border: none;
     cursor: pointer;
     padding: 0.3em 0.6em;
@@ -173,7 +173,7 @@ export default {
     position: absolute;
     top: 10px;
     right: 10px;
-    background-color: white;
+    background-color: var(--card-background);
     border: none;
     cursor: pointer;
     display: flex;

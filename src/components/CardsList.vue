@@ -269,12 +269,10 @@ export default {
 }
 
 
-
-
 .card {
     cursor: pointer;
     position: relative;
-    background-color: white;
+    background-color: var(--card-background);
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.10);
     margin: 1em;
     width: 400px;
@@ -337,7 +335,6 @@ export default {
 }
 
 #bottomInfos {
-    background-color: white;
 }
 
 .card_title {
@@ -392,6 +389,7 @@ export default {
 
 
 .description {
+    color: var(--cor-base);
     font-family: 'Ysabeau Office', sans-serif;
     font-size: 1.2em;
 }
@@ -404,7 +402,7 @@ export default {
 
 .ver-mais-button,
 .olhadela-button {
-    background-color: #f3f3f3;
+    background-color: var(--button-background);
     color: #777;
     border: none;
     border-radius: 4px;

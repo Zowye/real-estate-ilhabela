@@ -119,7 +119,7 @@ export default {
 
     margin-bottom: 5em;
     border-radius: 1.2em;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--card-background);
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.10);
 }
 
@@ -155,6 +155,7 @@ export default {
 
 
 .title {
+    color: var(--cor-base);
     font-family: 'Francois One', sans-serif;
     font-size: 2.2em;
 }

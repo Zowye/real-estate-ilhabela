@@ -1,25 +1,62 @@
-:root {
-    /* BASE FONTS */
-    --font-text: 'DM Sans', sans-serif;
+:root.day-theme {
+  /* BASE FONTS */
+  --font-text: 'DM Sans', sans-serif;
 
-    /* BASE COLORS */
-    --cor-base: #573ab1;
+  /* BASE COLORS */
+  --cor-base: #573ab1;
+  --cor-visible-over-base: #ffffff;
 
-    --cor-text-base: #1a1a1a;
-    --cor-text-subbase: gray;
-    --cor-destaque: #382471;
-    --cor-clara: #907fa3;
-    --cor-pastel: #735494;
-    --cor-background-claro: #f4ebff;
-    --cor-fonte: white;
-    --cor-clarinha: #eae7fd;
-    --cor-clarinha2: #e0dbfa;
-    --golden: #ffb71b;
-    --color-over-highlighted-content: #faf7f0;
-    --color-highlighted-content: #8771c4;
+  --cor-text-base: #1a1a1a;
+  --cor-text-subbase: gray;
+  --cor-destaque: #382471;
+  --cor-clara: #907fa3;
+  --cor-pastel: #735494;
+  --cor-background-claro: #f4ebff;
+  --cor-fonte: white;
+  --cor-clarinha: #eae7fd;
+  --cor-clarinha2: #e0dbfa;
+  --golden: #ffb71b;
+  --color-over-highlighted-content: #faf7f0;
+  --color-highlighted-content: #8771c4;
+  /* Calcula as cores mais escuras e mais claras */
+  --cor-darken: color-mix(in srgb, var(--cor-base), #000 20%);
+  --cor-lighten: color-mix(in srgb, var(--cor-base), #ffffff 60%);
+  --app-bg-color: white;
+  --card-background: rgb(252, 252, 252);
+  --button-background:#f0f0f0;
+  --header-background: white;
+  --scroll-bgcolor: rgb(230, 230, 230);
+}
 
-    /* Calcula as cores mais escuras e mais claras */
-    --cor-darken:  color-mix(in srgb,var(--cor-base),#000 20%);
-    --cor-lighten: color-mix(in srgb,var(--cor-base),#ffffff 60%);
-  }
-  
+
+
+:root.night-theme {
+
+  --font-text: 'DM Sans', sans-serif;
+  --button-background: #000000;
+  /* BASE COLORS */
+  --cor-base: #639eec;
+  --cor-visible-over-base: #000000;
+  --cor-text-base: #bff0f6;
+  --cor-text-subbase: gray;
+  --cor-destaque: #4aadda;
+  --cor-clara: #a5c6f0;
+  --cor-pastel: #bde5f2;
+  --cor-clara: #3c8cc4;
+  --cor-pastel: #4aadda;
+  --cor-background-claro: #f4ebff;
+  --cor-fonte: rgb(224, 224, 224);
+  --cor-clarinha: #eae7fd;
+  --cor-clarinha2: #e0dbfa;
+  --golden: #ffb71b;
+  --color-over-highlighted-content: #faf7f0;
+  --color-highlighted-content: #8771c4;
+
+  /* Calcula as cores mais escuras e mais claras */
+  --cor-darken: color-mix(in srgb, var(--cor-base), #000 20%);
+  --cor-lighten: color-mix(in srgb, var(--cor-base), #ffffff 60%);
+  --app-bg-color: black;
+  --card-background: rgb(18, 25, 34);
+  --header-background: rgb(13, 18, 24);;
+  --scroll-bgcolor: rgb(50, 50, 50);
+}

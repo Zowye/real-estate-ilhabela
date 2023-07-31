@@ -18,6 +18,14 @@
                 </div>
 
                 <div id="info_wrapper">
+                    <div class="house_infos">
+                        <ul>
+                            <li class="limegreen">Novo</li>
+                            <li class="yellow">Postado em: 12/06/2023</li>
+                            <li class="orange">Trending</li>
+                            <li class="white">Apartamento</li>
+                        </ul>
+                    </div>
                     <h1>Overview</h1>
                     <div id="icons_blocks_wrapper">
 
@@ -102,7 +110,7 @@
                         <div class="rh_ultra_prop_card__meta">
                             <div class="icon_and_info_wrapper">
                                 <div class="icon-label">
-                                    Area
+                                    Vagas
                                 </div>
                                 <div class="bottom_content">
                                     <img src="@/assets/images/garage.svg" alt="Garage Icon" style="width: 24px;"
@@ -219,34 +227,34 @@ export default {
 
 
     mounted() {
-            // Initialize the map
-            mapboxgl.accessToken =
-                'pk.eyJ1Ijoiem93eWUiLCJhIjoiY2xqeDAwM2F5MDFoMDNlcGx3c2RqZ3ZldyJ9.BgqylKNWVF6Io-dSx4o54Q';
+        // Initialize the map
+        mapboxgl.accessToken =
+            'pk.eyJ1Ijoiem93eWUiLCJhIjoiY2xqeDAwM2F5MDFoMDNlcGx3c2RqZ3ZldyJ9.BgqylKNWVF6Io-dSx4o54Q';
 
 
-            const map = new mapboxgl.Map({
-                container: 'map',
-                zoom: 14,
-                center: [-45.3587, -23.7781],
-                pitch: 80,
-                bearing: 41,
-                style: 'mapbox://styles/mapbox/streets-v11', // Use 'streets-v11' style for a simple map
+        const map = new mapboxgl.Map({
+            container: 'map',
+            zoom: 14,
+            center: [-45.3587, -23.7781],
+            pitch: 80,
+            bearing: 41,
+            style: 'mapbox://styles/mapbox/streets-v11', // Use 'streets-v11' style for a simple map
+        });
+
+        // Add the PIN (marker) at the center of Ilhabela
+
+        map.on('style.load', () => {
+            map.addSource('mapbox-dem', {
+                type: 'raster-dem',
+                url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
+                tileSize: 512,
+                maxzoom: 14,
             });
+            // Add the DEM source as a terrain layer with exaggerated height
+            map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.4 });
+        });
 
-            // Add the PIN (marker) at the center of Ilhabela
-
-            map.on('style.load', () => {
-                map.addSource('mapbox-dem', {
-                    type: 'raster-dem',
-                    url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
-                    tileSize: 512,
-                    maxzoom: 14,
-                });
-                // Add the DEM source as a terrain layer with exaggerated height
-                map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.4 });
-            });
-
-        },
+    },
 
 
 
@@ -335,7 +343,7 @@ export default {
 <style scoped>
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 
-#map{
+#map {
     height: 500px;
 }
 
@@ -350,6 +358,7 @@ export default {
     align-items: center;
     width: 50%;
     gap: 0.5em;
+    
 }
 
 #info_wrapper {
@@ -374,7 +383,6 @@ export default {
 .icon_and_info_wrapper {
     justify-content: flex-start;
     align-items: flex-start;
-    background-color: var(--cor-clarinha);
     width: 100px;
     padding: 0.8em;
     border-radius: 0.4em;
@@ -394,11 +402,13 @@ export default {
 
 
 #main_row {
-    background-color: rgb(255, 253, 250);
+    background-color: var(--card-background);
+
     border-radius: 2em;
     display: flex;
     flex-direction: row;
     align-content: flex-start;
+    z-index: 1;
 }
 
 #breadcrumbs {
@@ -417,6 +427,7 @@ export default {
 
 .breadcrumbs-container {
     display: flex;
+
     align-items: center;
     margin-right: 1em;
 }
@@ -432,7 +443,7 @@ export default {
 
 .gallary_container {
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.10);
-    background-color: white;
+    background-color: var(--card-background);
     border-radius: 1em;
     display: grid;
     grid-gap: 0.2em;
@@ -500,5 +511,49 @@ export default {
 
 .property-table td strong {
     font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+.house_infos {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+.house_infos li {
+    border-radius: 1.05em;
+    list-style: none;
+    padding: 0.3em 0.8em;
+    display: inline-block;
+    font-size: 0.9em;
+    margin-right: 1em;
+    box-shadow: 0 2px 8px rgba(195, 195, 195, 0.205);
+}
+
+.orange {
+    background-color: rgb(255, 140, 0);
+    color: white;
+}
+
+.white {
+    background-color: rgb(0, 0, 0);
+    color:white;
+}
+
+.limegreen {
+    background-color: rgb(156, 205, 50);
+    color: rgb(255, 255, 255);
+}
+
+.yellow{
+    background-color: rgb(248, 186, 29);
+    color:white;
 }
 </style>

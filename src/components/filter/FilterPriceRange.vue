@@ -103,7 +103,6 @@ export default {
   outline: none;
   font-size: 1em;
   margin-left: 12px;
-  color: var(--cor-text-base);
   border-radius: 1.5em;
   background-color: #e3e3e3;
   text-align: center;

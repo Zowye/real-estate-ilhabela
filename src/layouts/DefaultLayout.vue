@@ -5,12 +5,12 @@
             <div id="background">
                 <div id="gradient"></div>
             </div>
-            <main>
-                <div class="container">
-                    <slot></slot>
-                </div>
-            </main>
+
         </div>
+        <main>
+
+                <slot></slot>
+        </main>
         <Footer />
     </div>
 </template>
@@ -30,15 +30,9 @@ export default {
 </script>
   
 <style>
-
-main{
-    width: 100%;;
-}
-#full-site {
+main {
+    background-color: var(--app-bg-color);
     width: 100%;
-}
-
-.container {
     display: flex;
     flex-direction: column;
     max-width: 100%;
@@ -46,7 +40,14 @@ main{
     padding: 0 0px;
     align-items: center;
     justify-content: center;
+    z-index: 1;
 }
+
+
+#full-site {
+    width: 100%;
+}
+
 
 #wrapper {
     position: relative;
@@ -70,7 +71,6 @@ main{
     background-repeat: no-repeat;
     background-size: 100% auto;
     background-position: top;
-    z-index: -1;
 }
 
 #gradient {
@@ -79,8 +79,8 @@ main{
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(to top, rgb(255, 255, 255), rgba(255, 255, 255, 0.631), rgba(255, 255, 255, 0.814));
-    z-index: 8888;
+    background-image: linear-gradient(to top, var(--app-bg-color), rgba(255, 255, 255, 0));
+
 }
 </style>
     

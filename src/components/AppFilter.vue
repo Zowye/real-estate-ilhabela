@@ -115,7 +115,7 @@ export default {
 
 
 #main_filter_content_wrapper {
-    background-color: #fff;
+    background-color: var(--card-background);
     backdrop-filter: blur(9px);
     border-radius: 0.5em;
     border-right: 1px solid rgba(128, 128, 128, .2);
@@ -128,6 +128,8 @@ export default {
     width: 100%;
     border-bottom-color: rgba(128, 128, 128, 0.2);
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.01);
+    transition: all .35s;
+
 }
 
 
@@ -325,14 +327,11 @@ export default {
 }
 
 
-
-
 .checkbox-group input[type="checkbox"],
 .checkbox-group label {
     margin-right: 10px;
     margin-bottom: 5px;
 }
-
 
 
 #main_container {
@@ -365,17 +364,10 @@ export default {
 
 
 
-
-
-
-
-
-
-
 .top-button {
     align-items: center;
     justify-content: center;
-    background-color: #896dde;
+    background-color: var(--cor-base);
     margin: 0;
     padding: 1em 2.5em;
     cursor: pointer;
@@ -393,7 +385,7 @@ export default {
 }
 
 .active {
-    background-color: #ffffff;
+    background-color: var(--card-background);
     color: var(--cor-text-base);
 }
 

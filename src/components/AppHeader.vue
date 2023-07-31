@@ -100,7 +100,8 @@ export default {
   width: 100%;
   justify-content: center;
   margin-bottom: 40px;
-  background-color: rgba(255, 255, 255, 0.818);
+  background-color: var(--header-background);
+  color:var(--cor-base);
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
 }
 
@@ -118,7 +119,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  width: 40%;
+  width: 50%;
   align-items: center;
 }
 
@@ -161,7 +162,7 @@ export default {
   top: 120%;
   width: 90%;
   overflow: auto;
-  background-color: #fff;
+  background-color: var(--cor-base);
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

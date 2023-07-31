@@ -53,6 +53,7 @@ h1 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   font-size: 2.4em;
+  color: var(--cor-base);
   margin-bottom: 0.5em;
   margin-top: 0.5em;
 }
@@ -63,11 +64,11 @@ h1 {
 
 p {
   margin-top: 0.2em;
-  font-size: 1.2em;
+  font-size: 1.1em;
   font-weight: 300;
   line-height: 1.3em;
   font-family: var(--font-text);
-  color: var(--cor-text-base)
+  color: var(--cor-base)
 }
 
 body {
@@ -84,13 +85,13 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #e3e3e3;
+  background-color: var(--scroll-bgcolor);
   /* Cor de fundo #614dd5 para o track */
 }
 
 /* Estilo para a parte móvel da barra de rolagem (thumb) */
 ::-webkit-scrollbar-thumb {
-  background-color: #614dd5;
+  background-color: var(--cor-base);
   /* Cor de fundo cinza claro para o thumb */
   border-radius: 6px;
   /* Define a forma arredondada do thumb */

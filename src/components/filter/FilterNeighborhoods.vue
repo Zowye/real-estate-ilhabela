@@ -95,7 +95,6 @@ export default {
     padding: 1em;
     cursor: pointer;
     user-select: none;
-    color: var(--cor-texto-base);
     border-radius: 2em;
     display: flex; /* Alterado para flex */
     align-items: center;
@@ -106,18 +105,19 @@ export default {
 }
 
 .dropdown-button i {
+    
     margin-left: auto; /* Alinha o ícone à direita */
 }
 
 
 
 .dropdown-content {
-    z-index: 111;
+    z-index: 1;
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
+    color: var(--cor-text-base);
+    background-color: var(--card-background);
     border-radius: 0.88em;
     border-top: none;
     min-width: 200px;
@@ -132,7 +132,6 @@ export default {
     border-radius: 0.75em;
     transition: background-color 0.2s ease;
 }
-
 
 .checkbox-label:hover {
     color: var(--cor-destaque);
