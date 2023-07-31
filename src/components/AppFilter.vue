@@ -444,7 +444,8 @@ export default {
     }
 
     .middle_column {
-        padding: 1em;
+        margin-top:1em;
+        padding: 0em;
     }
 }
 
