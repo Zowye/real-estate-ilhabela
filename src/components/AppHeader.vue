@@ -22,7 +22,11 @@
           <img src="@/assets/images/logoNidus.png" class="logo" alt="nidus_real_estate" @click="goToHome">
         </div>
         <button class="hamburger-menu" @click="toggleMenu">
-          <i class="fas fa-bars hamburger-icon"></i>
+          <span class="hamburger-icon" :class="{ 'open': showDropdown }">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
         </button>
         <div class="dropdown-menu" v-show="showDropdown">
           <ul class="dropdown-list">
@@ -102,6 +106,7 @@ export default {
 
 
 #left-mobile {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -148,43 +153,38 @@ export default {
   cursor: pointer;
 }
 
-.hamburger-icon {
-  font-size: 2em;
-}
-
-.hamburger-menu {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
 
 
 .dropdown-menu {
+
   position: absolute;
-  top: 100%;
-  right: 0;
+  top: 120%;
+  width: 90%;
+  overflow: auto;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 8px;
   z-index: 100;
-  display: none;
-  /* Defina o dropdown como oculto por padrão */
 }
 
 .dropdown-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: space-around;
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
 .dropdown-item {
-  padding: 8px 12px;
-  font-size: 14px;
+  padding: 1em 2em;
+  font-size: 1.3em;
   color: #333;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.1s ease;
 }
 
 .dropdown-item:hover {
@@ -198,13 +198,81 @@ export default {
     /* Hide the desktop header on smaller screens */
   }
 
-  .mobile-header {
-    justify-content: space-between;
-    padding: 0 0;
+  .logo {
+    margin: 0.5em;
+    width: 129px;
+    cursor: pointer;
+  }
 
+  .mobile-header {
+    justify-content: space-around;
+    padding: 0 0;
     display: flex;
     /* Show the mobile header on smaller screens */
     /* ... additional styles for the mobile header ... */
   }
+}
+
+
+
+
+
+
+
+
+
+
+
+.hamburger-menu {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.hamburger-icon {
+  display: block;
+  width: 35px;
+  height: 20px;
+  position: relative;
+}
+
+.hamburger-icon span {
+  display: block;
+  position: absolute;
+  height: 0.2em;
+  border-radius: 0.1em;
+  width: 100%;
+  background: #333;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transition: .25s ease-in-out;
+}
+
+.hamburger-icon span:nth-child(1) {
+  top: 0px;
+}
+
+.hamburger-icon span:nth-child(2) {
+  top: 8px;
+}
+
+.hamburger-icon span:nth-child(3) {
+  top: 16px;
+}
+
+.hamburger-icon.open span:nth-child(1) {
+  top: 8px;
+  transform: rotate(135deg);
+}
+
+.hamburger-icon.open span:nth-child(2) {
+  opacity: 0;
+  left: -60px;
+}
+
+.hamburger-icon.open span:nth-child(3) {
+  top: 8px;
+  transform: rotate(-135deg);
 }
 </style>
