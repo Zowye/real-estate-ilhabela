@@ -79,7 +79,7 @@ export default {
 }
 
 .wrapper {
-  width: 100%;
+  width: 90%;
 }
 
 .input-min,

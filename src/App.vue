@@ -18,7 +18,23 @@ export default {
   mounted() {
     this.$store.commit('SET_LOADING_STATE', false);
   },
-}
+  created() {
+    window.addEventListener('resize', this.updateViewportType);
+    this.updateViewportType();
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.updateViewportType);
+  },
+  methods: {
+    updateViewportType() {
+      const width = window.innerWidth;
+      this.$store.commit('SET_IS_MOBILE', width <= 768);
+      this.$store.commit('SET_IS_TABLET', width > 768 && width <= 1024);
+    },
+  }
+
+};
+
 </script>
 
 <style>
@@ -33,13 +49,14 @@ export default {
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,900;1,100;1,200;1,300;1,600;1,900&display=swap');
 
-h1{
+h1 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   font-size: 2.4em;
   margin-bottom: 0.5em;
   margin-top: 0.5em;
 }
+
 * {
   font-family: Playfair, sans-serif;
 }
@@ -61,20 +78,21 @@ body {
 }
 
 
-  /* Estilo para o fundo da barra de rolagem (track) */
-  ::-webkit-scrollbar {
-    width: 12px;
-  }
+/* Estilo para o fundo da barra de rolagem (track) */
+::-webkit-scrollbar {
+  width: 12px;
+}
 
-  ::-webkit-scrollbar-track {
-    background-color: #e3e3e3; /* Cor de fundo #614dd5 para o track */
-  }
+::-webkit-scrollbar-track {
+  background-color: #e3e3e3;
+  /* Cor de fundo #614dd5 para o track */
+}
 
-  /* Estilo para a parte móvel da barra de rolagem (thumb) */
-  ::-webkit-scrollbar-thumb {
-    background-color: #614dd5; /* Cor de fundo cinza claro para o thumb */
-    border-radius: 6px; /* Define a forma arredondada do thumb */
-  }
-
-
+/* Estilo para a parte móvel da barra de rolagem (thumb) */
+::-webkit-scrollbar-thumb {
+  background-color: #614dd5;
+  /* Cor de fundo cinza claro para o thumb */
+  border-radius: 6px;
+  /* Define a forma arredondada do thumb */
+}
 </style>

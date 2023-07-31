@@ -165,6 +165,11 @@
                                 <td>{{ card.unitTypes.join(', ') }}</td>
                             </tr>
                         </table>
+
+
+
+                        <div id="map">a</div>
+
                     </div>
 
 
@@ -199,8 +204,75 @@ card.city }}, {{ card.state }}, {{ card.country }}</p>
 <script>
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import data from '@/data.json';
+import mapboxgl from 'mapbox-gl';
 
 export default {
+
+
+
+
+
+
+
+
+
+
+
+    mounted() {
+            // Initialize the map
+            mapboxgl.accessToken =
+                'pk.eyJ1Ijoiem93eWUiLCJhIjoiY2xqeDAwM2F5MDFoMDNlcGx3c2RqZ3ZldyJ9.BgqylKNWVF6Io-dSx4o54Q';
+
+
+            const map = new mapboxgl.Map({
+                container: 'map',
+                zoom: 14,
+                center: [-45.3587, -23.7781],
+                pitch: 80,
+                bearing: 41,
+                style: 'mapbox://styles/mapbox/streets-v11', // Use 'streets-v11' style for a simple map
+            });
+
+            // Add the PIN (marker) at the center of Ilhabela
+
+            map.on('style.load', () => {
+                map.addSource('mapbox-dem', {
+                    type: 'raster-dem',
+                    url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
+                    tileSize: 512,
+                    maxzoom: 14,
+                });
+                // Add the DEM source as a terrain layer with exaggerated height
+                map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.4 });
+            });
+
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     methods: {
         goToHome() {
             this.$router.push({ path: '/' });
@@ -263,7 +335,9 @@ export default {
 <style scoped>
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 
-
+#map{
+    height: 500px;
+}
 
 .price {
     font-size: 3em;
@@ -426,4 +500,5 @@ export default {
 
 .property-table td strong {
     font-weight: bold;
-}</style>
+}
+</style>

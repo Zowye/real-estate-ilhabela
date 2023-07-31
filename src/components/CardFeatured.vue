@@ -1,5 +1,5 @@
 <template>
-    <div class="card-featured" v-show="isVisible">
+    <div class="card-featured" v-show="isVisible" v-if="shouldShowCardFeatured">
         <div class="medal">NOVA</div>
         <button @click="closeCard" class="close-btn">
             <i class="fas fa-times"></i>
@@ -34,6 +34,8 @@ import CardAmenities from '@/components/CardAmenities.vue';
 import CardCommonInfo from '@/components/CardCommonInfo.vue';
 import IconPin from "@/components/icons/IconPin.vue";
 import CardStars from "@/components/CardStars.vue";
+import { mapState } from "vuex"; // Import the mapState helper from Vuex
+
 
 export default {
     data() {
@@ -65,7 +67,21 @@ export default {
             this.isVisible = false;
         },
         // rest of the code
-    }
+    },
+    computed: {
+        // Map the isMobile and isTablet variables from the store to the component's computed properties
+        ...mapState({
+            isMobile: (state) => state.isMobile,
+            isTablet: (state) => state.isTablet,
+        }),
+        // Compute a new property based on the isMobile and isTablet values
+        shouldShowCardFeatured() {
+            // Adjust the condition based on your requirements
+            return !(this.isMobile || this.isTablet);
+        },
+    },
+
+
 };
 </script>
   

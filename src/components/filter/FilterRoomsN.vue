@@ -55,6 +55,7 @@ export default {
 }
 
 .dropdown {
+  width: 90%;
   position: relative;
   display: inline-block;
 }

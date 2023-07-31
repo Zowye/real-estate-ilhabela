@@ -6,8 +6,16 @@ export default createStore({
     minPrice: 0,
     maxPrice: 0,
     house_info: null, // Starts with null
+    isMobile: false,
+    isTablet: false,
   },
   mutations: {
+    SET_IS_MOBILE(state, value) {
+      state.isMobile = value;
+    },
+    SET_IS_TABLET(state, value) {
+      state.isTablet = value;
+    },
     updateMinPrice(state, price) {
       state.minPrice = price;
     },

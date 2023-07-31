@@ -101,7 +101,7 @@ export default {
     align-items: center;
     justify-content: space-between; /* Alterado para space-between */
     border: 2px solid #fff;
-    width: 100%;
+    width: 90%;
     position: relative; /* Adicionado para posicionar corretamente o ícone */
 }
 
@@ -112,6 +112,7 @@ export default {
 
 
 .dropdown-content {
+    z-index: 111;
     position: absolute;
     top: 100%;
     left: 0;

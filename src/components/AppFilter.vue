@@ -75,7 +75,6 @@ export default {
 
 <style scoped>
 * {
-    z-index: 1;
     user-select: none;
 }
 
@@ -96,14 +95,13 @@ export default {
 }
 
 #filters {
-    width: 1400px;
+    width: 70%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: auto;
     margin-bottom: 40px;
-
     border-radius: 1em;
     bottom: 0;
 }
@@ -419,6 +417,43 @@ export default {
 .top-button:hover:after {
     width: 100%;
 }
+
+
+
+
+@media screen and (max-width: 768px) {
+    #filters {
+        width: 90%;
+        /* Adjust the width to fit the screen */
+        padding: 10px;
+        /* Add some padding for better spacing */
+    }
+
+    .top-button {
+        border-radius: 2em;
+        margin-bottom: 0.2em;
+    } 
+
+    /* Update the flex-direction for smaller screens */
+    .filter-line {
+        flex-direction: column;
+    }
+
+    .filter-item {
+        width: 100%;
+    }
+
+    .middle_column {
+        padding: 1em;
+    }
+}
+
+
+
+@media screen and (max-width: 1024px) {
+    /* Adjust styles as needed for screens between 769px and 1024px */
+}
+
 
 /* 
 .rounded_left {
