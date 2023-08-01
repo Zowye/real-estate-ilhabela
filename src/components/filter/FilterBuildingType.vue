@@ -44,7 +44,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #614dd5;
+    border: 1px solid var(--cor-base);
     padding: 8px 12px;
     margin-right: 0.6em;
     margin-top: 0.4em;

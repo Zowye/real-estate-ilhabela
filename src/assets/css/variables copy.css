@@ -1,13 +1,12 @@
 :root.day-theme {
   /* BASE FONTS */
-  --font-text: 'Poppins',sans-serif;
+  --font-text: 'DM Sans', sans-serif;
 
   /* BASE COLORS */
-  --cor-base: #424767;
-  --cor-base-hover: #585e89;
+  --cor-base: #573ab1;
   --cor-visible-over-base: #ffffff;
-  /*  */
-  --cor-text-base: #0d1b48;
+
+  --cor-text-base: #1a1a1a;
   --cor-text-subbase: gray;
   --cor-destaque: #382471;
   --cor-clara: #907fa3;
@@ -21,8 +20,7 @@
   --color-highlighted-content: #8771c4;
   --table-dark-line: #f4f4f4;
   --table-ligh-line: #efefef;
-  --card-footer-border-color: #edf0f7;
-  --card-footer: #f5f9fe;
+
 
   /* Calcula as cores mais escuras e mais claras */
   --cor-darken: color-mix(in srgb, var(--cor-base), #000 20%);
@@ -36,9 +34,12 @@
 
 
 
+
 :root.night-theme {
+
   --font-text: 'DM Sans', sans-serif;
   --button-background: #000000;
+  /* BASE COLORS */
   --cor-base: #639eec;
   --cor-visible-over-base: #000000;
   --cor-text-base: #bff0f6;
@@ -57,14 +58,12 @@
   --color-highlighted-content: #8771c4;
   --table-dark-line: #050c13;
   --table-light-line: #0b1a2a;
-  --card-footer-border-color: #161e24;
-  --card-footer: #161e24;
 
 
   /* Calcula as cores mais escuras e mais claras */
   --cor-darken: color-mix(in srgb, var(--cor-base), #000 20%);
   --cor-lighten: color-mix(in srgb, var(--cor-base), #ffffff 60%);
-  --app-bg-color: #0b1727;
+  --app-bg-color: black;
   --card-background: rgb(18, 25, 34);
   --header-background: rgb(13, 18, 24);;
   --scroll-bgcolor: rgb(50, 50, 50);

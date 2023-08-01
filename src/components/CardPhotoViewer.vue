@@ -1,7 +1,9 @@
 <template>
     <div class="card-photo-viewer">
         <div class="viewer">
-            <img :src="currentImage" alt="Card Image">
+            <button class="next-button"></button>
+            <button class="prev-button"></button>
+            <img :src="currentImage" alt="Card Image" @mouseover="startAutoSwitch" @mouseleave="stopAutoSwitch">
             <!-- Botões no canto superior esquerdo -->
             <div class="top-left-buttons">
                 <button class="for-sale-button border-half">
@@ -18,14 +20,14 @@
             </button>
 
             <!-- Botões no canto inferior direito -->
-            <div class="bottom-right-buttons">
+            <!-- <div class="bottom-right-buttons">
                 <button class="heart-button border-circled" :class="{ 'heart-clicked': heartClicked }" @click="toggleHeart">
                     <i class="material-icons-outlined">favorite_border</i>
                 </button>
                 <button class="plus-button border-circled">
                     <i class="material-icons-outlined">add</i>
                 </button>
-            </div>
+            </div> -->
         </div>
         <!-- <div class="controls">
   
@@ -40,6 +42,7 @@ export default {
         return {
             currentIndex: 0,
             heartClicked: false,
+            intervalId: null,
         };
     },
     computed: {
@@ -71,6 +74,15 @@ export default {
         },
     },
     methods: {
+        startAutoSwitch() {
+            this.intervalId = setInterval(() => {
+                this.nextImage();
+            }, 400);
+        },
+        stopAutoSwitch() {
+            clearInterval(this.intervalId);
+            this.intervalId = null;
+        },
         prevImage() {
             if (this.currentIndex > 0) {
                 this.currentIndex--;
@@ -95,12 +107,24 @@ export default {
 }
 
 .card-photo-viewer {
-    margin-bottom: -4px;
     position: relative;
+    box-shadow: 0 0 20px #0000005f;
 }
 
 .viewer {
     position: relative;
+    height: 250px;
+}
+
+.viewer img {
+    width: 100%;
+    height: 250px;
+    border-top-left-radius: 1.2em;
+    border-top-right-radius: 1.2em;
+    border-bottom-left-radius: 0em;
+    border-bottom-right-radius: 0em;
+    /* background: linear-gradient(rgba(235, 46, 46, 0), rgba(255, 255, 255, 0.4)); */
+    object-fit: cover;
 }
 
 .controls {
@@ -114,6 +138,8 @@ export default {
 
 .prev-button,
 .next-button {
+    position: absolute;
+    top:40%;
     background: none;
     border: none;
     cursor: pointer;
@@ -125,12 +151,14 @@ export default {
     background-image: url('@/assets/images/prev-button.png');
     background-position: center;
     background-repeat: no-repeat;
+    left:0.5em;
 }
 
 .next-button {
     background-image: url('../assets/images/next-button.png');
     background-position: center;
     background-repeat: no-repeat;
+    right:0.5em;
 }
 
 .for-sale-button,

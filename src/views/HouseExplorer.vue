@@ -381,6 +381,7 @@ export default {
 
 
 .icon_and_info_wrapper {
+    color: var(--cor-base);
     justify-content: flex-start;
     align-items: flex-start;
     width: 100px;
@@ -447,8 +448,8 @@ export default {
     border-radius: 1em;
     display: grid;
     grid-gap: 0.2em;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-auto-rows: 300px;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-auto-rows: 100px;
     width: 40%;
     padding: 10px;
 }
@@ -483,42 +484,33 @@ export default {
 
 
 .property-table {
-
     width: 100%;
     border-collapse: collapse;
+    color: var(--cor-text-base)
 }
 
 .property-table tr {
 
-    background-color: #f9f9f9;
     /* Cor de fundo para as linhas */
 }
 
 .property-table tr.row-light {
-    background-color: #f9f9f9;
+    background-color: var(--table-light-line);
     /* Cor de fundo para as linhas pares */
 }
 
 .property-table tr.row-dark {
-    background-color: #f0f0f0;
+    background-color: var(--table-dark-line);
     /* Cor de fundo para as linhas ímpares */
 }
 
 .property-table td {
     padding: 8px;
-    border: 1px solid #ddd;
 }
 
 .property-table td strong {
     font-weight: bold;
 }
-
-
-
-
-
-
-
 
 
 .house_infos {

@@ -9,7 +9,7 @@
       </div>
       <div class="column">
         <div class="icon">
-          <img src="@/assets/images/globe.png" alt="Globe Icon" class="globe-icon" />
+          <!-- <img src="@/assets/images/globe.png" alt="Globe Icon" class="globe-icon" /> -->
         </div>
       </div>
       <div class="column">

@@ -1,55 +1,68 @@
 <template>
     <CardMoreInfo v-if="showModal" :card="selectedCard" @close="closeModal" />
+    <div id="wrapper_card_list_full">
 
-    <div id="wrapper_cards">
         <CardFeatured v-if="show_featured_card" :featured_data="card_featured" />
-        <div class="card-list">
+        <div id="card_presentation_aspect">
+            <ul class="nav nav-pills nav-pill-rounded" id="tab-34" role="tablist">
+                <li :class="{ active: activeTab === 'list' }" @click="activateTab('list')">
+                    <i class="fas fa-th-list"></i>
+                </li>
+                <li :class="{ active: activeTab === 'large' }" @click="activateTab('large')">
+                    <i class="fas fa-th-large"></i>
+                </li>
+            </ul>
+        </div>
 
-            <!-- Loop pelos dados do arquivo data.json -->
+        <div id="wrapper_cards">
+            <div class="card-list">
 
-            <div v-for="card in items" :key="card.id" class="card" :style="{ width: cardWidth }">
-                <router-link :to="`/house_explorer/${card.id}`">
+                <!-- Loop pelos dados do arquivo data.json -->
 
-                    <CardPhotoViewer :images="card.card_images" :status_level="card.status_level" />
-                </router-link>
+                <div v-for="card in items" :key="card.id" class="card" :style="{ width: cardWidth }">
+                    <router-link :to="`/house_explorer/${card.id}`">
 
-                <div class="cardInfos">
-                    <!-- <CardStars :rating="card.stars_count" /> -->
-                    <div class="card_title" @click="SetFocusHouse(card)">{{ card.title }}</div>
-                    <div id="topInfos" class="inner_cardcard_padding">
-                        <IconPin :width="16" :height="16" />
-                        <div class="card_address"> {{ card.street }}, {{ card.streetNumber }}
+                        <CardPhotoViewer :images="card.card_images" :status_level="card.status_level" />
+                    </router-link>
+
+                    <div class="cardInfos">
+                        <!-- <CardStars :rating="card.stars_count" /> -->
+                        <div class="card_title" @click="SetFocusHouse(card)">{{ card.title }}</div>
+                        <div id="topInfos" class="inner_cardcard_padding">
+                            <IconPin :width="14" :height="14" />
+                            <div class="card_address"> {{ card.street }}, {{ card.streetNumber }} </div>
                         </div>
 
-                    </div>
-                    <div class="neigh">{{ card.neighborhood }}</div>
-
-
-                    <div id="bottomInfos" class="inner_card_padding">
-
-                        <CardCommonInfo />
-
-                        <p><span class="monetary"><span class="currency_name">R$</span> </span><span
-                                class="monetary_value_number">{{ card.formattedPrice }}</span>
-                            <span class="monetary_value_string">{{ card.suffix }}</span>
-                        </p>
-                        <!-- <p class="description">{{ card.description }}</p> -->
+                        <div class="neigh">{{ card.neighborhood }}</div>
 
 
 
+
+                        <div id="bottomInfos" class="inner_card_padding">
+
+                            <CardCommonInfo />
+
+
+                            <!-- <p class="description">{{ card.description }}</p> -->
+
+
+                            <!-- 
                         <div class="button-group">
-                            <!-- Adicione uma função anônima para passar o card como parâmetro -->
                             <button class="ver-mais-button" @click="openCardMoreInfo(card)">Comparar</button>
-                            <!-- Adicione também uma função anônima para o outro botão -->
                             <button class="olhadela-button" @click="openCardMoreInfo(card)">Visão Rápida</button>
+                        </div> -->
+
+                            <!-- <CardAmenities :amenities="card.amenities" /> -->
+
                         </div>
+                    </div>
+                    <div id="card-footer">
 
-                        <!-- <button class="ver-mais-button">Ver Mais</button> -->
-                        <!-- <a href="#" class="whatsapp-button">
-                <i class="fab fa-whatsapp"></i>
-              </a> -->
-                        <!-- <CardAmenities :amenities="card.amenities" /> -->
-
+                        <div> <span class="monetary"><span class="currency_name">R$</span> </span><span
+                                class="monetary_value_number">{{ card.formattedPrice }}</span><span
+                                class="monetary_value_string">{{ card.suffix }}</span>
+                        </div>
+                        <div class="buttons_fav">VER MAIS</div>
                     </div>
                 </div>
             </div>
@@ -81,6 +94,7 @@ export default {
     },
     data() {
         return {
+            activeTab: 'list',
             items: [],
             card_featured: {
                 medias: [], // lista de strings
@@ -99,6 +113,9 @@ export default {
         show_featured_card: Boolean,
     },
     methods: {
+        activateTab(tab){
+            this.activeTab = tab;
+        },
         ...mapActions(['updateHouseInfo']),
         SetFocusHouse(card) {
             this.updateHouseInfo(card);
@@ -244,6 +261,51 @@ export default {
 
 
 <style>
+#wrapper_card_list_full {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#card_presentation_aspect {
+    margin-bottom: 2em;
+    width: 80%;
+    height: 50px;
+}
+
+#card_presentation_aspect ul {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+#card_presentation_aspect li {
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 1em;
+    font-size: 1.8em;
+    color: var(--cor-base);
+    padding: 0.3em;
+    border-radius: 0.5em;
+    border: 2px solid transparent;
+    /* Add this line */
+    transition: all 200ms;
+
+}
+
+#card_presentation_aspect li:hover {
+    border: 2px solid var(--cor-base);
+}
+
+#card_presentation_aspect li.active {
+    color: white;
+    background-color: var(--cor-base);
+}
+
+
+
 * {
     user-select: none;
 }
@@ -273,7 +335,7 @@ export default {
     cursor: pointer;
     position: relative;
     background-color: var(--card-background);
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.10);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
     margin: 1em;
     width: 400px;
     border-radius: 0.7em;
@@ -289,9 +351,23 @@ export default {
     border-bottom-color: rgba(128, 128, 128, 0.2);
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.09);
     overflow: hidden;
-    
+    margin-bottom: 5em;
 }
 
+
+#card-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    bottom: 0px;
+    border: .0625rem solid var(--card-footer-border-color);
+    border-bottom-left-radius: 0.8em;
+    border-bottom-right-radius: 0.8em;
+    background-color: var(--card-footer);
+    padding: 1em;
+    color: #424767;
+}
 
 
 /*     
@@ -307,20 +383,22 @@ export default {
 } */
 
 
-
+/* 
 .card img {
     width: 100%;
     border-radius: 1.2em;
+    border-top-left-radius: 1.2em;
+    border-top-right-radius: 1.2em;
+    border-bottom-left-radius: 0em;
+    border-bottom-right-radius: 0em;
     height: 250px;
     background: linear-gradient(rgba(235, 46, 46, 0), rgba(255, 255, 255, 0.4));
     object-fit: cover;
-}
+} */
 
 
 .cardInfos {
-    display: flex;
-    flex-direction: column;
-    padding: 1.8em 1.4em;
+    padding: 0.3em 1.4em;
 }
 
 
@@ -334,16 +412,16 @@ export default {
 
 }
 
-#bottomInfos {
-}
+#bottomInfos {}
 
 .card_title {
+    margin-top: 1.7em;
     font-family: var(--font-text);
     color: var(--cor-text-base);
     line-height: 1em;
     margin-bottom: 0.7em;
-    font-weight: 600;
-    font-size: 1.35em;
+    font-weight: 500;
+    font-size: 1.48em;
 }
 
 
@@ -351,34 +429,39 @@ export default {
     font-family: var(--font-text);
     line-height: 1em;
     font-size: 0.95em;
-    color: var(--cor-text-subbase);
+    color: var(--cor-text-base);
     font-weight: 100;
     margin-left: 0.55em;
     font-weight: 400;
 }
 
 .bold {
-    font-weight: 500;
+    font-weight: 400;
 }
 
 .neigh {
-    font-weight: 600;
+    display: inline-block;
+    font-weight: 200;
     margin-top: 0.5em;
-    color: var(--cor-base);
+    padding: 0.35em 0.85em;
+    color: white;
+    border-radius: 1.5em;
+    font-size: 0.90em;
+    background-color: var(--cor-base);
 }
 
 
 .monetary,
 .monetary_value_number,
 .monetary_value_string {
+    color: var(--cor-text-base);
     font-family: var(--font-text);
     font-size: 1.4em;
-    font-weight: 700;
+    font-weight: 500;
 }
 
 .monetary_value_string {
     margin-left: 3px;
-
 }
 
 .currency_name {
@@ -405,8 +488,8 @@ export default {
     background-color: var(--button-background);
     color: #777;
     border: none;
-    border-radius: 4px;
-    padding: 8px 12px;
+    border-radius: 1em;
+    padding: 1em 3em;
     font-size: 0.9em;
     cursor: pointer;
     transition: background-color 0.2s ease, color 0.2s ease, border-color 0.1s ease;

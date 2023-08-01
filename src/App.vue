@@ -76,6 +76,8 @@ body {
   flex-direction: column;
   margin: 0;
   padding: 0;
+
+  background-color: var(--app-bg-color);
 }
 
 

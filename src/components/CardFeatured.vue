@@ -19,11 +19,12 @@
             <CardCommonInfo />
             <div class="price">R$ {{ featured_data.formattedPrice }} {{ featured_data.suffix }} </div>
             <div class="description">{{ truncateDescription(featured_data.description_full) }}</div>
+            <button class="ver-mais-button2">Ver Mais</button>
+
             <div class="amenities">
                 <CardAmenities :amenities="featured_data.amenities" />
             </div>
 
-            <button class="ver-mais-button2">Ver Mais</button>
 
         </div>
     </div>
@@ -101,9 +102,9 @@ export default {
 }
 
 .card-featured {
-    width: 50%;
+    width: 60%;
     position: relative;
-    height: 400px;
+    height: auto;
     display: flex;
     flex-direction: row;
     padding: 1em 1em;
@@ -116,7 +117,6 @@ export default {
     border-bottom-style: solid;
     border-bottom-color: rgba(128, 128, 128, 0.2);
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.01);
-
     margin-bottom: 5em;
     border-radius: 1.2em;
     background-color: var(--card-background);
@@ -141,7 +141,7 @@ export default {
 
 .image-container img {
     width: 100%;
-    height: 100%;
+    height: 500px;
     border-radius: 0.7em;
     object-fit: cover;
 }
@@ -164,7 +164,7 @@ export default {
 .price {
     font-family: 'Francois One', sans-serif;
     font-size: 1.5em;
-    color: var(--cor-pastel);
+    color: var(--cor-base);
 }
 
 .description {
@@ -180,11 +180,11 @@ export default {
 
 .ver-mais-button2 {
     display: inline-block;
-    background-color: #ae9ae3;
+    background-color: var(--cor-base);
     color: #333;
     border: none;
-    border-radius: 4px;
-    padding: 10px;
+    border-radius: 1em;
+    padding: 0.4em 1.8em;
     color: white;
     font-size: 1.2em;
     margin-top: 10px;
@@ -192,7 +192,7 @@ export default {
 }
 
 .ver-mais-button2:hover {
-    background-color: var(--cor-pastel);
+    background-color: var(--cor-base-hover)
 }
 
 .close-btn {

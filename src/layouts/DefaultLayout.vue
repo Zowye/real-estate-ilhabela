@@ -31,7 +31,7 @@ export default {
   
 <style>
 main {
-    background-color: var(--app-bg-color);
+    /* background-color: var(--app-bg-color); */
     width: 100%;
     display: flex;
     flex-direction: column;

@@ -8,7 +8,7 @@ export default createStore({
     house_info: null, // Starts with null
     isMobile: false,
     isTablet: false,
-    theme: 'day', // Default theme is 'day'
+    theme: 'day-theme', // Default theme is 'day'
   },
   mutations: {
     setTheme(state, newTheme) {

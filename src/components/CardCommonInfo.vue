@@ -35,25 +35,30 @@
   
 <style scoped>
 .container1x {
-    margin-top:0.65em;
-    font-size: 13px;
+    margin:2.65em 0 0.65em 0;
+    font-size: 0.85em;
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
     width: 100%;
 }
 
 .item {
+    background-color:rgb(246, 241, 241);
     display: flex;
     margin-bottom: 10px;
     margin-right: 0.35em;
     padding: 0.25em 0.6em;
-    border-radius: 0.62em;
-    color: rgb(159, 113, 208);
+    border-radius: 0.82em;
+    color: var(--cor-base);
     /* border: 1px solid var(--cor-text-subbase); */
 }
 
 .icon {
-    margin-right: 0.32em;
+    margin-right: 0.30em;
+    font-size: 0.8em;
+    color: rgb(85, 85, 85);
+    border-radius: 50%;
 }
 
 .title {
@@ -62,7 +67,7 @@
 
 .value {
     margin-left: auto;
-    color:rgb(201, 200, 200);}
+    color:rgb(115, 109, 109);}
 </style>
   
 
