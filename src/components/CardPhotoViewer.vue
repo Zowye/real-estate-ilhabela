@@ -1,26 +1,27 @@
 <template>
-    <div class="card-photo-viewer">
-        <div class="viewer">
-            <button class="next-button"></button>
-            <button class="prev-button"></button>
-            <img :src="currentImage" alt="Card Image" @mouseover="startAutoSwitch" @mouseleave="stopAutoSwitch">
-            <!-- Botões no canto superior esquerdo -->
-            <div class="top-left-buttons">
-                <button class="for-sale-button border-half">
-                    For Sale
-                </button>
-                <button :class="['tranding-button', statusLevelClass]">
-                    {{ status_level }}
-                </button>
-            </div>
+    <div class="viewer">
+        <button class="next-button"></button>
+        <button class="prev-button"></button>
+        <!-- <img :src="currentImage" alt="Card Image" @mouseover="startAutoSwitch" @mouseleave="stopAutoSwitch"> -->
+        <img name="customImage" :src="currentImage" :alt="`Image ${currentImageIndex + 1} of ${images.length}`" />
 
-            <!-- Botão no canto superior direito -->
-            <button class="camera-button border-half">
-                <i class="material-icons-outlined">camera_alt</i> 4
+        <!-- Botões no canto superior esquerdo -->
+        <div class="top-left-buttons">
+            <button class="for-sale-button border-half">
+                For Sale
             </button>
+            <button :class="['tranding-button', statusLevelClass]">
+                {{ status_level }}
+            </button>
+        </div>
 
-            <!-- Botões no canto inferior direito -->
-            <!-- <div class="bottom-right-buttons">
+        <!-- Botão no canto superior direito -->
+        <button class="camera-button border-half">
+            <i class="material-icons-outlined">camera_alt</i> 4
+        </button>
+
+        <!-- Botões no canto inferior direito -->
+        <!-- <div class="bottom-right-buttons">
                 <button class="heart-button border-circled" :class="{ 'heart-clicked': heartClicked }" @click="toggleHeart">
                     <i class="material-icons-outlined">favorite_border</i>
                 </button>
@@ -28,16 +29,25 @@
                     <i class="material-icons-outlined">add</i>
                 </button>
             </div> -->
-        </div>
-        <!-- <div class="controls">
+    </div>
+    <!-- <div class="controls">
   
       </div> -->
-    </div>
 </template>
   
 <script>
 export default {
-    props: ['images', 'status_level'],
+    props: {
+        images: {
+            type: Array,
+            required: true,
+        },
+        status_level: {
+            type: String,
+            required: true,
+        },
+    },
+
     data() {
         return {
             currentIndex: 0,
@@ -106,24 +116,19 @@ export default {
     color: gray;
 }
 
-.card-photo-viewer {
+
+.viewer {
+    width: 100%;
+    height: 100%;
     position: relative;
+    background-color: #21c975;
     box-shadow: 0 0 20px #0000005f;
 }
 
-.viewer {
-    position: relative;
-    height: 250px;
-}
-
 .viewer img {
-    width: 100%;
-    height: 250px;
-    border-top-left-radius: 1.2em;
-    border-top-right-radius: 1.2em;
-    border-bottom-left-radius: 0em;
-    border-bottom-right-radius: 0em;
     /* background: linear-gradient(rgba(235, 46, 46, 0), rgba(255, 255, 255, 0.4)); */
+    width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 
@@ -139,7 +144,7 @@ export default {
 .prev-button,
 .next-button {
     position: absolute;
-    top:40%;
+    top: 40%;
     background: none;
     border: none;
     cursor: pointer;
@@ -151,14 +156,14 @@ export default {
     background-image: url('@/assets/images/prev-button.png');
     background-position: center;
     background-repeat: no-repeat;
-    left:0.5em;
+    left: 0.5em;
 }
 
 .next-button {
     background-image: url('../assets/images/next-button.png');
     background-position: center;
     background-repeat: no-repeat;
-    right:0.5em;
+    right: 0.5em;
 }
 
 .for-sale-button,

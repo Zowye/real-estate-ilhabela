@@ -1,0 +1,260 @@
+<template>
+    <div class="card">
+        <div id="card_top">
+            <router-link :to="`/house_explorer/${card.id}`">
+                <CardPhotoViewer :images="card.card_images" :status_level="card.status_level" />
+            </router-link>
+        </div>
+        <div id="inline">
+            <div class="cardInfos">
+                <div class="card_title" @click="SetFocusHouse(card)">{{ card.title }}</div>
+                <div id="topInfos" class="inner_cardcard_padding">
+                    <IconPin :width="14" :height="14" />
+                    <div class="card_address">{{ card.street }}, {{ card.streetNumber }}</div>
+                </div>
+                <div class="neigh">{{ card.neighborhood }}</div>
+                <div id="bottomInfos" class="inner_card_padding">
+                    <CardCommonInfo />
+                    <p class="description">{{ card.description }}</p>
+                </div>
+                <CardAmenities />
+                <CardStars />
+            </div>
+
+            <div id="card-footer">
+                <div>
+                    <span class="monetary"><span class="currency_name">R$</span> </span><span
+                        class="monetary_value_number">{{
+                            card.formattedPrice }}</span><span class="monetary_value_string">{{ card.suffix }}</span>
+                </div>
+
+                <div class="buttons_fav">VER MAIS</div>
+            </div>
+        </div>
+    </div>
+</template>
+  
+<script>
+import CardPhotoViewer from "@/components/CardPhotoViewer.vue";
+import CardCommonInfo from "@/components/CardCommonInfo.vue";
+import IconPin from "@/components/icons/IconPin.vue";
+import CardAmenities from "@/components/CardAmenities.vue";
+import CardStars from "@/components/CardStars.vue";
+import { mapActions } from "vuex";
+
+export default {
+    components: {
+    CardPhotoViewer,
+    CardCommonInfo,
+    IconPin,
+    CardAmenities,
+    CardStars,
+},
+    props: {
+        card: {
+            type: Object,
+            required: true,
+        },
+        cardWidth: {
+            type: String,
+            default: "400px",
+        },
+    },
+    methods: {
+        ...mapActions(['updateHouseInfo']),
+
+        SetFocusHouse(card) {
+            this.updateHouseInfo(card);
+        },
+
+
+
+
+        // ...Other methods you may have
+    },
+};
+</script>
+  
+<style scoped>
+.card {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    position: relative;
+    background-color: var(--card-background);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
+    margin: 1em;
+    width: 80%;
+    height: 500px;
+    border-radius: 0.7em;
+    border-top-left-radius: 1.2em;
+    border-top-right-radius: 1.2em;
+    border-right: 1px solid rgba(128, 128, 128, .2);
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: rgba(128, 128, 128, 0.2);
+    border-bottom: 1px solid rgba(128, 128, 128, .2);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgba(128, 128, 128, 0.2);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.09);
+    overflow: hidden;
+    margin-bottom: 5em;
+}
+.description{
+    font-size: 1.6em;
+}
+
+#inline {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#card_top {
+    background-color: #44d579;
+    width: 50%;
+    height: auto;
+}
+
+
+#card-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    bottom: 0px;
+    border: .0625rem solid var(--card-footer-border-color);
+    border-bottom-left-radius: 0.8em;
+    border-bottom-right-radius: 0.8em;
+    background-color: var(--card-footer);
+    padding: 1em;
+    color: #424767;
+}
+
+
+.cardInfos {
+    padding: 0.3em 1.4em;
+}
+
+
+
+#topInfos {
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
+    /* border-bottom-left-radius: 0.8em;
+    border-bottom-right-radius: 0.8em; */
+
+}
+
+#bottomInfos {}
+
+.card_title {
+    margin-top: 1.7em;
+    font-family: var(--font-text);
+    color: var(--cor-text-base);
+    line-height: 1em;
+    margin-bottom: 0.7em;
+    font-weight: 500;
+    font-size: 2.28em;
+}
+
+
+.card_address {
+    font-family: var(--font-text);
+    line-height: 1em;
+    font-size: 0.95em;
+    color: var(--cor-text-base);
+    font-weight: 100;
+    margin-left: 0.55em;
+    font-weight: 400;
+}
+
+.bold {
+    font-weight: 400;
+}
+
+.neigh {
+    display: inline-block;
+    font-weight: 200;
+    margin-top: 0.5em;
+    padding: 0.35em 0.85em;
+    color: white;
+    border-radius: 1.5em;
+    font-size: 0.90em;
+    background-color: var(--cor-base);
+}
+
+
+.monetary,
+.monetary_value_number,
+.monetary_value_string {
+    color: var(--cor-text-base);
+    font-family: var(--font-text);
+    font-size: 1.4em;
+    font-weight: 500;
+}
+
+.monetary_value_string {
+    margin-left: 3px;
+}
+
+.currency_name {
+    margin-right: 0.2em;
+    font-weight: 300;
+    font-size: 0.6em;
+}
+
+
+
+
+.button-group {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.ver-mais-button,
+.olhadela-button {
+    background-color: var(--button-background);
+    color: #777;
+    border: none;
+    border-radius: 1em;
+    padding: 1em 3em;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.1s ease;
+}
+
+.ver-mais-button:hover,
+.olhadela-button:hover {
+    background-color: #e0e0e0;
+    border-color: #999;
+}
+
+.ver-mais-button:focus,
+.olhadela-button:focus {
+    outline: none;
+}
+
+.ver-mais-button {
+    flex-grow: 1;
+}
+
+.olhadela-button {
+    margin-left: 10px;
+}
+
+
+.whatsapp-button {
+    display: inline-block;
+    width: 23px;
+    height: 23px;
+    color: #44d579;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 1.3em;
+}
+</style>
+  
