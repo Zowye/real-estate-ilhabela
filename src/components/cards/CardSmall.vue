@@ -1,9 +1,7 @@
 <template>
     <div class="card">
         <div id="card_top">
-            <router-link :to="`/house_explorer/${card.id}`">
-                <CardPhotoViewer :images="card.card_images" :status_level="card.status_level" />
-            </router-link>
+                <CardPhotoViewer :images="card.card_images" :status_level="card.status_level" :id="card.id" />
         </div>
         <div class="cardInfos">
             <div class="card_title" @click="SetFocusHouse(card)">{{ card.title }}</div>

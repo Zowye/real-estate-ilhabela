@@ -341,7 +341,7 @@ export default {
 </script>
 
 <style scoped>
-@import '~@fortawesome/fontawesome-free/css/all.min.css';
+/* @import '~@fortawesome/fontawesome-free/css/all.min.css'; */
 
 #map {
     height: 500px;

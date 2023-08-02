@@ -1,18 +1,17 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
-import store from './store'; // Import the Vuex store
+import store from './store';
 
+// Importe o variables.css aqui
 import '@/assets/css/variables.css';
-import '@fortawesome/fontawesome-free/css/all.css';
+
+// Adicione os ícones que você deseja usar no library do Font Awesomef
 
 // Global loading state
 store.state.isLoading = true;
 
 createApp(App)
   .use(router)
-  .use(store) // Use the Vuex store
+  .use(store)
   .mount('#app');
-
-
-

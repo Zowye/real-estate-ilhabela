@@ -1,12 +1,17 @@
 <template>
     <div class="card">
+
         <div id="card_top">
-            <router-link :to="`/house_explorer/${card.id}`">
-                <CardPhotoViewer :images="card.card_images" :status_level="card.status_level" />
-            </router-link>
+            <CardPhotoViewer :images="card.card_images" :status_level="card.status_level" :id="card.id" />
         </div>
         <div id="inline">
+            <div class="fav-heart" @click="toggleFavorite">
+                <div class="heart-icon" :class="{ 'active': isFavorite }">
+                    <i class="fas fa-heart"></i>
+                </div>
+            </div>
             <div class="cardInfos">
+
                 <div class="card_title" @click="SetFocusHouse(card)">{{ card.title }}</div>
                 <div id="topInfos" class="inner_cardcard_padding">
                     <IconPin :width="14" :height="14" />
@@ -18,7 +23,7 @@
                     <p class="description">{{ card.description }}</p>
                 </div>
                 <CardAmenities />
-                <CardStars />
+                <CardStars :rating="3.5" />
             </div>
 
             <div id="card-footer">
@@ -40,16 +45,23 @@ import CardCommonInfo from "@/components/CardCommonInfo.vue";
 import IconPin from "@/components/icons/IconPin.vue";
 import CardAmenities from "@/components/CardAmenities.vue";
 import CardStars from "@/components/CardStars.vue";
-import { mapActions } from "vuex";
+import { mapState, mapActions } from 'vuex';
+
 
 export default {
+    data() {
+        return {
+            isFavorite: false,
+        }
+    },
     components: {
-    CardPhotoViewer,
-    CardCommonInfo,
-    IconPin,
-    CardAmenities,
-    CardStars,
-},
+
+        CardPhotoViewer,
+        CardCommonInfo,
+        IconPin,
+        CardAmenities,
+        CardStars,
+    },
     props: {
         card: {
             type: Object,
@@ -61,17 +73,33 @@ export default {
         },
     },
     methods: {
-        ...mapActions(['updateHouseInfo']),
+        ...mapActions(['updateHouseInfo', 'addToFavorites', 'removeFromFavorites']),
+
 
         SetFocusHouse(card) {
             this.updateHouseInfo(card);
         },
+        toggleFavorite() {
 
+            if (this.isFavorite) {
+                console.log(`Adicionando a ${this.card.id}`)
+                this.removeFromFavorites(this.card.id);
+            } else {
+                console.log(`Removendo a ${this.card.id}`)
+                this.addToFavorites(this.card.id);
+            }
+            this.isFavorite = !this.isFavorite;
 
-
-
-        // ...Other methods you may have
+        },
     },
+    computed: {
+        ...mapState({
+            favoritesList: (state) => state.favorites.favorites,
+        }),
+        isFavoriteOnStore() {
+            return this.favoritesList.includes(this.card.id);
+        },
+    }
 };
 </script>
   
@@ -101,7 +129,8 @@ export default {
     overflow: hidden;
     margin-bottom: 5em;
 }
-.description{
+
+.description {
     font-size: 1.6em;
 }
 
@@ -256,5 +285,73 @@ export default {
     text-decoration: none;
     font-size: 1.3em;
 }
+
+
+
+/* Posiciona o coração no canto superior direito */
+.fav-heart {
+    position: absolute;
+    top: 0.8em;
+    right: 0.7em;
+    padding: 5px;
+    cursor: pointer;
+    color: #e0e0e0;
+    font-size: 1.5em;
+    /* Defina o tamanho desejado para o coração */
+}
+
+
+
+
+
+
+.heart-icon {
+    display: inline-block;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: #e0e0e0;
+    transition: transform 300ms ease;
+}
+
+.heart-icon.active {
+    font-size: 1.5em;
+    color: rgb(160, 32, 53);
+    animation: bounce 300ms;
+}
+
+/* Animação "bounce" */
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-5px);
+    }
+
+    60% {
+        transform: translateY(-3px);
+    }
+}
+
+
+.heart-icon.active:hover {
+    color: rgb(160, 32, 53);
+    /* ou a cor desejada ao ser clicado (pressionado) */
+}
+
+
+/* Estilize o ícone do coração quando hover */
+.heart-icon:hover {
+    color: pink;
+    /* ou a cor desejada ao passar o mouse (hover) */
+}
+
+/* Estiliza o coração vazio e o coração preenchido quando hover */
 </style>
   

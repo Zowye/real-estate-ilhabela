@@ -14,8 +14,12 @@ export default {
   name: 'App',
   computed: {
     ...mapState(["isLoading"]),
+    theme() {
+      return this.$store.state.theme;
+    }
   },
   mounted() {
+    document.documentElement.classList.add(this.theme); // apply the theme when the app is loaded
     this.$store.commit('SET_LOADING_STATE', false);
   },
   created() {

@@ -1,8 +1,10 @@
 <template>
   <DefaultLayout>
+
     <div id="home-page-container">
       <AppFilter />
       <CardsList :show_featured_card="true" />
+
     </div>
   </DefaultLayout>
 </template>
@@ -22,13 +24,12 @@ export default {
 </script>
 
 <style scoped>
-
-*{
-  user-select: none ;
+* {
+  user-select: none;
 }
+
 #home-page-container {
   margin-top: 100px;
   justify-content: center;
 }
-
 </style>

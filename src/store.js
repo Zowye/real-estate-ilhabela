@@ -1,6 +1,7 @@
 import { createStore } from 'vuex';
 
 export default createStore({
+  
   state: {
     isLoading: true, // Application starts loading and then change this value...
     minPrice: 0,
@@ -9,8 +10,27 @@ export default createStore({
     isMobile: false,
     isTablet: false,
     theme: 'day-theme', // Default theme is 'day'
+    favorites: [], // Inicia com uma lista vazia de favoritos
+  },
+  getters: {
+    getFavorites(state) {
+      return state.favorites;
+    },
   },
   mutations: {
+    addToFavorites(state, itemId) {
+      if (!state.favorites.includes(itemId)) {
+        console.log("Addicionando ", itemId)
+        state.favorites.push(itemId);
+      }
+    },
+    removeFromFavorites(state, itemId) {
+      const index = state.favorites.indexOf(itemId);
+      if (index !== -1) {
+        console.log("Removendo ", itemId, index)
+        state.favorites.splice(index, 1);
+      }
+    },
     setTheme(state, newTheme) {
       state.theme = newTheme;
     },
@@ -34,6 +54,12 @@ export default createStore({
     },
   },
   actions: {
+    addToFavorites({ commit }, itemId) {
+      commit('addToFavorites', itemId);
+    },
+    removeFromFavorites({ commit }, itemId) {
+      commit('removeFromFavorites', itemId);
+    },
     updateHouseInfo({ commit }, info) {
       commit('setHouseInfo', info);
     },

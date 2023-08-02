@@ -1,9 +1,12 @@
 <template>
     <div class="viewer">
-        <button class="next-button"></button>
-        <button class="prev-button"></button>
-        <!-- <img :src="currentImage" alt="Card Image" @mouseover="startAutoSwitch" @mouseleave="stopAutoSwitch"> -->
-        <img name="customImage" :src="currentImage" :alt="`Image ${currentImageIndex + 1} of ${images.length}`" />
+        <button class="next-button" @click="nextImage"></button>
+        <button class="prev-button" @click="prevImage"></button>
+
+        <router-link :to="`/house_explorer/${id}`">
+            <img name="customImage" :src="currentImage" @mouseover="startAutoSwitch" @mouseleave="stopAutoSwitch"
+                :alt="`Image ${currentImageIndex + 1} of ${images.length}`" />
+        </router-link>
 
         <!-- Botões no canto superior esquerdo -->
         <div class="top-left-buttons">
@@ -38,6 +41,10 @@
 <script>
 export default {
     props: {
+        id: {
+            type: String,
+            required: true,
+        },
         images: {
             type: Array,
             required: true,
