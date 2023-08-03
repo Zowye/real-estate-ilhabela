@@ -82,11 +82,11 @@ export default {
         toggleFavorite() {
 
             if (this.isFavorite) {
-                console.log(`Adicionando a ${this.card.id}`)
-                this.removeFromFavorites(this.card.id);
+                console.log(`Adicionando a ${this.card}`)
+                this.removeFromFavorites(this.card);
             } else {
-                console.log(`Removendo a ${this.card.id}`)
-                this.addToFavorites(this.card.id);
+                console.log(`Removendo a ${this.card}`)
+                this.addToFavorites(this.card);
             }
             this.isFavorite = !this.isFavorite;
 
@@ -97,7 +97,7 @@ export default {
             favoritesList: (state) => state.favorites.favorites,
         }),
         isFavoriteOnStore() {
-            return this.favoritesList.includes(this.card.id);
+            return this.favoritesList.includes(this.card);
         },
     }
 };

@@ -44,7 +44,7 @@ footer {
   left: 0;
   width: 100%;
   height: 200px;
-  background-color: var(--cor-clarinha);
+  background-color: var(--cor-footer-regular);
 }
 
 .footer-top {
@@ -54,7 +54,7 @@ footer {
 
 .footer-bottom {
   bottom: 0;
-  background-color: var(--cor-clarinha2);
+  background-color: var(--cor-footer-darker);
   color: var(--cor-base);
   padding: 10px;
   text-align: center;

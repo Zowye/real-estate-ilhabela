@@ -23,6 +23,10 @@
   --table-ligh-line: #efefef;
   --card-footer-border-color: #edf0f7;
   --card-footer: #f5f9fe;
+  --cor-footer-regular: #b1bac7;
+  --cor-footer-darker: #8da0bb;
+
+
 
   /* Calcula as cores mais escuras e mais claras */
   --cor-darken: color-mix(in srgb, var(--cor-base), #000 20%);
@@ -32,6 +36,9 @@
   --button-background:#f0f0f0;
   --header-background: #edf2f9;
   --scroll-bgcolor: rgb(230, 230, 230);
+
+
+
 }
 
 
@@ -59,7 +66,8 @@
   --table-light-line: #0b1a2a;
   --card-footer-border-color: #161e24;
   --card-footer: #161e24;
-
+  --cor-footer-regular: rgb(18, 25, 34);
+  --cor-footer-darker: rgb(15, 21, 29);
 
   /* Calcula as cores mais escuras e mais claras */
   --cor-darken: color-mix(in srgb, var(--cor-base), #000 20%);

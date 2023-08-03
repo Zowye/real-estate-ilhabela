@@ -1,31 +1,46 @@
 <template>
-    <div id="full-site">
+    <div id="full-site" :class="theme">
         <Header />
         <div id="wrapper">
-            <div id="background">
-                <div id="gradient"></div>
-            </div>
-
+            <div id="background"
+                :style="{ ...backgroundStyle, 'background-image': `url(@/assets/images/${backgroundImage})` }"></div>
         </div>
         <main>
-
-                <slot></slot>
+            <slot></slot>
         </main>
         <Footer />
     </div>
 </template>
 
        
-
 <script>
 import Header from '@/components/AppHeader.vue';
 import Footer from '@/components/AppFooter.vue';
+import { mapState } from 'vuex';
 
 export default {
     components: {
         Header,
         Footer,
-    }
+    },
+    computed: {
+        ...mapState(['theme']),
+
+        backgroundStyle() {
+            console.log('procurando');
+
+            if (this.theme === 'night-theme') {
+                console.log('night');
+                return {};
+            } else {
+                console.log('day');
+                return {};
+            }
+        },
+        backgroundImage() {
+            return this.theme === 'night-theme' ? 'nightbackground.jpg' : 'bgTopper.jpg';
+        },
+    },
 };
 </script>
   
@@ -67,7 +82,7 @@ main {
     left: 0;
     width: 100%;
     height: 30em;
-    background-image: url("@/assets/images/bgTopper.jpg");
+    /* background-image: url("@/assets/images/bgTopper.jpg"); */
     background-repeat: no-repeat;
     background-size: 100% auto;
     background-position: top;

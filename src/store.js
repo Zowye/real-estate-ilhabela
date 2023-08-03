@@ -20,14 +20,12 @@ export default createStore({
   mutations: {
     addToFavorites(state, itemId) {
       if (!state.favorites.includes(itemId)) {
-        console.log("Addicionando ", itemId)
         state.favorites.push(itemId);
       }
     },
     removeFromFavorites(state, itemId) {
       const index = state.favorites.indexOf(itemId);
       if (index !== -1) {
-        console.log("Removendo ", itemId, index)
         state.favorites.splice(index, 1);
       }
     },

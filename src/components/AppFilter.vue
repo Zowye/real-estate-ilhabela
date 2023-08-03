@@ -17,8 +17,12 @@
         <div id="main_filter_content_wrapper">
             <div class="filter-line middle">
                 <div class="filter-item middle_column first">
-                    <label for="procurando-por" class="filter-label">Procurando por:</label>
-                    <FilterBuildingType />
+                    <!-- <label for="procurando-por" class="filter-label">Procurando por:</label>
+                    <FilterBuildingType /> -->
+                    <div class="custom-multiselect">
+                        <Multiselect mode="tags" v-model="value" :options="options" :close-on-select="false"
+                            :searchable="true" :create-option="true" />
+                    </div>
                 </div>
                 <div class="filter-item middle_column second">
                     <label for="bairro" class="filter-label">Bairro:</label>
@@ -45,29 +49,71 @@
     </div>
 </template>
 <script>
-import FilterBuildingType from "@/components/filter/FilterBuildingType.vue";
+// import FilterBuildingType from "@/components/filter/FilterBuildingType.vue";
 import FilterNeighborhoods from "@/components/filter/FilterNeighborhoods.vue";
 import FilterRoomsN from "@/components/filter/FilterRoomsN.vue";
 import FilterPriceRange from "@/components/filter/FilterPriceRange.vue";
-
+import Multiselect from '@vueform/multiselect'
+import '@vueform/multiselect/themes/default.css'
 
 
 export default {
     data() {
         return {
-            activeButton: 'ALUGAR',
-        }
+            activeButton: '', // Adicionado a variável activeButton
+            selectedOptions: [],
+            // options: ['Casa', 'Apartamento', 'Flat', 'Sítio', 'Escritório'],
+        };
+    },
+    computed: {
+        selectedOptionsLimited() {
+            return this.selectedOptions.slice(0, 3);
+        },
+    },
+    setup() {
+        const value = ['Casa', 'Apartamento', 'Flat', 'Sítio', 'Escritório'];
+        const options = ['Casa', 'Apartamento', 'Flat', 'Sítio', 'Escritório'];
+
+
+        const onClick = () => {
+            const newTag = String(Math.random());
+            options.value = [...options.value, newTag];
+            value.value = [...value.value, newTag];
+        };
+
+        return {
+            value,
+            options,
+            onClick,
+        };
     },
     methods: {
         changeActive(button) {
             this.activeButton = button;
-        }
+        },
+        customLabel(option) {
+            return `${option.library} - ${option.language}`
+        },
+        getIconForOption(option) {
+            const icons = {
+                Casa: 'fa-home',
+                Apartamento: 'fa-building',
+                Flat: 'fa-building',
+                Sítio: 'fa-tree',
+                Escritório: 'fa-briefcase',
+            };
+            return icons[option];
+        },
+        onClose() {
+            console.log('Opções selecionadas:', this.selectedOptions);
+        },
     }
     ,
     components: {
-        FilterBuildingType,
+        // FilterBuildingType,
         FilterNeighborhoods,
         FilterRoomsN,
+        Multiselect,
         FilterPriceRange
     }
 };
@@ -424,7 +470,7 @@ export default {
     .top-button {
         border-radius: 2em;
         margin-bottom: 0.2em;
-    } 
+    }
 
     /* Update the flex-direction for smaller screens */
     .filter-line {
@@ -436,7 +482,7 @@ export default {
     }
 
     .middle_column {
-        margin-top:1em;
+        margin-top: 1em;
         padding: 0em;
     }
 }

@@ -13,18 +13,25 @@
 
       </li>
       <li>
-        <div id="fav_div_section">
+        <div id="fav_div_section" :v-click-outside="toggleFavoritesDropdown">
           <button class="icon_menu_item" :class="{ active: dropdownvisible }" @click="toggleFavoritesDropdown">
-            <!-- Ícone do coração -->
             <i class="fas fa-heart"></i>
-            <!-- Dropdown de favoritos -->
-
           </button>
           <div class="favorites-dropdown" v-show="dropdownvisible">
             <ul>
-              <li>teste1</li>
-              <!-- Mostrar a lista de favoritos -->
-              <li v-for="favoriteId in favorites" :key="favoriteId">{{ favoriteId }}</li>
+              <!-- Show the current favorite list -->
+              <li v-for="card_fav in favorites" :key="card_fav">
+                <div class="left"><img :src="card_fav.card_images[0]"></div>
+                <div class="right">
+                  <div>{{ card_fav.street }}</div>
+                  <div>{{ card_fav.neighborhood }}</div>
+                  <div style="font-weight: 900;">R$ {{ card_fav.price }}</div>
+                  <button class="close-button" @click.stop="removeFromFavorites(card_fav)">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+
+              </li>
             </ul>
           </div>
         </div>
@@ -64,13 +71,18 @@
 </template>
   
 <script>
+import { mapActions } from 'vuex';
+
+
 export default {
+
   data() {
     return {
       dropdownvisible: false,
     }
   },
   computed: {
+
     // Map the 'theme' variable from the store to the component's computed properties
     theme() {
       return this.$store.state.theme;
@@ -78,11 +90,12 @@ export default {
     // Computed property que retorna a lista de favoritos do Vuex
     favorites() {
       let teste = this.$store.getters.getFavorites; // Acesso direto ao getter
-      console.log(`Os favoritos até então são: ${teste}`);
       return teste;
     },
   },
   methods: {
+    ...mapActions(['addToFavorites', 'removeFromFavorites']),
+
     toggleTheme() {
       const newTheme = document.documentElement.classList.contains('day-theme')
         ? 'night'
@@ -108,9 +121,7 @@ export default {
 </script>
   
 <style scoped>
-
-
-#fav_div_section{
+#fav_div_section {
   position: relative;
 }
 
@@ -189,10 +200,6 @@ export default {
 
 
 
-
-
-
-
 .icon_menu_item {
   /* Restante do estilo */
   position: relative;
@@ -202,10 +209,10 @@ export default {
   position: absolute;
   top: 100%;
   left: 0;
-  width: 5em;
-  background-color: #eeebeb;
+  width: auto;
+  background-color: var(--app-bg-color);
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 10px;
+  padding: 0.5em;
   border-radius: 5px;
 }
 
@@ -215,13 +222,71 @@ export default {
 }
 
 .favorites-dropdown ul {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .favorites-dropdown li {
-  padding: 5px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: start;
+  width: 100%;
+  white-space: nowrap;
+  cursor: pointer;
+  margin-bottom: 0.3em;
+  background-color: var(--cor-visible-over-base);
+  border-radius: 0.85em;
+  justify-content: space-around;
+  text-decoration: none;
+  transform-origin: 10% 50%;
+  position: relative;
+}
+
+/* .card_fav_small{
+
+} */
+
+.right {
+  flex-grow: 1;
+  padding: 1em 3em;
+  font-size: 0.7em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+
+.left img {
+  left: 0;
+  width: 6em;
+  height: 6em;
+}
+
+
+
+/* Botão de fechar */
+.close-button {
+  position: absolute;
+  top: 0.0em;
+  right: 0.0em;
+  border: none;
+  background: none;
+  color: rgb(139, 42, 42);
+  font-size: 1.0em;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+}
+
+/* Exibir o botão de fechar quando o cursor estiver sobre a li */
+li:hover .close-button {
+  opacity: 1;
 }
 </style>
   
