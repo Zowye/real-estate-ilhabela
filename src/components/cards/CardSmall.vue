@@ -1,7 +1,13 @@
 <template>
     <div class="card">
         <div id="card_top">
-                <CardPhotoViewer :images="card.card_images" :status_level="card.status_level" :id="card.id" />
+            <CardPhotoViewer :images="card.card_images" :status_level="card.status_level" :id="card.id" />
+        </div>
+
+        <div class="fav-heart" @click="toggleFavorite">
+            <div class="heart-icon" :class="{ 'active': isFavorite }">
+                <i class="fas fa-heart"></i>
+            </div>
         </div>
         <div class="cardInfos">
             <div class="card_title" @click="SetFocusHouse(card)">{{ card.title }}</div>
@@ -31,9 +37,14 @@ import CardCommonInfo from "@/components/CardCommonInfo.vue";
 import IconPin from "@/components/icons/IconPin.vue";
 // import CardAmenities from "@/components/CardAmenities.vue";
 // import CardStars from "@/components/CardStars.vue";
-import { mapActions } from "vuex";
+import { mapState, mapActions } from 'vuex';
 
 export default {
+    data() {
+        return {
+            isFavorite: false,
+        }
+    },
     components: {
         CardPhotoViewer,
         CardCommonInfo,
@@ -52,17 +63,32 @@ export default {
         },
     },
     methods: {
-        ...mapActions(['updateHouseInfo']),
+        ...mapActions(['updateHouseInfo', 'addToFavorites', 'removeFromFavorites']),
 
         SetFocusHouse(card) {
             this.updateHouseInfo(card);
         },
+        toggleFavorite() {
 
+            if (this.isFavorite) {
+                console.log(`Adicionando a ${this.card}`)
+                this.removeFromFavorites(this.card);
+            } else {
+                console.log(`Removendo a ${this.card}`)
+                this.addToFavorites(this.card);
+            }
+            this.isFavorite = !this.isFavorite;
 
-
-
-        // ...Other methods you may have
+        },
     },
+    computed: {
+        ...mapState({
+            favoritesList: (state) => state.favorites.favorites,
+        }),
+        isFavoriteOnStore() {
+            return this.favoritesList.includes(this.card);
+        },
+    }
 };
 </script>
   
@@ -167,13 +193,10 @@ export default {
 
 
 .card_address {
-    font-family: var(--font-text);
     line-height: 1em;
     font-size: 0.95em;
     color: var(--cor-text-base);
-    font-weight: 100;
     margin-left: 0.55em;
-    font-weight: 400;
 }
 
 .bold {
@@ -260,6 +283,73 @@ export default {
     border-radius: 50%;
     text-decoration: none;
     font-size: 1.3em;
+}
+
+
+/* Posiciona o coração no canto superior direito */
+.fav-heart {
+    position: absolute;
+    top: 0.3em;
+    right: 0.3em;
+    padding: 0.3em;
+    background-color: #ffffff6e;
+    border-radius: 0.3em;
+    cursor: pointer;
+    color: #e0e0e0;
+    font-size: 1.5em;
+    /* Defina o tamanho desejado para o coração */
+}
+
+
+
+
+
+
+.heart-icon {
+    display: inline-block;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: #e0e0e0;
+    transition: transform 300ms ease;
+}
+
+.heart-icon.active {
+    font-size: 1.5em;
+    color: rgb(160, 32, 53);
+    animation: bounce 300ms;
+}
+
+/* Animação "bounce" */
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-5px);
+    }
+
+    60% {
+        transform: translateY(-3px);
+    }
+}
+
+
+.heart-icon.active:hover {
+    color: rgb(160, 32, 53);
+    /* ou a cor desejada ao ser clicado (pressionado) */
+}
+
+
+/* Estilize o ícone do coração quando hover */
+.heart-icon:hover {
+    color: pink;
+    /* ou a cor desejada ao passar o mouse (hover) */
 }
 </style>
   

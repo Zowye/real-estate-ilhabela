@@ -12,10 +12,12 @@
             <div class="title">Amazing House in Ilhabela</div>
             <div id="topInfos" class="inner_cardcard_padding">
                 <IconPin :width="16" :height="16" />
-                <div class="card_address"> {{ featured_data.street }}, {{ featured_data.streetNumber }} <div class="neigh">
-                        {{ featured_data.neighborhood }}</div>
+                <div class="card_address"> {{ featured_data.street }}, {{ featured_data.streetNumber }}
                 </div>
+
             </div>
+            <div class="neigh">
+                {{ featured_data.neighborhood }}</div>
             <CardCommonInfo />
             <div class="price">R$ {{ featured_data.formattedPrice }} {{ featured_data.suffix }} </div>
             <div class="description">{{ truncateDescription(featured_data.description_full) }}</div>
@@ -123,9 +125,13 @@ export default {
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.10);
 }
 
+.card_address{
+    font-size: 1.2rem;
+}
 
 #topInfos {
     justify-content: flex-start;
+    margin-top: 1em;
     align-items: center;
     display: flex;
     /* border-bottom-left-radius: 0.8em;
@@ -183,8 +189,8 @@ export default {
     background-color: var(--cor-base);
     color: #333;
     border: none;
-    border-radius: 1em;
-    padding: 0.4em 1.8em;
+    border-radius: 0.2em;
+    padding: 0.4em 2.8em;
     color: white;
     font-size: 1.2em;
     margin-top: 10px;
@@ -211,5 +217,17 @@ export default {
 
 .close-btn:hover {
     background: rgba(0, 0, 0, 0.05);
+}
+
+
+.neigh {
+    display: inline-block;
+    font-weight: 200;
+    margin-top: 0.5em;
+    padding: 0.35em 0.85em;
+    color: white;
+    border-radius: 1.5em;
+    font-size: 0.90em;
+    background-color: var(--cor-base);
 }
 </style>

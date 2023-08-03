@@ -19,9 +19,9 @@
         </div>
 
         <!-- Botão no canto superior direito -->
-        <button class="camera-button border-half">
+        <!-- <button class="camera-button border-half">
             <i class="material-icons-outlined">camera_alt</i> 4
-        </button>
+        </button> -->
 
         <!-- Botões no canto inferior direito -->
         <!-- <div class="bottom-right-buttons">

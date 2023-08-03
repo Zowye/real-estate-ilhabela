@@ -321,7 +321,6 @@ export default {
 
 /* Animação "bounce" */
 @keyframes bounce {
-
     0%,
     20%,
     50%,
