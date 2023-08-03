@@ -123,7 +123,6 @@ export default {
 }
 
 #home-page-container {
-  margin-top: 100px;
   justify-content: center;
 }
 

@@ -15,7 +15,7 @@
             </div>
         </div>
         <div id="main_filter_content_wrapper">
-            <div class="filter-line middle">
+            <div class="filter-line column-mobile middle">
                 <div class="filter-item middle_column first">
                     <label for="procurando-por" class="filter-label">Procurando por:</label>
                     <div class="custom-multiselect">
@@ -197,6 +197,7 @@ export default {
     margin: auto;
     margin-bottom: 40px;
     border-radius: 1em;
+    margin-top: 2em;
     bottom: 0;
 }
 
@@ -463,9 +464,9 @@ export default {
     justify-content: center;
     background-color: var(--cor-base);
     margin: 0;
-    padding: 1em 2.5em;
+    padding: 0.75em 1.5em;
     cursor: pointer;
-    box-shadow: 4px -4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 7px 9px 8px rgba(0, 22, 0, 0.1);
     color: #fff;
     font-family: 'Roboto Condensed', sans-serif;
     transform-origin: bottom;
@@ -497,8 +498,14 @@ export default {
 }
 
 .top-button:hover {
-    color: var(--cor-text-base);
+    background-color: var(--card-background);
+    color: black;
 }
+
+.active:hover {
+    color: black;
+}
+
 
 .top-button:hover:after {
     width: 100%;
@@ -516,13 +523,20 @@ export default {
     }
 
     .top-button {
-        border-radius: 2em;
-        margin-bottom: 0.2em;
+        padding: 0.5em;
+    }
+
+    .filter-label {
+        margin-left: 1em;
     }
 
     /* Update the flex-direction for smaller screens */
-    .filter-line {
+    .column-mobile {
         flex-direction: column;
+    }
+
+    .filter-item {
+        border-bottom: 1px solid rgb(208, 208, 208);
     }
 
     .filter-item {

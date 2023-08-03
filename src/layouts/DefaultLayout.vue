@@ -1,10 +1,10 @@
 <template>
     <div id="full-site" :class="theme">
         <Header />
-        <div id="wrapper">
+        <!-- <div id="wrapper">
             <div id="background"
                 :style="{ ...backgroundStyle, 'background-image': `url(@/assets/images/${backgroundImage})` }"></div>
-        </div>
+        </div> -->
         <main>
             <slot></slot>
         </main>
@@ -67,12 +67,11 @@ main {
 #wrapper {
     position: relative;
     flex-direction: column;
-    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: row;
-    align-items: flex-end;
-    justify-content: center;
+    align-items: start;
+    justify-content: start;
     padding-top: 120px;
 }
 
