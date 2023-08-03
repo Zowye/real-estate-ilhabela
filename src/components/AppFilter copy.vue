@@ -17,31 +17,26 @@
         <div id="main_filter_content_wrapper">
             <div class="filter-line middle">
                 <div class="filter-item middle_column first">
-                    <label for="procurando-por" class="filter-label">Procurando por:</label>
+                    <!-- <label for="procurando-por" class="filter-label">Procurando por:</label>
+                    <FilterBuildingType /> -->
                     <div class="custom-multiselect">
-                        <Multiselect class="custom-multiselect" mode="tags" v-model="selected_building_type"
-                            :options="options_building_type" :close-on-select="false" :searchable="true"
-                            :create-option="true" placeholder="Tipo Imóvel" />
+                        <Multiselect class="custom-multiselect" mode="tags" v-model="value" :options="options"
+                            :close-on-select="false" :searchable="true" :create-option="true"
+                            placeholder="Insira o tipo de imóvel" />
                     </div>
                 </div>
                 <div class="filter-item middle_column second">
                     <label for="bairro" class="filter-label">Bairro:</label>
-                    <Multiselect class="custom-multiselect" mode="tags" v-model="selected_neighboors"
-                        :options="options_neighboors" :close-on-select="false" :searchable="true" :create-option="true"
-                        placeholder="Bairro" />
+                    <FilterNeighborhoods />
                 </div>
                 <div class="filter-item middle_column third">
                     <label for="quartos" class="filter-label">Quantidade de quartos:</label>
-                    <Multiselect class="custom-multiselect" mode="tags" v-model="selected_neighboors"
-                        :options="options_neighboors" :close-on-select="false" :searchable="true" :create-option="true"
-                        placeholder="Quartos" />
+                    <FilterRoomsN />
 
                 </div>
                 <div class="filter-item middle_column fourth">
                     <label for="orcamento" class="filter-label">Seu orçamento:</label>
-                    <Multiselect class="custom-multiselect" mode="tags" v-model="selected_neighboors"
-                        :options="selected_neighboors" :close-on-select="false" :searchable="true" :create-option="true"
-                        placeholder="Insira o tipo de imóvel" />
+                    <FilterPriceRange />
                 </div>
 
             </div>
@@ -56,9 +51,9 @@
 </template>
 <script>
 // import FilterBuildingType from "@/components/filter/FilterBuildingType.vue";
-// import FilterNeighborhoods from "@/components/filter/FilterNeighborhoods.vue";
-// import FilterRoomsN from "@/components/filter/FilterRoomsN.vue";
-// import FilterPriceRange from "@/components/filter/FilterPriceRange.vue";
+import FilterNeighborhoods from "@/components/filter/FilterNeighborhoods.vue";
+import FilterRoomsN from "@/components/filter/FilterRoomsN.vue";
+import FilterPriceRange from "@/components/filter/FilterPriceRange.vue";
 import Multiselect from '@vueform/multiselect'
 import '@vueform/multiselect/themes/default.css'
 
@@ -77,54 +72,20 @@ export default {
         },
     },
     setup() {
-        const selected_building_type = [];
-        const options_building_type = ['Casa', 'Apartamento', 'Flat', 'Sítio', 'Escritório'];
-        const selected_neighboors = [];
-        const options_neighboors = [
-            "Água Branca",
-            "Bairro Alto",
-            "Barra Velha",
-            "Bexiga",
-            "Bonete",
-            "Ilha das Cabras",
-            "Itaguassú",
-            "Itaquanduba",
-            "Jabaquara",
-            "Perequê",
-            "Piúva",
-            "Ponta Azeda",
-            "Ponta das Canas",
-            "Portinho",
-            "Praia Grande",
-            "Reino",
-            "Saco da Capela",
-            "Saco do Indaiá",
-            "Siriúba",
-            "Viana",
-            "Vila"
-        ];
+        const value = [];
+        const options = ['Casa', 'Apartamento', 'Flat', 'Sítio', 'Escritório'];
 
 
-        const onClickBuildingType = () => {
+        const onClick = () => {
             const newTag = String(Math.random());
-            selected_building_type.value = [...options_building_type.value, newTag];
-            options_building_type.value = [...options_building_type.value, newTag];
-        };
-
-
-        const onClickNeighboors = () => {
-            const newTag = String(Math.random());
-            selected_neighboors.value = [...selected_neighboors.value, newTag];
-            options_neighboors.value = [...options_neighboors.value, newTag];
+            options.value = [...options.value, newTag];
+            value.value = [...value.value, newTag];
         };
 
         return {
-            selected_building_type,
-            options_building_type,
-            selected_neighboors,
-            options_neighboors,
-            onClickBuildingType,
-            onClickNeighboors
+            value,
+            options,
+            onClick,
         };
     },
     methods: {
@@ -151,10 +112,10 @@ export default {
     ,
     components: {
         // FilterBuildingType,
-        // FilterNeighborhoods,
-        // FilterRoomsN,
+        FilterNeighborhoods,
+        FilterRoomsN,
         Multiselect,
-        // FilterPriceRange
+        FilterPriceRange
     }
 };
 </script>
@@ -164,7 +125,7 @@ export default {
     background-color: #543b3b;
 }
 
-.custom-multiselect>>>.multiselect__input {
+.custom-multiselect >>> .multiselect__input {
     background-color: #543b3b;
 }
 
@@ -189,7 +150,7 @@ export default {
 }
 
 #filters {
-    width: 50%;
+    width: 70%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -223,7 +184,7 @@ export default {
     border-bottom-color: rgba(128, 128, 128, 0.2);
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.01);
     transition: all .35s;
-    z-index: 1111;
+
 }
 
 

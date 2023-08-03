@@ -1,6 +1,28 @@
 :root.day-theme {
+
+  --ms-tag-bg: #e7e3e3;
+  --ms-tag-font-size: 0.875rem;
+  --ms-tag-radius: 1em;
+  --ms-border-width: 0px;
+  --ms-tag-font-weight: 200;
+  --ms-tag-color: #000;
+  --ms-bg: #ffffff00;
+  --ms-radius: 2em;
+  --ms-ring-width: 0px;
+  --ms-caret-color: #000000;
+  --ms-clear-color: #000000;
+  --ms-clear-color-hover: #c4341a;
+  --ms-option-bg-pointed: #0d1b48;
+  --ms-option-color-pointed: #ffffff;
+
+
+
+
+
+
+
   /* BASE FONTS */
-  --font-text: 'Poppins',sans-serif;
+  --font-text: 'Poppins', sans-serif;
 
   /* BASE COLORS */
   --cor-base: #424767;
@@ -33,7 +55,7 @@
   --cor-lighten: color-mix(in srgb, var(--cor-base), #ffffff 60%);
   --app-bg-color: #edf2f9;
   --card-background: rgb(252, 252, 252);
-  --button-background:#f0f0f0;
+  --button-background: #f0f0f0;
   --header-background: #edf2f9;
   --scroll-bgcolor: rgb(230, 230, 230);
 
@@ -74,6 +96,7 @@
   --cor-lighten: color-mix(in srgb, var(--cor-base), #ffffff 60%);
   --app-bg-color: #0b1727;
   --card-background: rgb(18, 25, 34);
-  --header-background: rgb(13, 18, 24);;
+  --header-background: rgb(13, 18, 24);
+  ;
   --scroll-bgcolor: rgb(50, 50, 50);
 }
