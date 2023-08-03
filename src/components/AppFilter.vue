@@ -30,7 +30,7 @@
                         :options="options_neighboors" :close-on-select="false" :searchable="true" :create-option="true"
                         placeholder="Bairro" />
                 </div>
-                <div class="filter-item middle_column third">
+                <!-- <div class="filter-item middle_column third">
                     <label for="quartos" class="filter-label">Quantidade de quartos:</label>
                     <Multiselect class="custom-multiselect" mode="tags" v-model="selected_neighboors"
                         :options="options_neighboors" :close-on-select="false" :searchable="true" :create-option="true"
@@ -39,17 +39,28 @@
                 </div>
                 <div class="filter-item middle_column fourth">
                     <label for="orcamento" class="filter-label">Seu orçamento:</label>
-                    <Multiselect class="custom-multiselect" mode="tags" v-model="selected_neighboors"
-                        :options="selected_neighboors" :close-on-select="false" :searchable="true" :create-option="true"
-                        placeholder="Insira o tipo de imóvel" />
-                </div>
+                    <div class="rhea_price_slider_wrapper" id="rhea_slider_7aa80cab">
+                        <div class="rhea_price_label">
+                            Price Range </div>
+                        <div
+                            class="rhea_price_slider ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
+                            <div class="ui-slider-range ui-corner-all ui-widget-header"
+                                style="left: 17.6063%; width: 61.4091%;"></div><span tabindex="0"
+                                class="ui-slider-handle ui-corner-all ui-state-default" style="left: 17.6063%;"></span><span
+                                tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"
+                                style="left: 79.0155%;"></span>
+                        </div>
+                        <div class="rhea_price_range">
+                            From <span class="rhea_price_display rhea_min_slide" data-index="0">$1,225,700</span>
+                            To <span class="rhea_price_display rhea_max_slide" data-index="1">$5,492,100</span>
+                            <div class="rhea_price_slider ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"><div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 17.6063%; width: 61.4091%;"></div><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 17.6063%;"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 79.0155%;"></span></div>
+                        </div>
+                    </div>
+                </div> -->
 
             </div>
-            <div class="filter-line effect-toggle">
-
-                <div id="filter-chips-group">
-                    <!-- Conteúdo gerado via javascript dinamicamente-->
-                </div>
+            <div class="filter-line filter-more-line">
+                + Filter More
             </div>
         </div>
     </div>
@@ -66,7 +77,7 @@ import '@vueform/multiselect/themes/default.css'
 export default {
     data() {
         return {
-            activeButton: '', // Adicionado a variável activeButton
+            activeButton: 'ALUGAR', // Adicionado a variável activeButton
             selectedOptions: [],
             // options: ['Casa', 'Apartamento', 'Flat', 'Sítio', 'Escritório'],
         };
@@ -173,11 +184,11 @@ export default {
 }
 
 .first {
-    width: 18%;
+    width: 35%;
 }
 
 .second {
-    width: 30%;
+    width: 65%;
 }
 
 .third {
@@ -188,8 +199,17 @@ export default {
     width: 20%;
 }
 
+.filter-more-line{
+    background-color: rgb(231, 231, 231);
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    padding: 0.4em 0.8em;
+    color: rgb(61, 61, 61);
+}
+
+
 #filters {
-    width: 50%;
+    width: 40%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -224,7 +244,8 @@ export default {
     border-bottom-color: rgba(128, 128, 128, 0.2);
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.01);
     transition: all .35s;
-    z-index: 1111;
+    z-index: 9;
+
 }
 
 
@@ -315,16 +336,18 @@ export default {
 }
 
 .top {
+    height: 2.2em;
     z-index: 1;
     justify-content: center;
-    align-items: center;
+    align-items: end;
     width: 60%;
 }
 
 .middle {
     align-items: baseline;
     justify-content: baseline;
-    margin-bottom: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+
 }
 
 .bottom {
@@ -464,6 +487,7 @@ export default {
     justify-content: center;
     background-color: var(--cor-base);
     margin: 0;
+    height: 0.6em;
     padding: 0.75em 1.5em;
     cursor: pointer;
     box-shadow: 2px 7px 9px 8px rgba(0, 22, 0, 0.1);
@@ -471,7 +495,7 @@ export default {
     font-family: 'Roboto Condensed', sans-serif;
     transform-origin: bottom;
     position: relative;
-    transition: all .35s;
+    transition: all .15s;
 }
 
 .top-button span {
@@ -480,6 +504,9 @@ export default {
 }
 
 .active {
+    height: 1.2em;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
     background-color: var(--card-background);
     color: var(--cor-text-base);
 }

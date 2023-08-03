@@ -435,6 +435,7 @@ export default {
 
 
 #wrapper_house_explorer {
+    margin-top: 140px;
     display: flex;
     flex-direction: column;
     align-content: flex-start;

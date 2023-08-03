@@ -84,6 +84,11 @@ export default {
 };
 </script>
 <style>
+
+.mobile-header, .desktop-header {
+  z-index: 10;
+}
+
 .mobile-header {
   /* ... existing styles for mobile header ... */
   display: none;

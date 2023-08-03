@@ -94,7 +94,7 @@
   --cor-lighten: color-mix(in srgb, var(--cor-base), #ffffff 60%);
   --app-bg-color: #0b1727;
   --card-background: rgb(18, 25, 34);
-  --header-background: rgb(13, 18, 24);
+  --header-background: rgb(0, 0, 0);
   ;
   --scroll-bgcolor: rgb(50, 50, 50);
 }
