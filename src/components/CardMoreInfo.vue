@@ -59,11 +59,17 @@ export default {
     mounted() {
         // Adiciona um ouvinte de evento para a tecla Escape (ESC)
         document.addEventListener('keydown', this.handleEscapeKey);
+
+        // Desativa a rolagem na body da página
+        document.body.style.overflow = 'hidden';
     },
 
     beforeUnmount() {
         // Remove o ouvinte de evento ao desmontar o componente
         document.removeEventListener('keydown', this.handleEscapeKey);
+
+        // Reativa a rolagem na body da página
+        document.body.style.overflow = 'auto';
     },
     emits: ['close'],
 
@@ -137,6 +143,10 @@ export default {
     z-index: 10000;
 }
 
+.album-container,
+.info-container {
+    width: 49%;
+}
 
 
 .album-info-container {
@@ -154,12 +164,10 @@ export default {
     transform: translate(-50%, -50%);
     /* This centers the element both horizontally and vertically */
     background-color: #fff;
-    padding: 20px;
+    padding: 1em;
     border-radius: 1em;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.31);
+    box-shadow: 0px 0.3em 0.8em rgba(0, 0, 0, 0.31);
     z-index: 10001;
-    display: flex;
-    flex-direction: row;
     border-radius: 0.5em;
     border-right: 1px solid rgba(128, 128, 128, .2);
     border-right-width: 1px;
@@ -169,7 +177,9 @@ export default {
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: rgba(128, 128, 128, 0.2);
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.01);
+    max-height: 90vh;
+    overflow: auto;
+    overflow-x: hidden;
 }
 
 .close-button {
@@ -204,9 +214,6 @@ export default {
     width: 100%;
     /* You can adjust this value to fit your layout */
     height: 500px;
-    display: block;
-    /* Set a fixed height for the image container */
-    overflow: hidden;
 }
 
 
@@ -223,7 +230,7 @@ export default {
     display: flex;
     flex-direction: column;
     width: 50%;
-    /* Definimos a largura como 50% para ocupar metade da largura */
+    /* Add this */
     overflow: hidden;
 }
 
@@ -353,5 +360,23 @@ export default {
 
 .ver-mais-button2:hover {
     background-color: #ae9ae3;
+}
+
+
+@media screen and (max-width: 768px) {
+    .album-info-container {
+        flex-direction: column;
+    }
+
+    .album-container,
+    .info-container {
+        width: 100%;
+    }
+
+    .image-container {
+        width: 100%;
+        height: auto;
+        /* Adjust this as needed */
+    }
 }
 </style>
