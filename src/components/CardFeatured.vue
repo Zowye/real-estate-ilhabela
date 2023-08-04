@@ -21,7 +21,7 @@
             <CardCommonInfo />
             <div class="price">R$ {{ featured_data.formattedPrice }} {{ featured_data.suffix }} </div>
             <div class="description">{{ truncateDescription(featured_data.description_full) }}</div>
-            <button class="ver-mais-button2">Ver Mais</button>
+            <button class="see-more-btn ">Ver Mais</button>
 
             <div class="amenities">
                 <CardAmenities :amenities="featured_data.amenities" />
@@ -125,7 +125,7 @@ export default {
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.10);
 }
 
-.card_address{
+.card_address {
     font-size: 1.2rem;
 }
 
@@ -184,21 +184,19 @@ export default {
     gap: 8px;
 }
 
-.ver-mais-button2 {
-    display: inline-block;
-    background-color: var(--cor-base);
-    color: #333;
-    border: none;
-    border-radius: 0.2em;
-    padding: 0.4em 2.8em;
-    color: white;
-    font-size: 1.2em;
-    margin-top: 10px;
+.see-more-btn {
+    color: var(--cor-base);
+    border: 1px solid var(--cor-base);
+    border-radius: 1em;
+    padding: 1em 3em;
+    font-size: 0.9em;
     cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.1s ease;
 }
 
-.ver-mais-button2:hover {
-    background-color: var(--cor-base-hover)
+.see-more-btn:hover {
+    color: #fff;
+    background-color: var(--cor-base);
 }
 
 .close-btn {

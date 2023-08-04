@@ -16,11 +16,13 @@
         <div id="fav_div_section" :v-click-outside="toggleFavoritesDropdown">
           <button class="icon_menu_item" :class="{ active: dropdownvisible }" @click="toggleFavoritesDropdown">
             <i class="fas fa-heart"></i>
+            <div v-if="favorites.length > 0" class="number-of-favs">{{ favorites.length }}</div>
           </button>
           <div class="favorites-dropdown" v-show="dropdownvisible">
             <ul>
               <!-- Show the current favorite list -->
-              <li v-for="card_fav in favorites" :key="card_fav">
+              <li v-if="favorites.length === 0" class="empty-fav">Vazio</li>
+              <li v-else v-for="card_fav in favorites" :key="card_fav">
                 <div class="left"><img :src="card_fav.card_images[0]"></div>
                 <div class="right">
                   <div>{{ card_fav.street }}</div>
@@ -89,8 +91,8 @@ export default {
     },
     // Computed property que retorna a lista de favoritos do Vuex
     favorites() {
-      let teste = this.$store.getters.getFavorites; // Acesso direto ao getter
-      return teste;
+      let favorites = this.$store.getters.getFavorites; // Acesso direto ao getter
+      return favorites;
     },
   },
   methods: {
@@ -121,6 +123,13 @@ export default {
 </script>
   
 <style scoped>
+.empty-fav {
+  padding: 0.2em;
+  font-size: 1.0em;
+  background-color: rgba(255, 255, 255, 0.695) !important;
+  color: rgb(0, 0, 0);
+}
+
 #fav_div_section {
   position: relative;
 }
@@ -136,15 +145,19 @@ export default {
   border: none;
   border-radius: 50%;
   width: 2.2em;
+  color: rgb(189, 146, 146);
   height: 2.2em;
   background-color: rgb(223, 243, 248);
   padding: 0.2em;
-  /* border: 1px solid var(--cor-base); */
   cursor: pointer;
   font-size: 1.2em;
-
-  /* Hide the overflow of the ball */
+  transition: color 200ms;
 }
+
+.icon_menu_item:hover {
+  color: rgb(182, 79, 79);
+}
+
 
 .moon_toggle {
   height: 1.2em;
@@ -254,8 +267,8 @@ export default {
 
 .right {
   flex-grow: 1;
-  padding: 1em 3em;
-  font-size: 0.7em;
+  padding: 1em 3em 1em 1em;
+  font-size: 1.0em;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -263,6 +276,8 @@ export default {
 }
 
 .left img {
+  border-top-left-radius: 1em;
+  border-bottom-left-radius: 1em;
   left: 0;
   width: 6em;
   height: 6em;
@@ -273,9 +288,10 @@ export default {
 /* Botão de fechar */
 .close-button {
   position: absolute;
-  top: 0.0em;
+  top: -1.0em;
   right: 0.0em;
   border: none;
+  border-radius: 0em 0em 0em 0em;
   background: none;
   color: rgb(139, 42, 42);
   font-size: 1.0em;
@@ -287,6 +303,19 @@ export default {
 /* Exibir o botão de fechar quando o cursor estiver sobre a li */
 li:hover .close-button {
   opacity: 1;
+}
+
+
+.number-of-favs {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 0.6em;
+  font-weight: 700;
+  color:black;
+  border-radius: 50%;
+  padding: 0.3em;
+  /* Adjust according to your needs */
 }
 </style>
   

@@ -199,7 +199,7 @@ export default {
     width: 20%;
 }
 
-.filter-more-line{
+.filter-more-line {
     background-color: rgb(231, 231, 231);
     border-bottom-left-radius: 0.5em;
     border-bottom-right-radius: 0.5em;
@@ -549,8 +549,17 @@ export default {
         /* Add some padding for better spacing */
     }
 
+    .active {
+        height: 1.2em;
+        border-top-left-radius: 0.0em;
+        border-top-right-radius: 0.0em;
+        background-color: var(--card-background);
+        color: var(--cor-text-base);
+    }
+
     .top-button {
-        padding: 0.5em;
+        height: 1.5em;
+        padding: 1.1em 2.1em;
     }
 
     .filter-label {
