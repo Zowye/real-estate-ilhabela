@@ -56,9 +56,7 @@ main {
     align-items: center;
     justify-content: center;
     z-index: 1;
-    margin-top: 7em;
     flex-grow: 1;
-
 }
 
 

@@ -217,7 +217,7 @@ export default {
     margin: auto;
     margin-bottom: 40px;
     border-radius: 1em;
-    margin-top: 2em;
+    margin-top: 10em;
     bottom: 0;
 }
 
@@ -544,6 +544,8 @@ export default {
         /* Adjust the width to fit the screen */
         padding: 10px;
         /* Add some padding for better spacing */
+    margin-top: 4em;
+
     }
 
     .active {
