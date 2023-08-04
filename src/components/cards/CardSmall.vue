@@ -309,11 +309,16 @@ export default {
     top: 0.3em;
     right: 0.3em;
     padding: 0.3em;
-    background-color: #ffffff6e;
-    border-radius: 0.3em;
+    background-color: #000000c9;
+    border-radius: 0.5em;
     cursor: pointer;
     color: #e0e0e0;
     font-size: 1.5em;
+    height: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1em;
     /* Defina o tamanho desejado para o coração */
 }
 
@@ -324,7 +329,7 @@ export default {
 
 .heart-icon {
     display: inline-block;
-    font-size: 1.2em;
+    font-size: 0.9em;
     cursor: pointer;
     color: #e0e0e0;
     transition: transform 300ms ease;
@@ -334,6 +339,10 @@ export default {
     font-size: 1.5em;
     color: rgb(160, 32, 53);
     animation: bounce 300ms;
+}
+
+.fav-heart.active {
+    background-color: transparent !;
 }
 
 /* Animação "bounce" */

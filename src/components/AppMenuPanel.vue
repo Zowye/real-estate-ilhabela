@@ -16,8 +16,9 @@
         <div id="fav_div_section" :v-click-outside="toggleFavoritesDropdown">
           <button class="icon_menu_item" :class="{ active: dropdownvisible }" @click="toggleFavoritesDropdown">
             <i class="fas fa-heart"></i>
-            <div v-if="favorites.length > 0 & favorites.length < 10" class="number-of-favs">{{ favorites.length }}</div>
-            <div v-if="favorites.length > 0" class="number-of-favs">9+</div>
+            <div v-if="favorites.length > 0 && favorites.length < 10" class="number-of-favs">{{ favorites.length }}</div>
+            <div v-if="favorites.length >= 10" class="number-of-favs">9+</div>
+
           </button>
           <div class="favorites-dropdown" v-show="dropdownvisible">
             <ul>

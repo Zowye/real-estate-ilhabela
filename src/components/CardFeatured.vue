@@ -186,11 +186,13 @@ export default {
 
 .see-more-btn {
     color: var(--cor-base);
-    border: 1px solid var(--cor-base);
+    border: 2px solid var(--cor-base);
     border-radius: 1em;
-    padding: 1em 3em;
-    font-size: 0.9em;
+    padding: 0.5em 3em;
+    font-size: 1.2em;
+    font-weight: 700;
     cursor: pointer;
+    background-color: white;
     transition: background-color 0.2s ease, color 0.2s ease, border-color 0.1s ease;
 }
 

@@ -21,15 +21,21 @@
 
                 <div id="info_wrapper">
                     <div class="house_infos breadcrumbs-container">
-                    <ul>
-                        <li class="limegreen">Novo</li>
-                        <li class="yellow">Postado em: 12/06/2023</li>
-                        <li class="orange">Trending</li>
-                        <li class="white">Apartamento</li>
-                    </ul>
-                </div>
+                        <ul>
+                            <li class="limegreen">Novo</li>
+                            <li class="yellow">Postado em: 12/06/2023</li>
+                            <li class="orange">Trending</li>
+                            <li class="white">Apartamento</li>
+                        </ul>
+                    </div>
 
-                    <h1>Overview</h1>
+                    <div id="topInfos" class="inner_cardcard_padding">
+                        <IconPin :width="40" :height="40" />
+                        <h1> {{ card.street }}, {{ card.streetNumber }}
+                        </h1>
+                    </div>
+                    <div class="neigh">
+                        {{ card.neighborhood }}</div>
                     <div id="icons_blocks_wrapper">
 
 
@@ -231,6 +237,7 @@ import L from 'leaflet';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import 'leaflet.markercluster';
+import IconPin from "@/components/icons/IconPin.vue";
 
 export default {
 
@@ -325,6 +332,7 @@ export default {
     },
     components: {
         DefaultLayout,
+        IconPin
     },
     data() {
         return {
@@ -591,5 +599,23 @@ export default {
 
 #big-image img {
     border-radius: 1em;
+}
+
+
+.card_address {
+    font-size: 1.2rem;
+}
+
+
+.neigh {
+    display: inline-block;
+    font-weight: 200;
+    margin-top: 0.5em;
+    padding: 0.35em 0.85em;
+    color: white;
+    border-radius: 1.5em;
+    margin-bottom: 1.0em;
+    font-size: 1.50em;
+    background-color: var(--cor-base);
 }
 </style>
