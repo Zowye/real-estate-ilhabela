@@ -10,7 +10,6 @@
             </div>
 
             <div id="main_row">
-
                 <div id="info_wrapper">
                     <div id="main_info">
                         <div class="image_overlay"></div>
@@ -37,7 +36,7 @@
 
                         </div>
                         <img :src="card_images[currentIndex]" class="gallery-image" loading="lazy" alt="Property Image"
-                            @click="changeCurrentIndex(index)" />
+                            @click="changeCurrentIndex(index)" v-on:swipeleft="swipeLeft" v-on:swiperight="swipeRight" />
                     </div>
 
                     <div id="map"></div>
@@ -113,9 +112,20 @@ export default {
     },
 
     methods: {
-
+        swipeLeft() {
+            console.log("SwipedLeft!!!!!!!!!!!!!!!!!");
+            if (this.currentIndex < this.card_images.length - 1) {
+                this.changeCurrentIndex(this.currentIndex + 1);
+            }
+        },
+        swipeRight() {
+            if (this.currentIndex > 0) {
+                this.changeCurrentIndex(this.currentIndex - 1);
+            }
+        },
         changeCurrentIndex(index) {
             this.currentIndex = index;
+            this.startProgressBar(); // Reinicia a barra de progresso sempre que a imagem é alterada manualmente
         },
         goToHome() {
             this.$router.push({ path: '/' });
@@ -141,15 +151,21 @@ export default {
         startSlideshow() {
             this.intervalIdSlideshow = setInterval(() => {
                 this.currentIndex++;
+
+                this.startProgressBar();
                 if (this.currentIndex >= this.card_images.length) {
                     this.currentIndex = 0;
                 }
             }, 4000);
         },
         startProgressBar() {
+            console.log("Called Progress Bar");
             this.progressBarWidth = 100;
-            const decrement = 100 / (4 * 60); // Divide por 4 segundos e 60 frames por segundo
+            const decrement = 100 / (4 * 60); // Divide by 4 seconds and 60 frames per second
             const frameRate = 1000 / 60; // 60 FPS
+            if (this.intervalIdProgressBar) {
+                clearInterval(this.intervalIdProgressBar); // Clear previous interval
+            }
             this.intervalIdProgressBar = setInterval(() => {
                 this.progressBarWidth -= decrement;
                 if (this.progressBarWidth <= 0) {
