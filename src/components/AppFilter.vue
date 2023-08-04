@@ -245,6 +245,7 @@ export default {
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.01);
     transition: all .35s;
     z-index: 9;
+    min-width: 30em;
 
 }
 
@@ -471,10 +472,6 @@ export default {
 .flex_column {
     flex-direction: column;
 }
-
-
-
-
 
 
 

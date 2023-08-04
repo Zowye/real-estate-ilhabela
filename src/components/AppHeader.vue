@@ -162,12 +162,11 @@ export default {
 
 
 .dropdown-menu {
-
   position: absolute;
   top: 120%;
   width: 90%;
   overflow: auto;
-  background-color: var(--cor-base);
+  background-color: white;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -260,11 +259,11 @@ export default {
 }
 
 .hamburger-icon span:nth-child(2) {
-  top: 8px;
+  top: 9px;
 }
 
 .hamburger-icon span:nth-child(3) {
-  top: 16px;
+  top: 18px;
 }
 
 .hamburger-icon.open span:nth-child(1) {

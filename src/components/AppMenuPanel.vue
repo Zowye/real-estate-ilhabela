@@ -16,7 +16,8 @@
         <div id="fav_div_section" :v-click-outside="toggleFavoritesDropdown">
           <button class="icon_menu_item" :class="{ active: dropdownvisible }" @click="toggleFavoritesDropdown">
             <i class="fas fa-heart"></i>
-            <div v-if="favorites.length > 0" class="number-of-favs">{{ favorites.length }}</div>
+            <div v-if="favorites.length > 0 & favorites.length < 10" class="number-of-favs">{{ favorites.length }}</div>
+            <div v-if="favorites.length > 0" class="number-of-favs">9+</div>
           </button>
           <div class="favorites-dropdown" v-show="dropdownvisible">
             <ul>
@@ -284,7 +285,6 @@ export default {
 }
 
 
-
 /* Botão de fechar */
 .close-button {
   position: absolute;
@@ -310,12 +310,17 @@ li:hover .close-button {
   position: absolute;
   top: 0;
   right: 0;
+  width: 11px;
+  height: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 0.6em;
   font-weight: 700;
-  color:black;
+  background-color: darkred;
+  color: white;
   border-radius: 50%;
   padding: 0.3em;
-  /* Adjust according to your needs */
 }
 </style>
   
