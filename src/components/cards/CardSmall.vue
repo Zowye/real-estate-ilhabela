@@ -26,7 +26,7 @@
                 <span class="monetary"><span class="currency_name">R$</span> </span><span class="monetary_value_number">{{
                     card.formattedPrice }}</span><span class="monetary_value_string">{{ card.suffix }}</span>
             </div>
-            <div class="buttons_fav">VER MAIS</div>
+            <div class="see-more-btn" @click="handleMoreInfo">VISÃO RÁPIDA</div>
         </div>
     </div>
 </template>
@@ -80,6 +80,9 @@ export default {
             this.isFavorite = !this.isFavorite;
 
         },
+        handleMoreInfo() {
+            this.$emit('card-more-info', this.card);
+        }
     },
     computed: {
         ...mapState({
@@ -136,6 +139,20 @@ export default {
     color: #424767;
 }
 
+.see-more-btn {
+    color: var(--cor-base);
+    border: 1px solid var(--cor-base);
+     border-radius: 1em;
+    padding: 1em 2em;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.1s ease;
+}
+
+.see-more-btn:hover {
+    color: #fff;
+    background-color: var(--cor-base);
+}
 
 /*     
 .card {
@@ -257,7 +274,7 @@ export default {
 
 .ver-mais-button:hover,
 .olhadela-button:hover {
-    background-color: #e0e0e0;
+    background-color: #6d6a6a;
     border-color: #999;
 }
 

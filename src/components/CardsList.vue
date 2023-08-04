@@ -21,7 +21,7 @@
             <div class="card-list">
                 <!-- Loop pelos dados do arquivo data.json -->
                 <component v-for="card in items" :key="card.id" :is="activeTab === 'small' ? 'CardSmall' : 'CardLarge'"
-                    :card="card" :cardWidth="cardWidth" />
+                    :card="card" :cardWidth="cardWidth" @card-more-info="openCardMoreInfo" />
             </div>
         </div>
     </div>
