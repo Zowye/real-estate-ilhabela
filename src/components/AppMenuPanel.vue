@@ -14,7 +14,7 @@
       </li>
       <li>
         <div id="fav_div_section" :v-click-outside="toggleFavoritesDropdown">
-          <button class="icon_menu_item" :class="{ active: dropdownvisible }" @click="toggleFavoritesDropdown">
+          <button class="icon_menu_item fav" :class="{ active: dropdownvisible }" @click="toggleFavoritesDropdown">
             <i class="fas fa-heart"></i>
             <div v-if="favorites.length > 0 && favorites.length < 10" class="number-of-favs">{{ favorites.length }}</div>
             <div v-if="favorites.length >= 10" class="number-of-favs">9+</div>
@@ -38,6 +38,25 @@
               </li>
             </ul>
           </div>
+
+        </div>
+      </li>
+      <li>
+        <div :v-click-outside="toggleFavoritesDropdown">
+          <button class="icon_menu_item user" :class="{ active: dropdownvisible }">
+            <i class="fas fa-user"></i>
+
+          </button>
+
+
+        </div>
+      </li>
+
+      <li>
+        <div :v-click-outside="toggleFavoritesDropdown">
+          <button class="icon_menu_item user" :class="{ active: dropdownvisible }">
+            <i class="fas fa-cog"></i>
+          </button>
         </div>
       </li>
       <!-- <li>
@@ -147,19 +166,27 @@ export default {
   border: none;
   border-radius: 50%;
   width: 2.2em;
-  color: rgb(189, 146, 146);
+  color: rgb(139, 137, 137);
   height: 2.2em;
-  background-color: rgb(223, 243, 248);
+  background-color: rgb(255, 255, 255);
   padding: 0.2em;
   cursor: pointer;
   font-size: 1.2em;
-  transition: color 200ms;
+  transition: all 200ms;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .icon_menu_item:hover {
+    animation: bounce 0.5s ease;
+}
+
+.fav:hover {
   color: rgb(182, 79, 79);
 }
 
+.user:hover {
+  color: rgb(89, 138, 135);
+}
 
 .moon_toggle {
   height: 1.2em;
@@ -323,5 +350,32 @@ li:hover .close-button {
   border-radius: 50%;
   padding: 0.3em;
 }
-</style>
+
+
+
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+
+  20% {
+    transform: scale(1.1);
+  }
+
+  40% {
+    transform: scale(0.9);
+  }
+
+  60% {
+    transform: scale(1.05);
+  }
+
+  80% {
+    transform: scale(0.95);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}</style>
   
