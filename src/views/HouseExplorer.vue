@@ -42,14 +42,17 @@
                     <div id="map"></div>
 
                 </div>
+                <div id="gallary">
+                    <div class="gallary_overlay"></div>
 
-                <div class="gallary_container">
-
-                    <div v-for="(image, index) in card_images" :key="index" :class="getImageClass(index)">
-                        <img :src="image" class="gallery-image" loading="lazy" alt="Property Image"
-                            @click="changeCurrentIndex(index)" />
+                    <div class="gallary_container">
+                        <div v-for="(image, index) in card_images" :key="index" ref="image"
+                            @click="changeCurrentIndex(index)">
+                            <img :src="image" loading="lazy" alt="Property Image" />
+                        </div>
                     </div>
                 </div>
+
 
             </div>
 
@@ -116,6 +119,7 @@ export default {
     },
 
     methods: {
+
         swipeLeft() {
             console.log("SwipedLeft!!!!!!!!!!!!!!!!!");
             if (this.currentIndex < this.card_images.length - 1) {
@@ -129,6 +133,7 @@ export default {
         },
         changeCurrentIndex(index) {
             this.currentIndex = index;
+            this.$refs.image[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
             this.startProgressBar(); // Reinicia a barra de progresso sempre que a imagem é alterada manualmente
         },
         goToHome() {
@@ -321,7 +326,6 @@ export default {
 }
 
 
-
 .image_overlay {
     border-radius: 0.6em;
     position: absolute;
@@ -336,6 +340,14 @@ export default {
     /* Colocar abaixo do texto, mas acima da imagem */
 }
 
+
+.gallary_overlay {
+    position: absolute;
+    right: 0;
+    width: 100px;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.6));
+}
 
 
 #description {
@@ -497,16 +509,33 @@ export default {
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.10);
     background-color: var(--card-background);
     border-radius: 1em;
-    display: grid;
-    grid-gap: 0.2em;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    grid-auto-rows: 100px;
-    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    min-width: 100%;
     padding: 10px;
 }
 
+#gallary{
+    position: relative;
+}
+
+.gallary_container::-webkit-scrollbar {
+    display: none;
+}
+
+.image_container {
+    margin-right: 10px;
+    /* Se você quiser algum espaço entre as imagens */
+}
+
 .gallary_container img {
+    border-radius: 0.5em;
+    margin-left: 0.5em;
     cursor: pointer;
+    width: 100px;
+    height: 100px;
 }
 
 .image_container {

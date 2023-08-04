@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <DefaultLayout>
         <div id="wrapper_house_explorer">
             <div id="breadcrumbs" class="breadcrumbs-container">
@@ -757,4 +757,4 @@ export default {
         flex: 1 0 100%;
     }
 }
-</style>
+</style> -->
