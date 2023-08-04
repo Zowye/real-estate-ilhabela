@@ -60,6 +60,8 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800');
 
+
+
 h1 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
@@ -71,6 +73,7 @@ h1 {
 
 * {
   font-family: Playfair, sans-serif;
+  user-zoom:fixed;
 }
 
 p {

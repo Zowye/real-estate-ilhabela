@@ -124,7 +124,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  width: 50%;
+  width: auto;
   align-items: center;
 }
 
@@ -153,9 +153,9 @@ export default {
 }
 
 .logo {
-  margin-left: 20px;
-  margin-right: 20px;
-  width: 199px;
+  margin-left: 1.3em;
+  margin-right: 1.3em;
+  width: 12em;
   cursor: pointer;
 }
 

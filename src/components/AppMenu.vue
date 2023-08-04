@@ -25,6 +25,7 @@ export default {};
   display: flex;
   list-style: none;
   padding: 0;
+  white-space: nowrap;
   margin: 0;
 }
 

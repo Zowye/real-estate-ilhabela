@@ -102,7 +102,7 @@ export default {
     background-color: var(--card-background);
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
     margin: 1em;
-    width: 400px;
+    width: 28em;
     border-radius: 0.7em;
     border-top-left-radius: 1.2em;
     border-top-right-radius: 1.2em;
@@ -376,6 +376,14 @@ export default {
 .heart-icon:hover {
     color: pink;
     /* ou a cor desejada ao passar o mouse (hover) */
+}
+
+/* Ajusta para tela mobile */
+@media screen and (max-width: 768px) {
+    .card{
+        width: 85%;
+    }
+
 }
 </style>
   

@@ -3,27 +3,35 @@
     <div class="footer-top">
       <div class="column">
         <h3>Sobre Nós</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Aliquam</strong> tincidunt
-          <strong>fringilla</strong> arcu, eget cursus elit tincidunt vitae.
-        </p>
+        <ul>
+          <li><a href="#">Nossos imóveis</a></li>
+          <li><a href="#">Nossa história</a></li>
+          <li><a href="#">Nossa equipe</a></li>
+          <li><a href="#">Testemunhos</a></li>
+          <li><a href="#">Parceiros</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
       </div>
       <div class="column">
-        <div class="icon">
-          <!-- <img src="@/assets/images/globe.png" alt="Globe Icon" class="globe-icon" /> -->
-        </div>
+        <h3>Informações</h3>
+        <ul>
+          <li><a href="#">Regras</a></li>
+          <li><a href="#">Trabalhe conosco</a></li>
+          <li><a href="#">Responsabilidade social</a></li>
+          <li><a href="#">Sustentabilidade</a></li>
+          <li><a href="#">Perguntas Frequentes</a></li>
+          <li><a href="#">Guias e Recursos</a></li>
+        </ul>
       </div>
       <div class="column">
-        <h3>Coluna 3</h3>
-        <ul class="menu">
-          <li>
-            <a href="#"><i class="fas fa-home"></i> Início</a>
-          </li>
-          <li>
-            <a href="#"><i class="fas fa-user"></i> Perfil</a>
-          </li>
-          <li>
-            <a href="#"><i class="fas fa-cogs"></i> Configurações</a>
-          </li>
+        <h3>Serviços</h3>
+        <ul>
+          <li><a href="#">Compra de Imóveis</a></li>
+          <li><a href="#">Venda de Imóveis</a></li>
+          <li><a href="#">Aluguel de Imóveis</a></li>
+          <li><a href="#">Gestão de Propriedades</a></li>
+          <li><a href="#">Consultoria Imobiliária</a></li>
+          <li><a href="#">Avaliação de Imóveis</a></li>
         </ul>
       </div>
     </div>
@@ -38,12 +46,16 @@ export default {};
 </script>
 
 <style scoped>
+h3{
+  color:white;
+}
+
 footer {
   margin-top:10em;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 200px;
+  height: auto;
   background-color: var(--cor-footer-regular);
 }
 
@@ -55,7 +67,7 @@ footer {
 .footer-bottom {
   bottom: 0;
   background-color: var(--cor-footer-darker);
-  color: var(--cor-base);
+  color: white;
   padding: 10px;
   text-align: center;
 }
@@ -70,10 +82,6 @@ footer {
   margin-bottom: 10px;
 }
 
-.column p strong {
-  font-weight: bold;
-}
-
 .icon {
   display: flex;
   justify-content: center;
@@ -85,22 +93,21 @@ footer {
   opacity: 0.8;
 }
 
-.menu {
+ul{
   list-style: none;
-  padding: 0;
-  margin: 0;
 }
 
-.menu li {
+ul li {
   margin-bottom: 10px;
 }
 
-.menu a {
+ul li a {
   color: #fff;
   text-decoration: none;
+  transition: color 0.2s;
 }
 
-.menu a i {
-  margin-right: 5px;
+ul li a:hover {
+  color: #91a9e4;
 }
 </style>
