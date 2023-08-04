@@ -12,7 +12,7 @@
             <div id="main_row">
                 <div id="info_wrapper">
                     <div id="main_info">
-                        <div class="image_overlay"></div>
+                        <div class="image_overlay" ref="touchArea"></div>
                         <div class="progress-bar" :style="{ width: progressBarWidth + '%' }"></div>
 
                         <div class="image_content">
@@ -36,7 +36,7 @@
 
                         </div>
                         <img :src="card_images[currentIndex]" class="gallery-image" loading="lazy" alt="Property Image"
-                            @click="changeCurrentIndex(index)" v-on:swipeleft="swipeLeft" v-on:swiperight="swipeRight" />
+                            @click="changeCurrentIndex(index)" />
                     </div>
 
                     <div id="map"></div>
@@ -65,6 +65,8 @@ import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import 'leaflet.markercluster';
 import IconPin from "@/components/icons/IconPin.vue";
+import Hammer from 'hammerjs';
+
 // import CardAmenities from '@/components/CardAmenities.vue';
 
 export default {
@@ -72,7 +74,9 @@ export default {
 
 
     mounted() {
-
+        this.hammer = new Hammer(this.$refs.touchArea);
+        this.hammer.on('swipeleft', this.swipeLeft);
+        this.hammer.on('swiperight', this.swipeRight);
         this.startSlideshow();
         this.startProgressBar();
 
@@ -181,6 +185,9 @@ export default {
 
     },
     beforeUnmount() {
+        this.hammer.off('swipeleft', this.swipeLeft);
+        this.hammer.off('swiperight', this.swipeRight);
+
         if (this.intervalIdSlideshow) {
             clearInterval(this.intervalIdSlideshow);
         }

@@ -2,7 +2,6 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import Vue2TouchEvents from 'vue2-touch-events'
 
 // Importe o variables.css aqui
 import '@/assets/css/variables.css';
@@ -15,5 +14,4 @@ store.state.isLoading = true;
 createApp(App)
   .use(router)
   .use(store)
-  .use(Vue2TouchEvents)
   .mount('#app');
