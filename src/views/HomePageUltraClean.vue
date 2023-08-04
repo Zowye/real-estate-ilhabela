@@ -28,7 +28,6 @@ export default {
 
 #home-page-container {
   width: 70%;
-  margin-top: 100px;
   align-items: center;
   justify-content: center;
 }

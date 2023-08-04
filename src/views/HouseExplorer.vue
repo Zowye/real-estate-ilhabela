@@ -5,27 +5,30 @@
                 <a @click="goToHome">Home</a> <span class="icon"><i class="fas fa-chevron-right"
                         style="font-size:10px; color: black; margin-left: 2em; margin-right: 1em;"></i></span> House
                 Explorer
+
+
             </div>
+
+
+
+
 
 
             <div id="main_row">
 
-                <div class="gallary_container">
 
-                    <div v-for="(image, index) in card_images" :key="index" :class="getImageClass(index)">
-                        <img :src="image" class="gallery-image" loading="lazy" alt="Property Image" />
-                    </div>
-                </div>
+                <div id="map"></div>
 
                 <div id="info_wrapper">
-                    <div class="house_infos">
-                        <ul>
-                            <li class="limegreen">Novo</li>
-                            <li class="yellow">Postado em: 12/06/2023</li>
-                            <li class="orange">Trending</li>
-                            <li class="white">Apartamento</li>
-                        </ul>
-                    </div>
+                    <div class="house_infos breadcrumbs-container">
+                    <ul>
+                        <li class="limegreen">Novo</li>
+                        <li class="yellow">Postado em: 12/06/2023</li>
+                        <li class="orange">Trending</li>
+                        <li class="white">Apartamento</li>
+                    </ul>
+                </div>
+
                     <h1>Overview</h1>
                     <div id="icons_blocks_wrapper">
 
@@ -52,7 +55,7 @@
                         <div class="rh_ultra_prop_card__meta">
                             <div class="icon_and_info_wrapper">
                                 <div class="icon-label">
-                                    Bathrooms </div>
+                                    Saunas </div>
                                 <div class="bottom_content">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         class="icon">
@@ -125,10 +128,10 @@
                     </div>
 
                     <h1>Descrição</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing corporis, quae, nemo sunt commodi error optio rem
-                        magni ipsam. Ea pariatur sed provident? Ducimus, placeat, rem voluptas iure corrupti et quae
-                        doloremque
-                        sapiente voluptatem quos at dolores repellat pariatur voluptatum recusandae?</p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing corporis, quae, nemo sunt commodi error optio rem
+                    magni ipsam. Ea pariatur sed provident? Ducimus, placeat, rem voluptas iure corrupti et quae
+                    doloremque
+                    sapiente voluptatem quos at dolores repellat pariatur voluptatum recusandae?
                     <div class="price">R$ {{ card.formattedPrice }} {{ card.suffix }}</div>
 
 
@@ -176,13 +179,23 @@
 
 
 
-                        <div id="map">a</div>
+
 
                     </div>
 
 
 
                 </div>
+                <div id="big-image"><img :src="card_images[currentIndex]" loading="lazy" alt="Property Image" /></div>
+                <div class="gallary_container">
+
+                    <div v-for="(image, index) in card_images" :key="index" :class="getImageClass(index)">
+                        <img :src="image" class="gallery-image" loading="lazy" alt="Property Image"
+                            @click="changeCurrentIndex(index)" />
+                    </div>
+                </div>
+
+
 
             </div>
 
@@ -212,76 +225,82 @@ card.city }}, {{ card.state }}, {{ card.country }}</p>
 <script>
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import data from '@/data.json';
-import mapboxgl from 'mapbox-gl';
+// import mapboxgl from 'mapbox-gl';
+import L from 'leaflet';
+// Import MarkerCluster styles and the library
+import 'leaflet.markercluster/dist/MarkerCluster.css';
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
+import 'leaflet.markercluster';
 
 export default {
 
 
 
-
-
-
-
-
-
-
-
     mounted() {
-        // Initialize the map
-        mapboxgl.accessToken =
-            'pk.eyJ1Ijoiem93eWUiLCJhIjoiY2xqeDAwM2F5MDFoMDNlcGx3c2RqZ3ZldyJ9.BgqylKNWVF6Io-dSx4o54Q';
+        // // Initialize the map
+        // mapboxgl.accessToken = 'pk.eyJ1Ijoiem93eWUiLCJhIjoiY2xqeDAwM2F5MDFoMDNlcGx3c2RqZ3ZldyJ9.BgqylKNWVF6Io-dSx4o54Q';
+
+        // const map = new mapboxgl.Map({
+        //     container: 'map',
+        //     zoom: 14,
+        //     center: [-45.3587, -23.7781],  // Coordenadas de Ilhabela
+        //     style: 'mapbox://styles/mapbox/streets-v11',
+        // });
 
 
-        const map = new mapboxgl.Map({
-            container: 'map',
-            zoom: 14,
-            center: [-45.3587, -23.7781],
-            pitch: 80,
-            bearing: 41,
-            style: 'mapbox://styles/mapbox/streets-v11', // Use 'streets-v11' style for a simple map
-        });
+        // map.on('style.load', () => {
+        //     map.addSource('mapbox-dem', {
+        //         type: 'raster-dem',
+        //         url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
+        //         tileSize: 512,
+        //         maxzoom: 14,
+        //     });
+        //     // Add the DEM source as a terrain layer with exaggerated height
+        //     map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.4 });
 
-        // Add the PIN (marker) at the center of Ilhabela
+        //     // Coordenadas de Ilhabela
+        //     new mapboxgl.Marker().setLngLat([-45.3587, -23.7781]).addTo(map);
+        // });
 
-        map.on('style.load', () => {
-            map.addSource('mapbox-dem', {
-                type: 'raster-dem',
-                url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
-                tileSize: 512,
-                maxzoom: 14,
-            });
-            // Add the DEM source as a terrain layer with exaggerated height
-            map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.4 });
-        });
+        var map = L.map('map').setView([-23.7781, -45.3587], 11);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+
+        try {
+            let lat = this.card.point.lat; // latitude
+            let lon = this.card.point.lon; // longitude
+            if (lat && lon) {  // Verifique se lat e lon não são nulos
+                L.marker([lat, lon]).addTo(map)
+                    // .bindPopup('<img src="' + this.card_images[0] + '" alt="Card image" style="width:80px; height:80px; border-radius:50%; object-fit:cover;">')
+                    .openPopup();
+
+                // inicia no zoom 10
+                map.setView([lat, lon], 10);
+
+                // após um tempo (2 segundos neste exemplo), faz o zoom suave até o zoom 16
+                setTimeout(function () {
+                    map.flyTo([lat, lon], 13, {
+                        duration: 2
+                    });
+                }, 800);
+            } else {
+                console.error("Latitude and/or longitude is null");
+            }
+
+        } catch (error) {
+            console.error(error);
+            // Aqui você pode adicionar código para lidar com o erro, por exemplo mostrando uma mensagem ao usuário
+        }
 
     },
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     methods: {
+        changeCurrentIndex(index) {
+            this.currentIndex = index;
+        },
         goToHome() {
             this.$router.push({ path: '/' });
         },
@@ -300,7 +319,7 @@ export default {
             return [formattedPrice, suffix];
         },
         getImageClass(index) {
-            const pattern = ['image-wide image-tall', '', '', '', '', 'image-wide'];
+            const pattern = ['', '', '', '', '', ''];
             return 'image_container ' + pattern[index % pattern.length];
         }
     },
@@ -310,7 +329,8 @@ export default {
     data() {
         return {
             card_images: [],
-            card: null
+            card: null,
+            currentIndex: 0
         };
     },
     created() {
@@ -319,7 +339,7 @@ export default {
         this.card = data.find(item => item.id === this.$route.params.id);
 
         if (this.card) {
-            this.card_images = this.card.medias.slice(0, 6).map(
+            this.card_images = this.card.medias.slice(0, 50).map(
 
                 media => media.url
                     .replace("{action}", "fit-in")
@@ -345,6 +365,8 @@ export default {
 
 #map {
     height: 500px;
+    width: 100%;
+    border-radius: 1em;
 }
 
 .price {
@@ -356,17 +378,19 @@ export default {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    width: 50%;
+    flex-wrap: wrap;
     gap: 0.5em;
-    
 }
 
 #info_wrapper {
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 60%;
+    margin-top: 1em;
+    box-sizing: border-box;
     padding: 1em;
+    border-radius: 1em;
+    display: block;
+    background-color: var(--card-background);
+    flex-direction: column;
+    width: 100%;
     height: 100%;
 }
 
@@ -403,11 +427,10 @@ export default {
 
 
 #main_row {
-    background-color: var(--card-background);
-
+    width: 100%;
     border-radius: 2em;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-content: flex-start;
     z-index: 1;
 }
@@ -428,7 +451,6 @@ export default {
 
 .breadcrumbs-container {
     display: flex;
-
     align-items: center;
     margin-right: 1em;
 }
@@ -444,6 +466,8 @@ export default {
 }
 
 .gallary_container {
+    margin-top: 1em;
+    box-sizing: border-box;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.10);
     background-color: var(--card-background);
     border-radius: 1em;
@@ -451,8 +475,12 @@ export default {
     grid-gap: 0.2em;
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     grid-auto-rows: 100px;
-    width: 40%;
+    width: 100%;
     padding: 10px;
+}
+
+.gallary_container img {
+    cursor: pointer;
 }
 
 .image_container {
@@ -517,7 +545,7 @@ export default {
 .house_infos {
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: start;
 }
 
 .house_infos li {
@@ -537,7 +565,7 @@ export default {
 
 .white {
     background-color: rgb(0, 0, 0);
-    color:white;
+    color: white;
 }
 
 .limegreen {
@@ -545,8 +573,23 @@ export default {
     color: rgb(255, 255, 255);
 }
 
-.yellow{
+.yellow {
     background-color: rgb(248, 186, 29);
-    color:white;
+    color: white;
+}
+
+
+#big-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--cor-base);
+    border-radius: 1em;
+    padding: 1em;
+}
+
+
+#big-image img {
+    border-radius: 1em;
 }
 </style>

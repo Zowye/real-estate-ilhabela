@@ -205,7 +205,7 @@ export default {
 
   .logo {
     margin: 0.5em;
-    width: 129px;
+    width: 180px;
     cursor: pointer;
   }
 
