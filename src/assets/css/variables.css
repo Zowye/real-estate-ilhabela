@@ -21,6 +21,7 @@
 
   /* BASE FONTS */
   --font-text: 'Poppins', sans-serif;
+  --nice-green: rgb(133, 228, 50);
 
   /* BASE COLORS */
   --cor-base: #424767;
@@ -52,7 +53,7 @@
   --cor-darken: color-mix(in srgb, var(--cor-base), #000 20%);
   --cor-lighten: color-mix(in srgb, var(--cor-base), #ffffff 60%);
   --app-bg-color: #edf2f9;
-  --card-background: rgba(252, 252, 252, 0.833);
+  --card-background: rgba(252, 252, 252, 0.761);
   --button-background: #f0f0f0;
   --header-background: #edf2f9;
   --scroll-bgcolor: rgb(230, 230, 230);
@@ -98,3 +99,14 @@
   ;
   --scroll-bgcolor: rgb(50, 50, 50);
 }
+
+
+
+
+
+
+
+
+
+
+

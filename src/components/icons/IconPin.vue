@@ -1,14 +1,16 @@
 <template>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="5 2 14 20" class="icon-fill" :width="width" :height="height">
         <path
-            d="M12 4C9.2 4 7 6.2 7 9c0 2.9 2.9 7.2 5 9.9 2.1-2.7 5-7 5-9.9C17 6.2 14.8 4 12 4zM12 11.5c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5S13.4 11.5 12 11.5z"
-            fill="#1db2ff" class="rh-ultra-dark" style="opacity:0.24;"></path>
+            :style="{ fill: fillColor1 }"
+            d="M12 4C9.2 4 7 6.2 7 9c0 2.9 2.9 7.2 5 9.9 2.1-2.7 5-7 5-9.9C17 6.2 14.8 4 12 4zM12 11.5c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5S13.4 11.5 12 11.5z"></path>
         <path
-            d="M12 2C8.1 2 5 5.1 5 9c0 5.3 7 13 7 13s7-7.8 7-13C19 5.1 15.9 2 12 2zM7 9c0-2.8 2.2-5 5-5s5 2.2 5 5c0 2.9-2.9 7.2-5 9.9C9.9 16.2 7 11.9 7 9z"
-            fill="#1db2ff" class="rh-ultra-dark"></path>
-        <circle cx="12" cy="9" r="2.5" fill="#1db2ff" class="rh-ultra-dark"></circle>
+            :style="{ fill: fillColor2 }"
+            d="M12 2C8.1 2 5 5.1 5 9c0 5.3 7 13 7 13s7-7.8 7-13C19 5.1 15.9 2 12 2zM7 9c0-2.8 2.2-5 5-5s5 2.2 5 5c0 2.9-2.9 7.2-5 9.9C9.9 16.2 7 11.9 7 9z"></path>
+        <circle cx="12" cy="9" r="2.5" :style="{ fill: fillColor2 }"></circle>
     </svg>
 </template>
+
+
   
 <script>
 export default {
@@ -21,7 +23,19 @@ export default {
             type: [String, Number],
             default: "24", // Altura padrão se não for fornecida pelo pai
         },
+        color_icon: {
+            type: Array,
+            default: () => ["--cor-base", "--cor-base"],
+        }
     },
+    computed: {
+        fillColor1() {
+            return this.color_icon[0].startsWith('--') ? `var(${this.color_icon[0]})` : this.color_icon[0];
+        },
+        fillColor2() {
+            return this.color_icon[1].startsWith('--') ? `var(${this.color_icon[1]})` : this.color_icon[1];
+        }
+    }
 };
 </script>
   
@@ -30,4 +44,5 @@ export default {
 .icon-fill path,
 .icon-fill circle {
     fill: var(--cor-base);
-}</style>
+}
+</style>
