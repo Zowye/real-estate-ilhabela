@@ -174,8 +174,8 @@
                             <h1>Property Details</h1>
                             <table class="property-table">
                                 <tr class="row-light">
-                                    <td><strong>ID do cartão:</strong></td>
-                                    <td>{{ card.id }}</td>
+                                    <td><strong>Distancia até Praia do Curral</strong></td>
+                                    <td>{{ dist_curral }} metros</td>
                                 </tr>
                                 <tr class="row-dark">
                                     <td><strong>Price:</strong></td>
@@ -242,7 +242,7 @@ import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import 'leaflet.markercluster';
 import IconPin from "@/components/icons/IconPin.vue";
 import Hammer from 'hammerjs';
-
+import 'leaflet-routing-machine';
 // import CardAmenities from '@/components/CardAmenities.vue';
 
 export default {
@@ -264,12 +264,12 @@ export default {
 
 
         try {
-            let lat = this.card.point.lat; // latitude
-            let lon = this.card.point.lon; // longitude
-            if (lat && lon) {  // Verifique se lat e lon não são nulos
-                L.marker([lat, lon]).addTo(map)
-                    // .bindPopup('<img src="' + this.card_images[0] + '" alt="Card image" style="width:80px; height:80px; border-radius:50%; object-fit:cover;">')
-                    .openPopup();
+
+            if (this.card && this.card.point) {
+                let lat = this.card.point.lat; // latitude
+                let lon = this.card.point.lon; // longitude
+
+                this.createMarkerAndRoute(lat, lon, map);
 
                 // inicia no zoom 10
                 map.setView([lat, lon], 10);
@@ -281,7 +281,29 @@ export default {
                     });
                 }, 800);
             } else {
-                console.error("Latitude and/or longitude is null");
+                // Latitude and/or longitude is null, use default coordinates (centre of Ilhabela)
+                let defaultLat = -23.7781;
+                let defaultLon = -45.3587;
+                let marker = L.marker([defaultLat, defaultLon]).addTo(map);
+
+                marker.bindPopup('Localização aproximada').openPopup();
+
+                this.createMarkerAndRoute(defaultLat, defaultLon, map);
+
+
+
+                // Removed the second marker addition
+                // L.marker([defaultLat, defaultLon]).addTo(map).openPopup();
+
+                map.setView([defaultLat, defaultLon], 10);
+
+                setTimeout(function () {
+                    map.flyTo([defaultLat, defaultLon], 13, {
+                        duration: 2
+                    });
+                }, 800);
+
+                console.error("Latitude and/or longitude is null, default coordinates used.");
             }
 
         } catch (error) {
@@ -290,8 +312,48 @@ export default {
         }
 
     },
-
     methods: {
+        createMarkerAndRoute(lat, lon, map) {
+            let marker = L.marker([lat, lon]).addTo(map);
+
+            let popupContent = 'Localização Aproximada';
+            let latCurral = -23.866154643306626;
+            let lonCurral = -45.43172210701251;
+
+            marker.bindPopup(popupContent).openPopup();
+
+            marker.on('click', function () {
+                let control = L.Routing.control({
+                    waypoints: [
+                        L.latLng(lat, lon),
+                        L.latLng(latCurral, lonCurral)  // Coordenadas da Praia do Curral
+                    ],
+                    routeWhileDragging: false,
+                    show: false
+                }).addTo(map);
+
+                map.fitBounds(control.getWaypoints().map(function (wp) { return wp.latLng; }));
+            });
+
+            map.setView([lat, lon], 10);
+
+            setTimeout(function () {
+                map.flyTo([lat, lon], 13, {
+                    duration: 2
+                });
+            }, 800);
+
+
+
+
+            let point1 = L.latLng(latCurral, lonCurral);
+            let point2 = L.latLng(lat, lon);
+
+            let distance = point1.distanceTo(point2);
+            this.dist_curral = distance.toFixed(0)
+            console.log(`A distância até a praia do curral é de ${distance} metros`)
+        },
+
 
         swipeLeft() {
             if (this.currentIndex < this.card_images.length - 1) {
@@ -396,7 +458,8 @@ export default {
             card: null,
             currentIndex: 0,
             progressBarWidth: 100,
-            intervalId: null
+            intervalId: null,
+            dist_curral: null
         };
     },
     created() {
