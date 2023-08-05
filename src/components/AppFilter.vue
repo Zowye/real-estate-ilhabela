@@ -171,6 +171,11 @@ export default {
 </script>
 
 <style scoped>
+
+::v-deep input {
+    background: none !important;
+}
+
 .custom-multiselect .multiselect__input {
     background-color: #543b3b;
 }
@@ -200,11 +205,11 @@ export default {
 }
 
 .filter-more-line {
-    background-color: rgb(231, 231, 231);
+    background-color: var(--app-bg-color);
+    color: var(--cor-base);
     border-bottom-left-radius: 0.5em;
     border-bottom-right-radius: 0.5em;
     padding: 0.4em 0.8em;
-    color: rgb(61, 61, 61);
 }
 
 
@@ -334,6 +339,7 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
+
 }
 
 .top {
@@ -485,7 +491,7 @@ export default {
     background-color: var(--cor-base);
     margin: 0;
     height: 0.6em;
-    padding: 0.75em 1.5em;
+    padding: 0.95em 1.8em;
     cursor: pointer;
     box-shadow: 2px 7px 9px 8px rgba(0, 22, 0, 0.1);
     color: #fff;
@@ -522,16 +528,22 @@ export default {
 }
 
 .top-button:hover {
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
     background-color: var(--card-background);
-    color: black;
+    color: var(--cor-base);
 }
 
 .active:hover {
-    color: black;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    color: var(--cor-base);
 }
 
 
 .top-button:hover:after {
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
     width: 100%;
 }
 

@@ -25,7 +25,7 @@ export default {
         },
         color_icon: {
             type: Array,
-            default: () => ["--cor-base", "--cor-base"],
+            default: () => ["white", "--cor-base"],
         }
     },
     computed: {

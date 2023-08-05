@@ -1,8 +1,9 @@
 <template>
     <CardMoreInfo v-if="showModal" :card="selectedCard" @close="closeModal" />
+    <CardFeatured v-if="show_featured_card" :featured_data="card_featured" />
+
     <div id="wrapper_card_list_full">
 
-        <CardFeatured v-if="show_featured_card" :featured_data="card_featured" />
 
         <!-- Change the Cards Presentation Format -->
         <div id="card_presentation_aspect">
@@ -220,6 +221,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: var(--app-bg-color);
 }
 
 #card_presentation_aspect {
@@ -264,6 +266,7 @@ export default {
 * {
     user-select: none;
 }
+
 
 
 #wrapper_cards {

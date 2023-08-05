@@ -38,8 +38,9 @@
                             </div>
 
                         </div>
+                        <div :class="overlayClass"></div>
                         <img :src="card_images[currentIndex]" class="gallery-image" loading="lazy" alt="Property Image"
-                            @click="changeCurrentIndex(index)" />
+                            @click="changeCurrentIndex(index)"  @load="onImageLoaded" />
                     </div>
 
 
@@ -313,6 +314,15 @@ export default {
 
     },
     methods: {
+        onImageLoaded() {
+            // Quando a imagem é carregada, ative o efeito flash
+            this.isFlashing = true;
+
+            // Aguarde um pouco (igual ao tempo da animação, 1s no exemplo) e desative o efeito flash
+            setTimeout(() => {
+                this.isFlashing = false;
+            }, 1000);
+        },
         createMarkerAndRoute(lat, lon, map) {
             let marker = L.marker([lat, lon]).addTo(map);
 
@@ -381,7 +391,7 @@ export default {
                 behavior: 'smooth'
             });
 
-            this.startProgressBar(); // Reinicia a barra de progresso sempre que a imagem é alterada manualmente
+            this.startSlideshow(); // Reinicia a barra de progresso sempre que a imagem é alterada manualmente
         },
         goToHome() {
             this.$router.push({ path: '/' });
@@ -405,6 +415,15 @@ export default {
             return 'image_container ' + pattern[index % pattern.length];
         },
         startSlideshow() {
+            if (this.intervalIdSlideshow) {
+                clearInterval(this.intervalIdSlideshow); // Clear previous interval
+            }
+
+            if (this.intervalIdProgressBar) {
+                clearInterval(this.intervalIdProgressBar); // Clear previous interval
+                this.startProgressBar()
+            }
+
             this.intervalIdSlideshow = setInterval(() => {
                 this.currentIndex++;
 
@@ -422,6 +441,8 @@ export default {
             if (this.intervalIdProgressBar) {
                 clearInterval(this.intervalIdProgressBar); // Clear previous interval
             }
+
+
             this.intervalIdProgressBar = setInterval(() => {
                 this.progressBarWidth -= decrement;
                 if (this.progressBarWidth <= 0) {
@@ -435,6 +456,11 @@ export default {
 
 
 
+    },
+    computed: {
+        overlayClass() {
+            return this.isFlashing ? 'overlay flash' : 'overlay';
+        },
     },
     beforeUnmount() {
         this.hammer.off('swipeleft', this.swipeLeft);
@@ -458,8 +484,10 @@ export default {
             card: null,
             currentIndex: 0,
             progressBarWidth: 100,
-            intervalId: null,
-            dist_curral: null
+            intervalIdSlideshow: null,
+            intervalIdProgressBar: null,
+            dist_curral: null,
+            isFlashing: false,
         };
     },
     created() {
@@ -837,8 +865,9 @@ export default {
 }
 
 .progress-bar {
-    height: 5px;
-    background: rgba(247, 230, 230, 0.654);
+    height: 7px;
+    background-color: #fff;
+    filter: brightness(200%); /* Tornando a cor/imagem duas vezes mais brilhante */
     /* A cor que preferir para a barra de progresso */
     position: absolute;
     top: 0;
@@ -976,6 +1005,35 @@ export default {
 
     .not_display_on_mobile {
         display: none;
+    }
+}
+
+
+
+
+/* Estilo base para a overlay */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(0, 0, 0);
+    opacity: 0;
+    transition: opacity 0.7s ease-out;
+}
+
+/* Quando ativar a classe flash, faz o efeito */
+.flash {
+    opacity: 1;
+    /* Vai para totalmente visível */
+    animation: fadeOut 1s ease-out forwards;
+    /* Animação que desaparece */
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
     }
 }
 </style>

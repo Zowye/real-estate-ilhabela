@@ -23,6 +23,7 @@
 
   /* BASE COLORS */
   --cor-base: #424767;
+  --cor-base-inverse: white;
   --cor-base-hover: #585e89;
   --cor-visible-over-base: #ffffff;
   /*  */
@@ -53,7 +54,7 @@
   --app-bg-color: #edf2f9;
   --card-background: rgba(252, 252, 252, 0.761);
   --button-background: #f0f0f0;
-  --header-background: #edf2f9;
+  --header-background: #edf2f9da;
   --scroll-bgcolor: rgb(230, 230, 230);
 
 
@@ -66,6 +67,7 @@
   --font-text: 'DM Sans', sans-serif;
   --button-background: #000000;
   --cor-base: #639eec;
+  --cor-base-inverse: rgb(0, 0, 0);
   --cor-visible-over-base: #000000;
   --cor-text-base: #bff0f6;
   --cor-text-subbase: gray;
