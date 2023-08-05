@@ -10,8 +10,11 @@
       </div>
 
       <AppFilter />
-      <CardsList :show_featured_card="true" />
 
+        <div class="card-list-container">
+          <CardsList :show_featured_card="false" />
+        </div>
+ 
     </div>
   </DefaultLayout>
 </template>
@@ -22,6 +25,16 @@ import CardsList from '@/components/CardsList.vue';
 import AppFilter from '@/components/AppFilter.vue';
 
 export default {
+  data() {
+    return {
+      isExtraFiltersVisible: true
+    };
+  },
+  methods: {
+    toggleExtraFilters() {
+      this.isExtraFiltersVisible = !this.isExtraFiltersVisible;
+    }
+  },
   components: {
     DefaultLayout,
     CardsList,
@@ -68,7 +81,7 @@ export default {
 .btn {
   width: 18em;
   cursor: pointer;
-  color:black;
+  color: black;
   border-radius: 0.2em;
   border: none;
   background-color: white;
@@ -83,14 +96,40 @@ export default {
 
 #home-page-container {
   display: flex;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  background-attachment: fixed; /* fixa o plano de fundo em relação à janela do navegador */
+  background-attachment: fixed;
+  /* fixa o plano de fundo em relação à janela do navegador */
   /* background-image: url("@/assets/images/bgTopper.jpg"); */
   background-image: url("@/assets/images/main-bg-wide.jpg");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: top;
+}
+
+/* #main_wrapper {
+  display: flex;
+  background-color: red;
+  flex-direction: row;
+  width: 100%;
+} */
+
+#extra_filters {
+  background-color: antiquewhite;
+  border-radius: 0.5em;
+  width: 20%;
+  flex: 0 0 20%;
+  /* Flex grow, flex shrink, flex-basis */
+}
+
+.card-list-container{
+  display: block;
+}
+
+CardsList {
+  display:block;
+  flex: 1;
+  /* This allows it to take up the remaining space */
 }
 </style>

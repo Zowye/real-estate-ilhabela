@@ -14,15 +14,109 @@
                 <li :class="{ active: activeTab === 'small' }" @click="activateTab('small')">
                     <i class="fas fa-th-large"></i>
                 </li>
+                <li :class="activeMap ? 'active' : ''" @click="ToggleActivateTab()">
+                    <i class="fas fa-map"></i>
+                </li>
+                <li :class="isExtraFiltersVisible ? 'active' : ''" @click="toggleExtraFiltersVisibility()">
+                    <i class="fa fa-filter"></i>
+                </li>
+
+
             </ul>
         </div>
+        <div id="main_wrapper">
 
+            <div id="extra_filters" v-if="isExtraFiltersVisible">
+                <div id="extra_filters_top_content">
+                    <button class="btn-close-extra-filters" @click="toggleExtraFiltersVisibility()"><i
+                            class="fas fa-times"></i></button>
+                    <div class="extra_filters_title">Extra Filters</div>
+                    <!-- Number of rooms filter -->
+                </div>
+                <div class="filter-section">
+                    <p>Number of rooms</p>
+                    <div class="radio-group">
+                        <input type="radio" id="oneRoom" name="rooms" value="1">
+                        <label for="oneRoom">1 room</label>
 
-        <div id="wrapper_cards">
-            <div class="card-list">
-                <!-- Loop pelos dados do arquivo data.json -->
-                <component v-for="card in items" :key="card.id" :is="activeTab === 'small' ? 'CardSmall' : 'CardLarge'"
-                    :card="card" :cardWidth="cardWidth" @card-more-info="openCardMoreInfo" />
+                        <input type="radio" id="twoRooms" name="rooms" value="2">
+                        <label for="twoRooms">2 rooms</label>
+
+                        <input type="radio" id="threeRooms" name="rooms" value="3">
+                        <label for="threeRooms">3 rooms</label>
+
+                        <input type="radio" id="fourRooms" name="rooms" value="4+">
+                        <label for="fourRooms">4+ rooms</label>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <p>Number of Bathrooms</p>
+                    <div class="radio-group">
+                        <input type="radio" id="oneBath" name="bathrooms" value="1">
+                        <label for="oneBath">1 Bathroom</label>
+
+                        <input type="radio" id="twoBath" name="bathrooms" value="2">
+                        <label for="twoBath">2 Bathrooms</label>
+
+                        <input type="radio" id="threeBath" name="bathrooms" value="3">
+                        <label for="threeBath">3 Bathrooms</label>
+
+                        <input type="radio" id="fourBath" name="bathrooms" value="4+">
+                        <label for="fourBath">4+ Bathrooms</label>
+                    </div>
+                </div>
+
+                <!-- Amenities filter -->
+                <div class="filter-section">
+                    <p>Amenities</p>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="pool" name="amenities" value="pool">
+                        <label for="pool">Pool</label>
+
+                        <input type="checkbox" id="kitchen" name="amenities" value="gourmet-kitchen">
+                        <label for="kitchen">Gourmet Kitchen</label>
+
+                        <input type="checkbox" id="garden" name="amenities" value="garden">
+                        <label for="garden">Garden</label>
+
+                        <input type="checkbox" id="garage" name="amenities" value="garage">
+                        <label for="garage">Garage</label>
+
+                        <input type="checkbox" id="balcony" name="amenities" value="balcony">
+                        <label for="balcony">Balcony</label>
+
+                        <input type="checkbox" id="gym" name="amenities" value="gym">
+                        <label for="gym">Gym</label>
+
+                        <input type="checkbox" id="spa" name="amenities" value="spa">
+                        <label for="spa">Spa</label>
+
+                        <input type="checkbox" id="fireplace" name="amenities" value="fireplace">
+                        <label for="fireplace">Fireplace</label>
+
+                        <input type="checkbox" id="basement" name="amenities" value="basement">
+                        <label for="basement">Basement</label>
+
+                        <input type="checkbox" id="rooftop" name="amenities" value="rooftop">
+                        <label for="rooftop">Rooftop Terrace</label>
+
+                        <input type="checkbox" id="elevator" name="amenities" value="elevator">
+                        <label for="elevator">Elevator</label>
+
+                        <input type="checkbox" id="library" name="amenities" value="library">
+                        <label for="library">Library</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="wrapper_cards">
+                <div class="card-list">
+                    <!-- Loop pelos dados do arquivo data.json -->
+                    <component v-for="card in items" :key="card.id" :is="activeTab === 'small' ? 'CardSmall' : 'CardLarge'"
+                        :card="card" :cardWidth="cardWidth" @card-more-info="openCardMoreInfo" />
+                </div>
             </div>
         </div>
     </div>
@@ -50,7 +144,9 @@ export default {
     },
     data() {
         return {
+            isExtraFiltersVisible: true,
             activeTab: 'small',
+            activeMap: false,
             items: [],
             card_featured: {
                 medias: [], // lista de strings
@@ -69,6 +165,9 @@ export default {
         show_featured_card: Boolean,
     },
     methods: {
+        toggleExtraFiltersVisibility() {
+            this.isExtraFiltersVisible = !this.isExtraFiltersVisible;
+        },
         gerarTituloAleatorio() {
             const string1 = ["Luxuosa", "Linda", "Aconchegante", "Belíssimo", "Confortável", "Novíssimo", "Luxuosa"];
             const string2 = ["Flat", "Casa", "Sítio", "Apartamento"];
@@ -101,6 +200,9 @@ export default {
         },
         activateTab(tab) {
             this.activeTab = tab;
+        },
+        ToggleActivateTab() {
+            this.activeMap = !this.activeMap;
         },
         ...mapActions(['updateHouseInfo']),
         SetFocusHouse(card) {
@@ -217,11 +319,19 @@ export default {
 
 
 <style>
+#main_wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+
+
 #wrapper_card_list_full {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: var(--app-bg-color);
+    /* background-color: var(--app-bg-color); */
 }
 
 #card_presentation_aspect {
@@ -249,8 +359,10 @@ export default {
     border: 2px solid transparent;
     /* Add this line */
     transition: all 200ms;
-
 }
+
+
+
 
 #card_presentation_aspect li:hover {
     border: 2px solid var(--cor-base);
@@ -260,6 +372,7 @@ export default {
     color: white;
     background-color: var(--cor-base);
 }
+
 
 
 
@@ -289,5 +402,186 @@ export default {
     color: var(--cor-base);
     font-family: 'Ysabeau Office', sans-serif;
     font-size: 1.2em;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* 
+#extra_filters {
+    margin-left: 3em;
+    padding: 1em;
+    box-sizing: border-box;
+    margin-top: 1em;
+    background-color: rgb(255, 255, 255);
+    border-radius: 0.8em;
+    min-width: 20em;
+    flex: 0 0 15%;
+} */
+
+
+#extra_filters {
+    display: flex;
+    flex-direction: column;
+    margin-left: 3em;
+    padding: 1em;
+    box-sizing: border-box;
+    margin-top: 1em;
+    background-color: rgb(255, 255, 255);
+    border-radius: 0.8em;
+    min-width: 20em;
+    flex: 0 0 15%;
+}
+
+
+#extra_filters input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.filter-section {
+    margin-bottom: 1em;
+    padding: 0.5em;
+    border: 1px solid var(--cor-base);
+    /* You can adjust this as needed for the theme */
+    border-radius: 0.5em;
+}
+
+.filter-section p {
+    color: var(--cor-base);
+    font-size: 1em;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+
+.extra_filters_title {
+    margin-left: 1em;
+    font-size: 1.3em;
+
+    color: var(--cor-base);
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.checkbox-group {
+    display: flex;
+    align-content: start;
+    flex-wrap: wrap;
+    gap: 0.3em;
+}
+
+/* Adjustments for the labels to fit the navyblue/white theme */
+.radio-group label {
+    color: var(--cor-base);
+    cursor: pointer;
+    padding: 0.5em 1em;
+
+}
+
+
+.checkbox-group label {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2em 0.5em;
+    border-radius: 1em;
+    background-color: rgba(194, 194, 194, 0.2);
+    cursor: pointer;
+}
+
+
+
+
+.radio-group input[type="radio"]:checked+label {
+    background-color: var(--cor-base);
+    color: white;
+    border-radius: 0.5em;
+}
+
+
+.checkbox-group input[type="checkbox"]:checked+label {
+    background-color: var(--cor-base);
+    color: white;
+}
+
+
+.checkbox-group label:hover {
+    background-color: rgba(168, 168, 171, 0.7);
+    /* Adjust the navy blue shade for hover */
+}
+
+.checkbox-group input[type="checkbox"]:checked+label:hover {
+    background-color: rgba(148, 148, 151, 0.9);
+    /* A slightly different shade for checked items when hovered */
+}
+
+
+
+.radio-group label:hover {
+    background-color: rgba(194, 194, 194, 0.7);
+    transition: background-color 0.3s ease;
+    border-radius: 0.5em;
+
+}
+
+/* Also, to have a different hover effect for already checked items: */
+.radio-group input[type="radio"]:checked+label:hover {
+    background-color: rgba(194, 194, 194, 0.7);
+    border-radius: 0.5em;
+
+}
+
+
+#extra_filters_top_content {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
+.btn-close-extra-filters {
+    cursor: pointer;
+    background-color: rgb(224, 224, 224);
+    border: none;
+    padding: 1em;
+    border-radius: 0.4em;
+    margin-bottom: 1em;
+}
+
+.btn-close-extra-filters:hover {
+    cursor: pointer;
+    background-color: var(--cor-base);
+    color: white;
+    border: none;
+    padding: 1em;
+    margin-bottom: 1em;
+}
+
+
+/* For responsiveness, you might want to adjust the layout or font sizes on smaller screens */
+@media (max-width: 768px) {
+    #extra_filters {
+        min-width: auto;
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .filter-section {
+        font-size: 0.9em;
+    }
 }
 </style>
