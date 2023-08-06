@@ -101,13 +101,14 @@ export default {
   z-index: 19;
   display: flex;
   align-items: center;
-  height: 110px;
+  height: 4em;
   width: 100%;
   justify-content: center;
   margin-bottom: 40px;
   background-color: var(--header-background);
   color:var(--cor-base);
-  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1); */
+  box-shadow: 0px 4px 15px rgb(0 0 0 / 8%) 0 1px 0;
 }
 
 
@@ -155,7 +156,7 @@ export default {
 .logo {
   margin-left: 1.3em;
   margin-right: 1.3em;
-  width: 12em;
+  width: 8em;
   cursor: pointer;
 }
 

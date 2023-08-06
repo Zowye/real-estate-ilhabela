@@ -128,14 +128,14 @@ export default {
     width: 100%;
     height: 100%;
     position: relative;
-    background-color: #21c975;
-    box-shadow: 0 0 20px #0000005f;
+    /* box-shadow: 0 0 20px #0000005f; */
 }
 
 .viewer img {
     /* background: linear-gradient(rgba(235, 46, 46, 0), rgba(255, 255, 255, 0.4)); */
     width: 100%;
     height: 100%;
+    border-radius: 1.2em;
     object-fit: cover;
 }
 

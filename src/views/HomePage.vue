@@ -102,7 +102,7 @@ export default {
   background-attachment: fixed;
   /* fixa o plano de fundo em relação à janela do navegador */
   /* background-image: url("@/assets/images/bgTopper.jpg"); */
-  background-image: url("@/assets/images/main-bg-wide.jpg");
+  background-image: var(--bg-theme);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: top;

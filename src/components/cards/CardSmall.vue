@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="card-small">
         <div id="card_top">
             <CardPhotoViewer :images="card.card_images" :status_level="card.status_level" :id="card.id" />
         </div>
@@ -96,13 +96,12 @@ export default {
 </script>
   
 <style scoped>
-.card {
+.card-small {
     cursor: pointer;
     position: relative;
     background-color: var(--card-background);
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.04);
     margin: 1em;
-    width: 28em;
     border-radius: 0.7em;
     border-top-left-radius: 1.2em;
     border-top-right-radius: 1.2em;
@@ -114,15 +113,16 @@ export default {
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: rgba(128, 128, 128, 0.2);
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.09);
+    box-shadow: 0px 4px 15px rgb(0 0 0 / 8%) 0 1px 0;
     overflow: hidden;
     margin-bottom: 5em;
+    width: 24em;
 }
 
+
 #card_top {
-    background-color: #44d579;
     width: 100%;
-    height: 250px;
+    height: 24em;
 }
 
 #card-footer {
@@ -199,7 +199,7 @@ export default {
 #bottomInfos {}
 
 .card_title {
-    margin-top: 1.7em;
+    margin-top: 1.0em;
     font-family: var(--font-text);
     color: var(--cor-text-base);
     line-height: 1em;
@@ -379,11 +379,19 @@ export default {
 }
 
 /* Ajusta para tela mobile */
-@media screen and (max-width: 768px) {
-    .card{
+@media screen and (max-width: 800px) {
+    .card-small{
         width: 90%;
+    }
+
+
+
+
+    #card_top {
+        height: 34em;
     }
 
 }
 </style>
   
+

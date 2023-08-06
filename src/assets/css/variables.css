@@ -14,7 +14,7 @@
   --ms-clear-color-hover: #c4341a;
   --ms-option-bg-pointed: #0d1b48;
   --ms-option-color-pointed: #ffffff;
-
+  --bg-theme: url("@/assets/images/main-bg-wide.jpg");
 
 
   /* BASE FONTS */
@@ -54,9 +54,10 @@
   --app-bg-color: #edf2f9;
   --card-background: rgba(252, 252, 252, 0.761);
   --button-background: #f0f0f0;
-  --header-background: #edf2f9da;
+  --header-background: #edf2f9e6;
   --scroll-bgcolor: rgb(230, 230, 230);
 
+  --chip-color: rgb(246, 241, 241);
 
 
 }
@@ -89,24 +90,29 @@
   --card-footer: #161e24;
   --cor-footer-regular: rgb(18, 25, 34);
   --cor-footer-darker: rgb(15, 21, 29);
-
+  --chip-color: #4aadda;
   /* Calcula as cores mais escuras e mais claras */
   --cor-darken: color-mix(in srgb, var(--cor-base), #000 20%);
   --cor-lighten: color-mix(in srgb, var(--cor-base), #ffffff 60%);
-  --app-bg-color: #0b1727;
-  --card-background: rgb(18, 25, 34);
+  --app-bg-color: #05080b;
+  --card-background: #192428;
   --header-background: rgb(0, 0, 0);
   ;
   --scroll-bgcolor: rgb(50, 50, 50);
+
+
+
+
+
+
+  /* New Version */
+
+  --bg-theme: url("@/assets/images/main-bg-night-wide.jpg");
+
+  --dark-blue-1: #192428;
+  --dark-blue-2: #2d383c;
+  --dark-blue-3: #414c50;
+  --dark-blue-light-1: #0784b5;
+  --dark-blue-light-2: #39ace7;
+
 }
-
-
-
-
-
-
-
-
-
-
-

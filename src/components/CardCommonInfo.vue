@@ -44,7 +44,7 @@
 }
 
 .item {
-    background-color:rgb(246, 241, 241);
+    background-color:var(--chip-color);
     display: flex;
     margin-bottom: 10px;
     margin-right: 0.35em;
