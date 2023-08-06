@@ -381,7 +381,7 @@ export default {
 /* Ajusta para tela mobile */
 @media screen and (max-width: 768px) {
     .card{
-        width: 85%;
+        width: 90%;
     }
 
 }

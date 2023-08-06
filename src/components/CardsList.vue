@@ -331,7 +331,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* background-color: var(--app-bg-color); */
+    background-color: var(--app-bg-color);
 }
 
 #card_presentation_aspect {
@@ -434,7 +434,7 @@ export default {
     padding: 1em;
     box-sizing: border-box;
     margin-top: 1em;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--app-bg-color);
     border-radius: 0.8em;
     min-width: 20em;
     flex: 0 0 15%;

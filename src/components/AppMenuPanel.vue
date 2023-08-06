@@ -3,11 +3,7 @@
     <ul class="menu-list">
       <li>
         <button class="icon_menu_item" @click="toggleTheme">
-          <svg class="moon_toggle" viewBox="0 0 512 512" data-fa-i2svg="">
-            <path fill="#2c7be5"
-              d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z">
-            </path>
-          </svg>
+          <img :src="themeIcon" alt="Theme Icon" />
         </button>
         <!-- <span class="theme-label">{{ theme === 'day-theme' ? 'Switch to Dark Mode' : 'Switch to Light Mode' }}</span> -->
 
@@ -20,25 +16,26 @@
             <div v-if="favorites.length >= 10" class="number-of-favs">9+</div>
 
           </button>
-          <div class="favorites-dropdown" v-show="dropdownvisible">
-            <ul>
-              <!-- Show the current favorite list -->
-              <li v-if="favorites.length === 0" class="empty-fav">Vazio</li>
-              <li v-else v-for="card_fav in favorites" :key="card_fav">
-                <div class="left"><img :src="card_fav.card_images[0]"></div>
-                <div class="right">
-                  <div>{{ card_fav.street }}</div>
-                  <div>{{ card_fav.neighborhood }}</div>
-                  <div style="font-weight: 900;">R$ {{ card_fav.price }}</div>
-                  <button class="close-button" @click.stop="removeFromFavorites(card_fav)">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
+          <transition name="fade">
+            <div class="favorites-dropdown" v-show="dropdownvisible">
+              <ul>
+                <!-- Show the current favorite list -->
+                <li v-if="favorites.length === 0" class="empty-fav">Vazio</li>
+                <li v-else v-for="card_fav in favorites" :key="card_fav">
+                  <div class="left"><img :src="card_fav.card_images[0]"></div>
+                  <div class="right">
+                    <div>{{ card_fav.street }}</div>
+                    <div>{{ card_fav.neighborhood }}</div>
+                    <div style="font-weight: 900;">R$ {{ card_fav.price }}</div>
+                    <button class="close-button-card-fav" @click.stop="removeFromFavorites(card_fav)">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
 
-              </li>
-            </ul>
-          </div>
-
+                </li>
+              </ul>
+            </div>
+          </transition>
         </div>
       </li>
       <li>
@@ -59,42 +56,14 @@
           </button>
         </div>
       </li>
-      <!-- <li>
-        <button class="menu-item" @click="toggleTheme">
-          <span class="icon"><i :class="theme === 'day' ? 'fas fa-sun' : 'fas fa-moon'"></i></span>
-          SWITCH TO {{ this.$store.state.theme }}
-        </button>
-      </li> -->
-      <!-- <li>
-        <button class="menu-item" @click="goTo('dashboard')">
-          <span class="icon"><i class="fas fa-chart-bar"></i></span>
-          Painel
-        </button>
-      </li>
-      <li>
-        <button class="menu-item" @click="goTo('profile')">
-          <span class="icon"><i class="fas fa-user"></i></span>
-          Perfil
-        </button>
-      </li>
-      <li>
-        <button class="menu-item" @click="goTo('settings')">
-          <span class="icon"><i class="fas fa-cog"></i></span>
-          Configurações
-        </button>
-      </li>
-      <li>
-        <button class="menu-item" @click="logout">
-          <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
-          Logout
-        </button>
-      </li> -->
+      <li><button class="button-menu-panel">LOGIN</button></li>
+
     </ul>
   </nav>
 </template>
   
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 
 
 export default {
@@ -110,6 +79,12 @@ export default {
     theme() {
       return this.$store.state.theme;
     },
+    themeIcon() {
+      console.log("O tema é: ", this.theme);
+      return this.theme === 'day-theme'
+        ? require('@/assets/images/ico-moon-small.png')
+        : require('@/assets/images/ico-sun.svg');
+    },
     // Computed property que retorna a lista de favoritos do Vuex
     favorites() {
       let favorites = this.$store.getters.getFavorites; // Acesso direto ao getter
@@ -118,6 +93,7 @@ export default {
   },
   methods: {
     ...mapActions(['addToFavorites', 'removeFromFavorites']),
+    ...mapMutations(['setTheme']),
 
     toggleTheme() {
       const newTheme = document.documentElement.classList.contains('day-theme')
@@ -126,6 +102,8 @@ export default {
       document.documentElement.classList.remove('day-theme', 'night-theme');
       document.documentElement.classList.add(newTheme + '-theme');
       localStorage.setItem('theme', newTheme);
+
+      this.setTheme(`${newTheme}-theme`);
     },
     goTo(a) {
       return a
@@ -164,20 +142,22 @@ export default {
   margin-left: 0.5em;
   position: relative;
   border: none;
-  border-radius: 50%;
+  border-radius: 0.4em;
   width: 2.2em;
   color: rgb(139, 137, 137);
   height: 2.2em;
-  background-color: rgb(255, 255, 255);
+  background-color: transparent;
   padding: 0.2em;
   cursor: pointer;
   font-size: 1.2em;
   transition: all 200ms;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .icon_menu_item:hover {
-    animation: bounce 0.5s ease;
+  animation: bounce 0.5s ease;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--app-bg-color);
+
 }
 
 .fav:hover {
@@ -237,7 +217,23 @@ export default {
 
 
 
+.button-menu-panel {
+  cursor: pointer;
+  margin-left: 1em;
+  background-color: var(--app-bg-color);
+  color: var(--app-bg-color-inverse);
+  border-radius: 0.7em;
+  border: none;
+  padding: 1em 2em;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 200ms ease;
+}
 
+
+.button-menu-panel:hover {
+  background-color: var(--cor-base);
+  color: var(--app-bg-color);
+}
 
 
 
@@ -250,12 +246,12 @@ export default {
 .favorites-dropdown {
   position: absolute;
   top: 100%;
-  left: 0;
-  width: auto;
+  right: 0;
+  width: 20em;
   background-color: var(--app-bg-color);
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   padding: 0.5em;
   border-radius: 5px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* Mostra o dropdown quando houver favoritos */
@@ -286,7 +282,6 @@ export default {
   border-radius: 0.85em;
   justify-content: space-around;
   text-decoration: none;
-  transform-origin: 10% 50%;
   position: relative;
 }
 
@@ -305,8 +300,7 @@ export default {
 }
 
 .left img {
-  border-top-left-radius: 1em;
-  border-bottom-left-radius: 1em;
+  border-radius: 0.3em;
   left: 0;
   width: 6em;
   height: 6em;
@@ -314,12 +308,12 @@ export default {
 
 
 /* Botão de fechar */
-.close-button {
+.close-button-card-fav {
   position: absolute;
-  top: -1.0em;
+  top: -0.5em;
   right: 0.0em;
+  height: 100%;
   border: none;
-  border-radius: 0em 0em 0em 0em;
   background: none;
   color: rgb(139, 42, 42);
   font-size: 1.0em;
@@ -329,7 +323,7 @@ export default {
 }
 
 /* Exibir o botão de fechar quando o cursor estiver sobre a li */
-li:hover .close-button {
+li:hover .close-button-card-fav {
   opacity: 1;
 }
 
@@ -377,5 +371,27 @@ li:hover .close-button {
   100% {
     transform: scale(1);
   }
+}
+
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.33s;
+}
+
+.fade-enter-from,
+.fade-leave-to
+
+/* .fade-leave-active no <2.1.8 */
+  {
+  opacity: 0;
+}
+
+.fade-enter-to,
+.fade-leave-from
+
+/* .fade-leave no <2.1.8 */
+  {
+  opacity: 1;
 }</style>
   
