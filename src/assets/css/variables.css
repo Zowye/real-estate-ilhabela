@@ -14,7 +14,6 @@
   --ms-clear-color-hover: #c4341a;
   --ms-option-bg-pointed: #0d1b48;
   --ms-option-color-pointed: #ffffff;
-  --bg-theme: url("@/assets/images/main-bg-wide.jpg");
 
 
   /* BASE FONTS */
@@ -58,6 +57,17 @@
   --scroll-bgcolor: rgb(230, 230, 230);
 
   --chip-color: rgb(246, 241, 241);
+
+
+
+
+
+
+
+
+  /* New Version */
+  --bg-theme: url("@/assets/images/main-bg-wide.jpg");
+  --black-or-white-inverse-theme: black;
 
 
 }
@@ -104,11 +114,10 @@
 
 
 
-
   /* New Version */
 
   --bg-theme: url("@/assets/images/main-bg-night-wide.jpg");
-
+  --black-or-white-inverse-theme: white;
   --dark-blue-1: #192428;
   --dark-blue-2: #2d383c;
   --dark-blue-3: #414c50;
