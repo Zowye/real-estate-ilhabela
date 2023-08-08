@@ -14,7 +14,7 @@
                 <li :class="{ active: activeTab === 'small' }" @click="activateTab('small')">
                     <i class="fas fa-th-large"></i>
                 </li>
-                <li :class="activeMap ? 'active' : ''" @click="ToggleActivateTab()">
+                <li :class="activeMap ? 'active' : ''" @click="ToggleActivateMap()">
                     <i class="fas fa-map"></i>
                 </li>
                 <li :class="isExtraFiltersVisible ? 'active' : ''" @click="toggleExtraFiltersVisibility()">
@@ -201,7 +201,7 @@ export default {
         activateTab(tab) {
             this.activeTab = tab;
         },
-        ToggleActivateTab() {
+        ToggleActivateMap() {
             this.activeMap = !this.activeMap;
         },
         ...mapActions(['updateHouseInfo']),

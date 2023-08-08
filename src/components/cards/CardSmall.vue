@@ -1,5 +1,5 @@
 <template>
-    <div class="card-small">
+    <div class="card-small-map-opened-version">
         <div id="card_top">
             <CardPhotoViewer :images="card.card_images" :status_level="card.status_level" :id="card.id" />
         </div>
@@ -118,6 +118,33 @@ export default {
     margin-bottom: 5em;
     width: 24em;
 }
+
+
+
+
+.card-small-map-opened-version {
+    cursor: pointer;
+    position: relative;
+    background-color: var(--card-background);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.04);
+    margin: 1em;
+    border-radius: 0.7em;
+    border-top-left-radius: 1.2em;
+    border-top-right-radius: 1.2em;
+    border-right: 1px solid rgba(128, 128, 128, .2);
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: rgba(128, 128, 128, 0.2);
+    border-bottom: 1px solid rgba(128, 128, 128, .2);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgba(128, 128, 128, 0.2);
+    box-shadow: 0px 4px 15px rgb(0 0 0 / 8%) 0 1px 0;
+    overflow: hidden;
+    margin-bottom: 5em;
+    width: 24em;
+}
+
 
 
 #card_top {

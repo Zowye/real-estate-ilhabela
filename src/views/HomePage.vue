@@ -11,10 +11,10 @@
 
       <AppFilter />
 
-        <div class="card-list-container">
-          <CardsList :show_featured_card="false" />
-        </div>
- 
+      <div class="card-list-container">
+        <CardsList :show_featured_card="false" />
+      </div>
+
     </div>
   </DefaultLayout>
 </template>
@@ -95,17 +95,25 @@ export default {
 }
 
 #home-page-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-attachment: fixed;
-  /* fixa o plano de fundo em relação à janela do navegador */
-  /* background-image: url("@/assets/images/bgTopper.jpg"); */
+}
+
+#home-page-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 25em;
+  z-index: -1;
   background-image: var(--bg-theme);
   background-repeat: no-repeat;
-  background-size: contain;
-  background-position: top;
+  background-size: cover;
+  background-position: center top;
 }
 
 /* #main_wrapper {
@@ -123,12 +131,12 @@ export default {
   /* Flex grow, flex shrink, flex-basis */
 }
 
-.card-list-container{
+.card-list-container {
   display: block;
 }
 
 CardsList {
-  display:block;
+  display: block;
   flex: 1;
   /* This allows it to take up the remaining space */
 }

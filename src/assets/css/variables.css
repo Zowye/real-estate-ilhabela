@@ -12,9 +12,11 @@
   --ms-caret-color: #000000;
   --ms-clear-color: #000000;
   --ms-clear-color-hover: #c4341a;
-  --ms-option-bg-pointed: #0d1b48;
+  --ms-option-bg-pointed: #c7c7c7;
+  --color-font-dropdown-filter: rgb(0, 0, 0);
   --ms-option-color-pointed: #ffffff;
 
+  
 
   /* BASE FONTS */
   --font-text: 'Poppins', sans-serif;
@@ -75,6 +77,29 @@
 
 
 :root.night-theme {
+
+  --ms-tag-bg: var(--app-bg-color);
+  --ms-tag-font-size: 0.875rem;
+  --ms-tag-radius:1em;
+  --ms-border-width: 0px;
+  --ms-tag-font-weight: 200;
+  --ms-tag-color: #ffffff;
+  --ms-bg: #ffffff0a;
+  --ms-radius: 1em;
+  --ms-ring-width: 0px;
+  --ms-caret-color: var(--cor-base);
+  --ms-clear-color: var(--cor-base);
+  --ms-clear-color-hover: #b1b1b1;
+  --ms-option-bg-pointed: var(--cor-base);
+  --ms-option-color-pointed: #ffffff;
+  --ms-dropdown-bg: #3b3b3b;
+  --ms-option-color-selected: rgb(255, 255, 255);
+  --ms-dropdown-color: #f90000;
+  --ms-option-color-pointed: #006aff;
+  --color-font-dropdown-filter: white;
+
+
+
   --font-text: 'DM Sans', sans-serif;
   --button-background: #000000;
   --cor-base: #639eec;

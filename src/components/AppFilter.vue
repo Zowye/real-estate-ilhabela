@@ -172,6 +172,10 @@ export default {
 
 <style scoped>
 
+::v-deep .multiselect-option {
+    color: var(--color-font-dropdown-filter);
+}
+
 ::v-deep input {
     background: none !important;
 }
@@ -499,6 +503,8 @@ export default {
     transform-origin: bottom;
     position: relative;
     transition: all .15s;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
 }
 
 .top-button span {
@@ -508,27 +514,18 @@ export default {
 
 .active {
     height: 1.2em;
-    border-top-left-radius: 0.5em;
-    border-top-right-radius: 0.5em;
     background-color: var(--card-background);
     color: var(--cor-text-base);
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
 }
 
-.top-button:after {
-    position: absolute;
-    content: "";
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    background: #ffffff;
-    transition: all .35s;
-    z-index: -1;
-    /* Definindo o z-index para ficar atrás do texto */
-}
+
 
 .top-button:hover {
     border-top-left-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
     border-top-right-radius: 0.5em;
     background-color: var(--card-background);
     color: var(--cor-base);

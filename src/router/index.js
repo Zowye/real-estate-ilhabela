@@ -6,6 +6,7 @@ import HomePageBigMap from '../views/HomePageBigMap.vue';
 import AboutPage from '../views/AboutPage.vue';
 import ContactPage from '../views/ContactPage.vue';
 import HouseExplorer from '../views/HouseExplorer.vue';
+import TestGraphQL from '../views/TestGraphQL.vue';
 
 
 const routes = [
@@ -40,11 +41,15 @@ const routes = [
         component: ContactPage
     },
     {
-            path: '/house_explorer/:id',
-            name: 'HouseExplorer',
-            component: HouseExplorer
+        path: '/house_explorer/:id',
+        name: 'HouseExplorer',
+        component: HouseExplorer
+    },
+    {
+        path: '/test',
+        name: 'TestGraphQL',
+        component: TestGraphQL
     }
-
 ];
 
 const router = createRouter({

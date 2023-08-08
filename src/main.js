@@ -6,7 +6,9 @@ import store from './store';
 // Importe o variables.css aqui
 import '@/assets/css/variables.css';
 
-// Adicione os ícones que você deseja usar no library do Font Awesomef
+
+
+
 
 // Global loading state
 store.state.isLoading = true;
