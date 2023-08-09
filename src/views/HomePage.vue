@@ -106,6 +106,7 @@ export default {
     },
 
     initMap() {
+      console.log("Starting Map...")
       if (!this.mapReady) {
         const centerOfIlhabela = [-23.7787, -45.3581];
         this.app_map = L.map('map-home-page', { zoomControl: true, zoom: 1, zoomAnimation: false, fadeAnimation: true, markerZoomAnimation: true }).setView(centerOfIlhabela, 12);
@@ -149,9 +150,11 @@ export default {
                         <img src="${this.fixMediaInfo(house.medias)}">
                     </div>
                     <div class="marker-info-container">
-                      <div class="marker-address">${address[0]} ${address[1]}</div>
-                      <div class="marker-address">${address[2]}</div>
-                        <a class="btn-marker-pop" href="${routeUrl}">VER DETALHES</a>
+                      <div>
+                        <div class="marker-address">${address[0]} ${address[1]}</div>
+                        <div class="marker-address neigh">${address[2]}</div>
+                      </div>
+                      <a class="btn-marker-pop" href="${routeUrl}">VER DETALHES</a>
                     </div>
                 </div>`;
               marker.bindPopup(popupContent).openPopup();
@@ -219,6 +222,11 @@ export default {
 
     }
   },
+  mounted() {
+    if (this.activeMap && !this.mapReady) {
+      this.initMap();
+    }
+  },
   beforeUnmount() {
     if (this.app_map) {
       this.app_map.remove();
@@ -248,8 +256,7 @@ export default {
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  width: 1000px;
-  /* Ajuste para o tamanho desejado */
+  width: fit-content;
 }
 
 ::v-deep .small-media-popup-marker img {
@@ -272,8 +279,9 @@ export default {
 
 ::v-deep .marker-info-container {
   display: flex;
+  min-height: max-content;
   flex-direction: column;
-  width: fit-content;
+  justify-content: space-around;
 }
 
 ::v-deep .marker-address {
@@ -283,14 +291,26 @@ export default {
 }
 
 ::v-deep .leaflet-popup-content-wrapper {
-  width: auto;
-  max-width: 100%;
-  /* opcional: isso evita que o popup ultrapasse a janela */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
 }
 
 ::v-deep .leaflet-popup-content {
-  width: auto;
+  min-width: max-content;
   white-space: nowrap;
+}
+
+::v-deep .neigh {
+    display: inline-block;
+    font-weight: 200;
+    margin-bottom: 0.5em;
+    padding: 0.35em 0.85em;
+    color: white;
+    border-radius: 1.5em;
+    font-size: 0.90em;
+    background-color: var(--cor-base);
 }
 
 

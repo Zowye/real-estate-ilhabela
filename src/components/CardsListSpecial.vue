@@ -25,7 +25,7 @@
         </div>
         <div id="main_wrapper">
 
-            <div id="extra_filters" v-if="isExtraFiltersVisible">
+            <div id="extra_filters" v-if="isExtraFiltersVisible && !activeMap">
                 <div id="extra_filters_top_content">
                     <button class="btn-close-extra-filters" @click="toggleExtraFiltersVisibility()"><i
                             class="fas fa-times"></i></button>
