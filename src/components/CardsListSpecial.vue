@@ -21,7 +21,6 @@
                     <i class="fa fa-filter"></i>
                 </li>
 
-
             </ul>
         </div>
         <div id="main_wrapper">
@@ -114,7 +113,7 @@
             <div id="wrapper_cards">
                 <div class="card-list">
                     <!-- Loop pelos dados do arquivo data.json -->
-                    <component v-for="card in items" :key="card.id" :is="activeTab === 'small' ? 'CardSmall' : 'CardLarge'"
+                    <component v-for="card in transformedData" :key="card.id" :is="activeTab === 'small' ? 'CardSmall' : 'CardLarge'"
                         :card="card" :cardWidth="cardWidth" @card-more-info="openCardMoreInfo" />
                 </div>
             </div>
@@ -124,15 +123,18 @@
 
 <script>
 
+
+
 // import CardAmenities from '@/components/CardAmenities.vue';
 // import CardStars from "@/components/CardStars.vue";
 import CardFeatured from '@/components/CardFeatured.vue';
-import data from '@/data.json';
+// import data from '@/data.json';
 import CardMoreInfo from '@/components/CardMoreInfo.vue';
 import { mapActions } from 'vuex';
 import CardSmall from "@/components/cards/CardSmall.vue";
 import CardLarge from "@/components/cards/CardLarge.vue";
 import { mapState, mapMutations } from 'vuex';
+import { watch } from 'vue';
 
 
 export default {
@@ -147,14 +149,15 @@ export default {
         return {
             isExtraFiltersVisible: true,
             activeTab: 'small',
-            items: [],
+            // items: [],
             card_featured: {
                 medias: [], // lista de strings
                 price: '', // string
                 description: '' // string
             },
             showModal: false,
-            selectedCard: null
+            selectedCard: null,
+            transformedData: [],
         };
     },
     props: {
@@ -164,9 +167,21 @@ export default {
         },
         show_featured_card: Boolean,
     },
+    watch: {
+        items: {
+            deep: true,
+            handler(data) {
+                if (!data || !data.length) return;
+
+
+
+
+
+            }
+        }
+    },
     methods: {
         ...mapMutations(['TOGGLE_ACTIVE_MAP']),
-
         toggleExtraFiltersVisibility() {
             this.isExtraFiltersVisible = !this.isExtraFiltersVisible;
         },
@@ -219,106 +234,112 @@ export default {
 
         ToggleActivateMap() {
             this.TOGGLE_ACTIVE_MAP();
+        },
+        applyTransformations(data) {
+            const startIndex = Math.floor(Math.random() * (data.length - 30 + 1));
+            const endIndex = startIndex + 30;
+
+            const transformedData = data
+                .slice(startIndex, endIndex)
+                .map(item => {
+
+                    const card_images = item.medias.map(
+                        media => media.url
+                            .replace("{action}", "fit-in")
+                            .replace("{width}", "870")
+                            .replace("{height}", "653")
+                    )
+                        .filter(url => !url.includes('youtube') && !url.includes('youtu'));
+
+                    // Fixing Pricing Information
+                    let [formattedPrice, suffix] = this.formatPrice(item.pricingInfos[0].price)
+                    item.formattedPrice = formattedPrice;
+                    item.suffix = suffix;
+
+
+                    item.status_level = this.getRandomStatusLevel();
+
+
+                    // Fixing amenities items
+                    item.amenities = item.amenities.map((a) => {
+                        return a.replace("_", " ")
+                    })
+
+                    if (item && item.amenities && item.amenities.length > 0 && item.amenities.length > 8) {
+                        item.amenities = item.amenities.slice(0, 7);
+                        item.amenities.push("... VER MAIS")
+                    } else {
+                        item.amenities = ["Sem Itens"]
+                    }
+
+
+                    item.stars_count = Math.floor(Math.random() * 11);
+
+
+                    item.title = this.gerarTituloAleatorio();
+                    item.streetNumber = item.streetNumber === null || item.streetNumber === undefined || item.streetNumber === "" ? "s/n" : item.streetNumber;
+                    item.street = item.street === null || item.street === undefined || item.street === "" ? "Sem Endereço" : item.street.replace("Avenida", "Av.").replace("Alameda", "Al.");
+                    item.neighborhood = item.neighborhood === null || item.neighborhood === undefined || item.neighborhood === "" ? "Sem Endereço" : item.neighborhood;
+
+                    // Fixing the mal-formation of the description, e.g: uppercase, \n, etc 
+                    item.description = item.description
+                        ? item.description
+                            .replace(/\n/g, "")
+                            .replace(/<\/?br\/?>/g, "")
+                            .replace(/<?b\/?>/g, "")
+                            .toLowerCase()
+                            .replace(/(^|[.!?]\s+)(\w)/g, function (match, p1, p2) {
+                                return p1 + p2.toUpperCase();
+                            })
+                            .replace(/([.!?]\s+)(\p{Ll})/gu, function (match, p1, p2) {
+                                return p1 + p2.toUpperCase();
+                            })
+                            .replace(/!+/g, "!")
+
+                        : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, iste obcaecati.";
+
+
+                    if (item.description.length > 120) {
+                        item.description_full = item.description;
+                        item.description = item.description.slice(0, 120) + " (...) "
+                    }
+                    item.price = item.pricingInfos[0].price
+
+                    return { ...item, card_images: card_images };
+                });
+
+
+
+            const most_expansive_house = transformedData.reduce((prev, current) => {
+                const prevPrice = parseFloat(prev.price);
+                const currentPrice = parseFloat(current.price);
+                return (currentPrice > prevPrice) ? current : prev;
+            }, transformedData[0]);
+
+
+            this.card_featured = most_expansive_house;
+
+
+
+            return transformedData;
         }
 
     },
     computed: {
-        ...mapState(['activeMap'])
+        ...mapState(['activeMap']),
+        ...mapState(['visibleMarkersData']),
+
     },
 
 
     created() {
-        // Defining Card Featured:
-        // const FEATURED_INDEX = 15;
-        // this.card_featured.medias = data[FEATURED_INDEX].medias;
-        // this.card_featured.price = data[FEATURED_INDEX].pricingInfos[0].price;
-        // this.card_featured.description = data[FEATURED_INDEX].description;
-
-
-        const startIndex = Math.floor(Math.random() * (data.length - 30 + 1));
-        const endIndex = startIndex + 30;
-
-
-        this.items = data
-            .slice(startIndex, endIndex)
-            .map(item => {
-
-                const card_images = item.medias.map(
-                    media => media.url
-                        .replace("{action}", "fit-in")
-                        .replace("{width}", "870")
-                        .replace("{height}", "653")
-                )
-                    .filter(url => !url.includes('youtube') && !url.includes('youtu'));
-
-                // Fixing Pricing Information
-                let [formattedPrice, suffix] = this.formatPrice(item.pricingInfos[0].price)
-                item.formattedPrice = formattedPrice;
-                item.suffix = suffix;
-
-
-                item.status_level = this.getRandomStatusLevel();
-
-
-                // Fixing amenities items
-                item.amenities = item.amenities.map((a) => {
-                    return a.replace("_", " ")
-                })
-
-                if (item && item.amenities && item.amenities.length > 0 && item.amenities.length > 8) {
-                    item.amenities = item.amenities.slice(0, 7);
-                    item.amenities.push("... VER MAIS")
-                } else {
-                    item.amenities = ["Sem Itens"]
-                }
-
-
-                item.stars_count = Math.floor(Math.random() * 11);
-
-
-                item.title = this.gerarTituloAleatorio();
-                item.streetNumber = item.streetNumber === null || item.streetNumber === undefined || item.streetNumber === "" ? "s/n" : item.streetNumber;
-                item.street = item.street === null || item.street === undefined || item.street === "" ? "Sem Endereço" : item.street.replace("Avenida", "Av.").replace("Alameda", "Al.");
-                item.neighborhood = item.neighborhood === null || item.neighborhood === undefined || item.neighborhood === "" ? "Sem Endereço" : item.neighborhood;
-
-                // Fixing the mal-formation of the description, e.g: uppercase, \n, etc 
-                item.description = item.description
-                    ? item.description
-                        .replace(/\n/g, "")
-                        .replace(/<\/?br\/?>/g, "")
-                        .replace(/<?b\/?>/g, "")
-                        .toLowerCase()
-                        .replace(/(^|[.!?]\s+)(\w)/g, function (match, p1, p2) {
-                            return p1 + p2.toUpperCase();
-                        })
-                        .replace(/([.!?]\s+)(\p{Ll})/gu, function (match, p1, p2) {
-                            return p1 + p2.toUpperCase();
-                        })
-                        .replace(/!+/g, "!")
-
-                    : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, iste obcaecati.";
-
-
-                if (item.description.length > 120) {
-                    item.description_full = item.description;
-                    item.description = item.description.slice(0, 120) + " (...) "
-                }
-                item.price = item.pricingInfos[0].price
-
-                return { ...item, card_images: card_images };
-            });
-
-
-
-        const most_expansive_house = this.items.reduce((prev, current) => {
-            const prevPrice = parseFloat(prev.price);
-            const currentPrice = parseFloat(current.price);
-            return (currentPrice > prevPrice) ? current : prev;
-        }, this.items[0]);
-
-
-        this.card_featured = most_expansive_house;
-    }
+        watch(
+            () => this.visibleMarkersData,
+            (newData) => {
+                this.transformedData = this.applyTransformations(newData);
+            }
+        );
+    },
 };
 </script>
 
@@ -327,7 +348,6 @@ export default {
 #main_wrapper {
     display: flex;
     flex-direction: row;
-    /* width: 100%; */
 }
 
 
@@ -391,7 +411,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
 }
 
 /* Estilos para os cards */
@@ -408,28 +428,6 @@ export default {
     font-family: 'Ysabeau Office', sans-serif;
     font-size: 1.2em;
 }
-
-
-
-
-
-
-
-
-
-
-
-/* 
-#extra_filters {
-    margin-left: 3em;
-    padding: 1em;
-    box-sizing: border-box;
-    margin-top: 1em;
-    background-color: rgb(255, 255, 255);
-    border-radius: 0.8em;
-    min-width: 20em;
-    flex: 0 0 15%;
-} */
 
 
 #extra_filters {

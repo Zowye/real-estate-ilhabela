@@ -1,5 +1,5 @@
 <template>
-    <div class="card-small-map-opened-version">
+    <div :class="activeMap ? 'card-small-map-opened-version' : 'card-small'">
         <div id="card_top">
             <CardPhotoViewer :images="card.card_images" :status_level="card.status_level" :id="card.id" />
         </div>
@@ -9,6 +9,8 @@
                 <i class="fas fa-heart"></i>
             </div>
         </div>
+
+
         <div class="cardInfos">
             <div class="card_title" @click="SetFocusHouse(card)">{{ card.title }}</div>
             <div id="topInfos" class="inner_cardcard_padding">
@@ -16,17 +18,23 @@
                 <div class="card_address">{{ card.street }}, {{ card.streetNumber }}</div>
             </div>
             <div class="neigh">{{ card.neighborhood }}</div>
-            <div id="bottomInfos" class="inner_card_padding">
+            <div v-if="!activeMap" id="bottomInfos" class="inner_card_padding">
                 <CardCommonInfo />
                 <!-- <p class="description">{{ card.description }}</p> -->
             </div>
         </div>
-        <div id="card-footer">
+        <div class="card-footer" v-if="!activeMap">
             <div>
                 <span class="monetary"><span class="currency_name">R$</span> </span><span class="monetary_value_number">{{
                     card.formattedPrice }}</span><span class="monetary_value_string">{{ card.suffix }}</span>
             </div>
             <div class="see-more-btn" @click="handleMoreInfo">VISÃO RÁPIDA</div>
+        </div>
+        <div class="card-footer-small" v-else>
+            <div>
+                <span class="monetary small">R${{ card.formattedPrice }} {{ card.suffix }}</span>
+            </div>
+            <div class="see-more-btn-small" @click="handleMoreInfo">VER MAIS</div>
         </div>
     </div>
 </template>
@@ -91,6 +99,7 @@ export default {
         isFavoriteOnStore() {
             return this.favoritesList.includes(this.card);
         },
+        ...mapState(['activeMap'])
     }
 };
 </script>
@@ -127,8 +136,8 @@ export default {
     position: relative;
     background-color: var(--card-background);
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.04);
-    margin: 1em;
-    border-radius: 0.7em;
+    margin: 0.5em;
+    border-radius: 0.4em;
     border-top-left-radius: 1.2em;
     border-top-right-radius: 1.2em;
     border-right: 1px solid rgba(128, 128, 128, .2);
@@ -141,18 +150,18 @@ export default {
     border-bottom-color: rgba(128, 128, 128, 0.2);
     box-shadow: 0px 4px 15px rgb(0 0 0 / 8%) 0 1px 0;
     overflow: hidden;
-    margin-bottom: 5em;
-    width: 24em;
+    margin-bottom: 1em;
+    width: 15em;
 }
 
 
 
 #card_top {
     width: 100%;
-    height: 24em;
+    height: 15em;
 }
 
-#card-footer {
+.card-footer {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -166,15 +175,45 @@ export default {
     color: #424767;
 }
 
+.card-footer-small {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    bottom: 0px;
+    border: .0625rem solid var(--card-footer-border-color);
+    border-bottom-left-radius: 0.8em;
+    border-bottom-right-radius: 0.8em;
+    background-color: var(--card-footer);
+    padding: 0.5em;
+    color: #424767;
+}
+
+.small {
+    padding: 0.2em 0.1em;
+}
+
+
 .see-more-btn {
     color: var(--cor-base);
     border: 1px solid var(--cor-base);
-     border-radius: 1em;
+    border-radius: 1em;
     padding: 1em 2em;
     font-size: 0.9em;
     cursor: pointer;
     transition: background-color 0.2s ease, color 0.2s ease, border-color 0.1s ease;
 }
+
+.see-more-btn-small {
+    color: var(--cor-base);
+    border: 1px solid var(--cor-base);
+    border-radius: 1em;
+    padding: 0.5em 1em;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.1s ease;
+}
+
 
 .see-more-btn:hover {
     color: #fff;
@@ -232,7 +271,7 @@ export default {
     line-height: 1em;
     margin-bottom: 0.7em;
     font-weight: 500;
-    font-size: 1.48em;
+    font-size: 1em;
 }
 
 
@@ -405,9 +444,13 @@ export default {
     /* ou a cor desejada ao passar o mouse (hover) */
 }
 
+.small {
+    font-size: 1em;
+}
+
 /* Ajusta para tela mobile */
 @media screen and (max-width: 800px) {
-    .card-small{
+    .card-small {
         width: 90%;
     }
 
