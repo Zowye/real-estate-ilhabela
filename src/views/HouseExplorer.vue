@@ -618,7 +618,6 @@ export default {
 
 
 .image_overlay {
-
     border-radius: 0.6em;
     position: absolute;
     bottom: 0;
@@ -627,7 +626,7 @@ export default {
     /* Cobrir toda a largura da imagem */
     height: 100%;
     /* Cobrir toda a altura da imagem */
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.426), transparent);
     z-index: 1;
     /* Colocar abaixo do texto, mas acima da imagem */
 }

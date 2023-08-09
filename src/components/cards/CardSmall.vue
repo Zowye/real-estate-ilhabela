@@ -1,6 +1,7 @@
 <template>
     <div :class="activeMap ? 'card-small-map-opened-version' : 'card-small'">
-        <div id="card_top">
+        <div :class="activeMap ? 'card_top-map-opened-version' : 'card_top'">
+
             <CardPhotoViewer :images="card.card_images" :status_level="card.status_level" :id="card.id" />
         </div>
 
@@ -156,9 +157,14 @@ export default {
 
 
 
-#card_top {
+.card_top {
     width: 100%;
+    height: 24em;
+}
+
+.card_top-map-opened-version {
     height: 15em;
+    width: 100%;
 }
 
 .card-footer {
