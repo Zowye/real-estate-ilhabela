@@ -4,11 +4,11 @@
         <button class="prev-button" @click="prevImage"></button>
 
         <router-link :to="`/house_explorer/${id}`">
+            <div v-if="isLoading" class="spinner"></div>
             <img name="customImage" :src="currentImage" @mouseover="startAutoSwitch" @mouseleave="stopAutoSwitch"
-                :alt="`Image ${currentImageIndex + 1} of ${images.length}`" />
+                :alt="`Image ${currentImageIndex + 1} of ${images.length}`" @load="imageLoaded" />
         </router-link>
 
-        <!-- Botões no canto superior esquerdo -->
         <div class="top-left-buttons">
             <button class="for-sale-button border-half">
                 For Sale
@@ -18,24 +18,7 @@
             </button>
         </div>
 
-        <!-- Botão no canto superior direito -->
-        <!-- <button class="camera-button border-half">
-            <i class="material-icons-outlined">camera_alt</i> 4
-        </button> -->
-
-        <!-- Botões no canto inferior direito -->
-        <!-- <div class="bottom-right-buttons">
-                <button class="heart-button border-circled" :class="{ 'heart-clicked': heartClicked }" @click="toggleHeart">
-                    <i class="material-icons-outlined">favorite_border</i>
-                </button>
-                <button class="plus-button border-circled">
-                    <i class="material-icons-outlined">add</i>
-                </button>
-            </div> -->
     </div>
-    <!-- <div class="controls">
-  
-      </div> -->
 </template>
   
 <script>
@@ -60,6 +43,7 @@ export default {
             currentIndex: 0,
             heartClicked: false,
             intervalId: null,
+            isLoading: true
         };
     },
     computed: {
@@ -91,6 +75,9 @@ export default {
         },
     },
     methods: {
+        imageLoaded() {
+            this.isLoading = false;
+        },
         startAutoSwitch() {
             this.intervalId = setInterval(() => {
                 this.nextImage();
@@ -103,11 +90,13 @@ export default {
         prevImage() {
             if (this.currentIndex > 0) {
                 this.currentIndex--;
+                this.isLoading = true; // Reset isLoading
             }
         },
         nextImage() {
             if (this.currentIndex < this.images.length - 1) {
                 this.currentIndex++;
+                this.isLoading = true; // Reset isLoading
             }
         },
         toggleHeart() {
@@ -329,6 +318,30 @@ export default {
 .icon-trending {
     color: #ffffff;
     /* Cor laranja escuro para o ícone */
+}
+
+
+.spinner {
+    position: absolute;
+    border: 4px solid rgba(247, 237, 237, 0.36);
+    border-radius: 50%;
+    border-top: 4px solid #000;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    top: 45%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 </style>
   
