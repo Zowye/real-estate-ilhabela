@@ -134,6 +134,7 @@ export default {
 
             // Função para mostrar o popup
             const displayPopup = () => {
+
               const routeUrl = this.$router.resolve({ name: 'HouseExplorer', params: { id: house.id } }).href;
               const address = this.fixAddressInfo(house.street, house.streetNumber, house.neighborhood);
               const popupContent = `
@@ -153,6 +154,9 @@ export default {
                     </div>
                   </div>`;
               marker.bindPopup(popupContent).openPopup();
+
+              this.app_map.setView(lat_lon, this.app_map.getZoom());
+
             };
 
 
@@ -311,7 +315,7 @@ export default {
   background-color: var(--cor-base);
 }
 
-::v-deep .flex-row{
+::v-deep .flex-row {
   display: flex;
   flex-direction: row;
 
