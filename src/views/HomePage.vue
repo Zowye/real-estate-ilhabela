@@ -137,18 +137,21 @@ export default {
               const routeUrl = this.$router.resolve({ name: 'HouseExplorer', params: { id: house.id } }).href;
               const address = this.fixAddressInfo(house.street, house.streetNumber, house.neighborhood);
               const popupContent = `
-                <div class="popup-content">
-                    <div class="small-media-popup-marker">
-                        <img src="${this.fixMediaInfo(house.medias)}">
-                    </div>
-                    <div class="marker-info-container">
+                  <div class="popup-content">
+                    <div id="title">Casa no ${address[2]}</div>
+                      <div class="flex-row">
+                      <div class="small-media-popup-marker">
+                      <img src="${this.fixMediaInfo(house.medias)}">
+                      </div>
+                      <div class="marker-info-container">
                       <div>
-                        <div class="marker-address">${address[0]} ${address[1]}</div>
-                        <div class="marker-address neigh">${address[2]}</div>
+                      <div class="marker-address">${address[0]} ${address[1]}</div>
+                      <div class="marker-address neigh">${address[2]}</div>
                       </div>
                       <a class="btn-marker-pop" href="${routeUrl}">VER DETALHES</a>
+                      </div>
                     </div>
-                </div>`;
+                  </div>`;
               marker.bindPopup(popupContent).openPopup();
             };
 
@@ -246,9 +249,12 @@ export default {
 
 ::v-deep .popup-content {
   display: flex;
+  flex-direction: column;
   align-items: center;
   box-sizing: border-box;
   width: fit-content;
+  justify-content: start;
+  align-items: start;
 }
 
 ::v-deep .small-media-popup-marker img {
@@ -295,16 +301,32 @@ export default {
 }
 
 ::v-deep .neigh {
-    display: inline-block;
-    font-weight: 200;
-    margin-bottom: 0.5em;
-    padding: 0.35em 0.85em;
-    color: white;
-    border-radius: 1.5em;
-    font-size: 0.90em;
-    background-color: var(--cor-base);
+  display: inline-block;
+  font-weight: 200;
+  margin-bottom: 0.5em;
+  padding: 0.35em 0.85em;
+  color: white;
+  border-radius: 1.5em;
+  font-size: 0.90em;
+  background-color: var(--cor-base);
 }
 
+::v-deep .flex-row{
+  display: flex;
+  flex-direction: row;
+
+}
+
+::v-deep #title {
+  font-size: 2em;
+  font-weight: 700;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  color: black;
+  background: transparent;
+  margin-top: -0.3em;
+}
 
 #container-cardlist-and-map {
   width: 100%;
