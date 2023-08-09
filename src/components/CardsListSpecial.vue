@@ -185,6 +185,7 @@ export default {
         toggleExtraFiltersVisibility() {
             this.isExtraFiltersVisible = !this.isExtraFiltersVisible;
         },
+
         gerarTituloAleatorio() {
             const string1 = ["Luxuosa", "Linda", "Aconchegante", "Belíssimo", "Confortável", "Novíssimo", "Luxuosa"];
             const string2 = ["Flat", "Casa", "Sítio", "Apartamento"];
