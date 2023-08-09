@@ -838,6 +838,7 @@ export default {
     border-radius: 0.5em;
     margin-left: 0.5em;
     cursor: pointer;
+    object-fit: cover;
     width: 8em;
     height: 8em;
 }
