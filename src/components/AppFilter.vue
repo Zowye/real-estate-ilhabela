@@ -1,5 +1,5 @@
 <template>
-    <div id="filters">
+    <div id="filters" :class="activeMap ? 'filter_full_width' : 'filter_width'">
         <div class="filter-line top">
             <div @click="changeActive('ALUGAR')" class="filter-item top-button"
                 :class="{ active: activeButton === 'ALUGAR' }">
@@ -72,6 +72,7 @@
 // import FilterPriceRange from "@/components/filter/FilterPriceRange.vue";
 import Multiselect from '@vueform/multiselect'
 import '@vueform/multiselect/themes/default.css'
+import { mapState } from 'vuex';
 
 
 export default {
@@ -83,6 +84,7 @@ export default {
         };
     },
     computed: {
+        ...mapState(['activeMap']),
         selectedOptionsLimited() {
             return this.selectedOptions.slice(0, 3);
         },
@@ -171,7 +173,6 @@ export default {
 </script>
 
 <style scoped>
-
 ::v-deep .multiselect-option {
     color: var(--color-font-dropdown-filter);
 }
@@ -218,7 +219,6 @@ export default {
 
 
 #filters {
-    width: 40%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -228,6 +228,14 @@ export default {
     border-radius: 1em;
     margin-top: 10em;
     bottom: 0;
+}
+
+.filter_full_width {
+    width: 80%;
+}
+
+.filter_width {
+    width: 40%;
 }
 
 
@@ -553,7 +561,7 @@ export default {
         /* Adjust the width to fit the screen */
         padding: 10px;
         /* Add some padding for better spacing */
-    margin-top: 4em;
+        margin-top: 4em;
 
     }
 

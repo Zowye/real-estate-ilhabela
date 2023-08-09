@@ -110,7 +110,7 @@ export default {
       if (!this.mapReady) {
         const centerOfIlhabela = [-23.7787, -45.3581];
         this.app_map = L.map('map-home-page', { zoomControl: true, zoom: 1, zoomAnimation: false, fadeAnimation: true, markerZoomAnimation: true }).setView(centerOfIlhabela, 12);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoiem93eWUiLCJhIjoiY2xqeDAwM2F5MDFoMDNlcGx3c2RqZ3ZldyJ9.BgqylKNWVF6Io-dSx4o54Q', {
           maxZoom: 19
         }).addTo(this.app_map);
         this.mapReady = true;
@@ -119,21 +119,13 @@ export default {
 
         const markers = L.markerClusterGroup();
 
-
-        // const myIcon = L.icon({
-        //   iconUrl: "/houseicon.svg",
-        //   iconSize: [28, 38],
-        //   iconAnchor: [22, 22],
-        //   popupAnchor: [-3, -76]
-        // });
-
         let uniqueData = Object.values(data.reduce((acc, cur) => {
           acc[cur.id] = cur;
           return acc;
         }, {}));
 
         // For each one of the houses, do it...
-        this.items = uniqueData.forEach((house) => {
+        uniqueData.forEach((house) => {
           const location = house["point"];
           if (location) {
             const lat_lon = [location['lat'], location['lon']];
