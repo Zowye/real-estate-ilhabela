@@ -12,7 +12,6 @@
             <div id="main_row">
 
                 <div id="info_wrapper">
-                    <div id="map"></div>
 
                     <div id="main_info">
                         <div class="image_overlay" ref="touchArea"></div>
@@ -39,11 +38,12 @@
 
                         </div>
                         <div :class="overlayClass"></div>
-                        <img :src="card_images[currentIndex]" class="gallery-image" loading="lazy" alt="Property Image"
-                            @click="changeCurrentIndex(index)"  @load="onImageLoaded" />
+
+                        <div class="gallery-image-container">
+                            <img :src="card_images[currentIndex]" class="gallery-image" loading="lazy" alt="Property Image"
+                                @click="changeCurrentIndex(index)" @load="onImageLoaded" />
+                        </div>
                     </div>
-
-
                 </div>
                 <div id="gallary">
                     <div class="gallary_overlay"></div>
@@ -55,179 +55,70 @@
                         </div>
                     </div>
                 </div>
+                <div id="map"></div>
 
-                <div id="extra_info">
-                    <div id="y">
+                <div id="middle_section">
+                    <div class="extra_info shadow">
 
-                        <div>
-                            <div id="icons_blocks_wrapper">
-                                <div class="rh_ultra_prop_card__meta">
-                                    <div class="icon_and_info_wrapper">
-                                        <div class="icon-label">
-                                            Bedrooms </div>
-                                        <div class="bottom_content">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" class="icon">
+                        <HouseBasicInfo />
 
-                                                <path
-                                                    d="M19.4 2c0.1 0 0.2 0 0.3 0l0.2 2H15l0-2c0.2 0 0.3 0 0.6 0H19.4M8.4 2C8.7 2 8.9 2 9 2l0 1.8C8.7 3.9 8.4 4 8.1 4h-4l0.2-2c0.1 0 0.2 0 0.3 0H8.4M20.1 10c0.3 0 0.6 0.1 0.7 0.2L22 21.3c0 0 0 0.1 0 0.1 0 0.2 0 0.3-0.1 0.3 -0.1 0.1-0.3 0.2-0.6 0.2H2.6c-0.3 0-0.5-0.1-0.6-0.2C2 21.7 2 21.7 2 21.5c0 0 0-0.1 0-0.1l1.2-11.1C3.3 10.1 3.6 10 3.9 10H20.1M19.4 0h-3.9C14.5 0 13 0.1 13 1l0 3.5C12.8 5.3 13.7 6 14.9 6h5.2c1.2 0 2.1-0.7 1.9-1.5l-0.4-3.1C21.5 0.6 20.5 0 19.4 0L19.4 0zM8.4 0H4.6C3.5 0 2.5 0.6 2.4 1.3L2 4.5C1.9 5.3 2.7 6 3.9 6h4.2c1.2 0 3.1-0.7 2.9-1.5L11 1C11 0.1 9.5 0 8.4 0L8.4 0zM20.1 8H3.9C2.6 8 1.4 8.8 1.3 9.8L0 21.1C-0.2 22.7 0.9 24 2.6 24h18.7c1.7 0 2.9-1.3 2.6-2.9L22.7 9.8C22.6 8.8 21.4 8 20.1 8L20.1 8z">
-                                                </path>
-                                            </svg>
-                                            <span>3</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="vertical_separator"></div>
-
-                                <div class="rh_ultra_prop_card__meta">
-                                    <div class="icon_and_info_wrapper">
-                                        <div class="icon-label">
-                                            Saunas </div>
-                                        <div class="bottom_content">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" class="icon">
-
-                                                <path
-                                                    d="M9 10l0.7 0.1c1.2 0.2 2.2 0.9 2.8 1.9H5.5c0.6-1 1.6-1.7 2.8-1.9L9 10M16 0c-4.4 0-8 3.6-8 8 0 0 0 0.1 0 0.1C5.2 8.6 3 11 3 14h12c0-3-2.2-5.4-5-5.9V8c0-3.3 2.7-6 6-6 3.3 0 6 2.7 6 6v16h2V8C24 3.6 20.4 0 16 0L16 0zM14.3 15.6c-0.1 0-0.2 0-0.3 0.1 -0.5 0.2-0.8 0.8-0.6 1.3l0.7 0.9c0.1 0.4 0.5 0.7 0.9 0.7 0.1 0 0.2 0 0.3-0.1 0.5-0.2 0.8-0.8 0.6-1.3l-0.7-0.9C15.1 15.8 14.7 15.6 14.3 15.6L14.3 15.6zM3.7 15.6c-0.4 0-0.8 0.3-0.9 0.7l-0.7 0.9c-0.2 0.5 0.1 1.1 0.6 1.3 0.1 0 0.2 0.1 0.3 0.1 0.4 0 0.8-0.3 0.9-0.7l0.7-0.9c0.2-0.5-0.1-1.1-0.6-1.3C3.9 15.6 3.8 15.6 3.7 15.6L3.7 15.6zM9 16c-0.6 0-1 0.4-1 1v1c0 0.6 0.4 1 1 1 0.6 0 1-0.4 1-1v-1C10 16.5 9.6 16 9 16L9 16zM16.3 20.2c-0.1 0-0.2 0-0.3 0.1 -0.5 0.2-0.8 0.8-0.6 1.3l0.3 0.9c0.1 0.4 0.5 0.7 0.9 0.7 0.1 0 0.2 0 0.3-0.1 0.5-0.2 0.8-0.8 0.6-1.3l-0.3-0.9C17.1 20.5 16.7 20.2 16.3 20.2L16.3 20.2zM1.7 20.2c-0.4 0-0.8 0.3-0.9 0.7l-0.3 0.9c-0.2 0.5 0.1 1.1 0.6 1.3 0.1 0 0.2 0.1 0.3 0.1 0.4 0 0.8-0.3 0.9-0.7l0.3-0.9c0.2-0.5-0.1-1.1-0.6-1.3C1.9 20.3 1.8 20.2 1.7 20.2L1.7 20.2zM9 21c-0.6 0-1 0.4-1 1v1c0 0.6 0.4 1 1 1 0.6 0 1-0.4 1-1v-1C10 21.5 9.6 21 9 21L9 21z">
-                                                </path>
-                                            </svg>
-                                            <span>2</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="vertical_separator"></div>
-
-
-                                <div class="rh_ultra_prop_card__meta">
-                                    <div class="icon_and_info_wrapper">
-                                        <div class="icon-label">
-                                            Bathrooms </div>
-                                        <div class="bottom_content">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" class="icon">
-
-                                                <path
-                                                    d="M9 10l0.7 0.1c1.2 0.2 2.2 0.9 2.8 1.9H5.5c0.6-1 1.6-1.7 2.8-1.9L9 10M16 0c-4.4 0-8 3.6-8 8 0 0 0 0.1 0 0.1C5.2 8.6 3 11 3 14h12c0-3-2.2-5.4-5-5.9V8c0-3.3 2.7-6 6-6 3.3 0 6 2.7 6 6v16h2V8C24 3.6 20.4 0 16 0L16 0zM14.3 15.6c-0.1 0-0.2 0-0.3 0.1 -0.5 0.2-0.8 0.8-0.6 1.3l0.7 0.9c0.1 0.4 0.5 0.7 0.9 0.7 0.1 0 0.2 0 0.3-0.1 0.5-0.2 0.8-0.8 0.6-1.3l-0.7-0.9C15.1 15.8 14.7 15.6 14.3 15.6L14.3 15.6zM3.7 15.6c-0.4 0-0.8 0.3-0.9 0.7l-0.7 0.9c-0.2 0.5 0.1 1.1 0.6 1.3 0.1 0 0.2 0.1 0.3 0.1 0.4 0 0.8-0.3 0.9-0.7l0.7-0.9c0.2-0.5-0.1-1.1-0.6-1.3C3.9 15.6 3.8 15.6 3.7 15.6L3.7 15.6zM9 16c-0.6 0-1 0.4-1 1v1c0 0.6 0.4 1 1 1 0.6 0 1-0.4 1-1v-1C10 16.5 9.6 16 9 16L9 16zM16.3 20.2c-0.1 0-0.2 0-0.3 0.1 -0.5 0.2-0.8 0.8-0.6 1.3l0.3 0.9c0.1 0.4 0.5 0.7 0.9 0.7 0.1 0 0.2 0 0.3-0.1 0.5-0.2 0.8-0.8 0.6-1.3l-0.3-0.9C17.1 20.5 16.7 20.2 16.3 20.2L16.3 20.2zM1.7 20.2c-0.4 0-0.8 0.3-0.9 0.7l-0.3 0.9c-0.2 0.5 0.1 1.1 0.6 1.3 0.1 0 0.2 0.1 0.3 0.1 0.4 0 0.8-0.3 0.9-0.7l0.3-0.9c0.2-0.5-0.1-1.1-0.6-1.3C1.9 20.3 1.8 20.2 1.7 20.2L1.7 20.2zM9 21c-0.6 0-1 0.4-1 1v1c0 0.6 0.4 1 1 1 0.6 0 1-0.4 1-1v-1C10 21.5 9.6 21 9 21L9 21z">
-                                                </path>
-                                            </svg>
-                                            <span>2</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="vertical_separator"></div>
-
-
-                                <div class="rh_ultra_prop_card__meta">
-                                    <div class="icon_and_info_wrapper">
-                                        <div class="icon-label">
-                                            Area </div>
-                                        <div class="bottom_content">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" class="icon">
-                                                <path class="ultra-meta rh-ultra-dark"
-                                                    d="M19.2 2L22 4.8v0.3L19.2 8l-1.4-2.9L17.7 5l0.1-0.1L19.2 2M5 17.7l0.1 0.1L8 19.2 5.2 22H4.8L2 19.2l2.9-1.4L5 17.7M20 0h-2l-2 4H4v12l-4 2v2l4 4h2l4-4v-2l-4-2V6h10l2 4h2l4-4V4L20 0 20 0zM24 10h-2v2h2V10L24 10zM24 14h-2v2h2V14L24 14zM24 18h-2v2h2V18L24 18zM24 22h-2v2h2V22L24 22zM20 22h-2v2h2V22L20 22zM16 22h-2v2h2V22L16 22zM12 22h-2v2h2V22L12 22z">
-                                                </path>
-                                            </svg>
-                                            <span>2</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="vertical_separator"></div>
-
-                                <div class="rh_ultra_prop_card__meta">
-                                    <div class="icon_and_info_wrapper">
-                                        <div class="icon-label">
-                                            Vagas
-                                        </div>
-                                        <div class="bottom_content">
-                                            <img src="@/assets/images/garage.svg" alt="Garage Icon" style="width: 24px;"
-                                                class="icon" />
-                                            <!-- Definir a largura do SVG aqui -->
-                                            <span>2</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </div>
-
-                        <h1>Descrição</h1>
-                        <div id="description">Lorem ipsum dolor sit amet, consectetur adipisicing corporis, quae, nemo sunt
+                        <div id="description">
+                            <div class="houses_tittle">Descrição</div>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing corporis, quae, nemo sunt
                             commodi error optio
                             rem
                             magni ipsam. Ea pariatur sed provident? Ducimus, placeat, rem voluptas iure corrupti et quae
                             doloremque
-                            sapiente voluptatem quos at dolores repellat pariatur voluptatum recusandae?</div>
+                            sapiente voluptatem quos at dolores repellat pariatur voluptatum recusandae?
+                        </div>
                         <div class="amenities">
                             <CardAmenities :amenities="card.amenities" />
                         </div>
 
-                        <div>
-                            <h1>Property Details</h1>
-                            <table class="property-table">
-                                <tr class="row-light">
-                                    <td><strong>Distancia até Praia do Curral</strong></td>
-                                    <td>{{ dist_curral }} metros</td>
-                                </tr>
-                                <tr class="row-dark">
-                                    <td><strong>Price:</strong></td>
-                                    <td>R$ {{ card.formattedPrice }} {{ card.suffix }}</td>
-                                </tr>
-                                <tr class="row-light">
-                                    <td><strong>Address:</strong></td>
-                                    <td>{{ card.street }}, {{ card.streetNumber }}, {{ card.neighborhood }}, {{ card.city
-                                    }}, {{
-    card.state }}, {{ card.country }}</td>
-                                </tr>
-                                <tr class="row-dark">
-                                    <td><strong>Zip Code:</strong></td>
-                                    <td>{{ card.zipCode }}</td>
-                                </tr>
-                                <tr class="row-light">
-                                    <td><strong>Usable Area:</strong></td>
-                                    <td>{{ card.usableAreas[0] }} sqm</td>
-                                </tr>
-                                <tr class="row-dark">
-                                    <td><strong>Yearly IPTU:</strong></td>
-                                    <td>R$ {{ card.pricingInfos[0].yearlyIptu }}</td>
-                                </tr>
-                                <tr class="row-light">
-                                    <td><strong>Monthly Condo Fee:</strong></td>
-                                    <td>R$ {{ card.pricingInfos[0].monthlyCondoFee }}</td>
-                                </tr>
-                                <tr class="row-dark">
-                                    <td><strong>Usage Types:</strong></td>
-                                    <td>{{ card.usageTypes.join(', ') }}</td>
-                                </tr>
-                                <tr class="row-light">
-                                    <td><strong>Unit Types:</strong></td>
-                                    <td>{{ card.unitTypes.join(', ') }}</td>
-                                </tr>
-                            </table>
+                        <div class="houses_tittle">Distâncias</div>
+                        <div class="beaches-container">
+                            <div v-for="beach in beaches" :key="beach.name" class="beach-item">
+                                <spam class="beach-name">{{ beach.name }}</spam>
 
 
+                                <div class="beach-bar-container">
 
+                                    <div class="beach-bar-behind">
 
+                                        <div :style="{ width: beach.widthPercentage + '%' }" class="beach-bar">
+                                            <spam class="beach-distance"> {{ beach.widthPercentage }} km</spam>
+                                        </div>
+                                    </div>
+                                </div>
 
+                            </div>
                         </div>
 
 
+                        <div>
+  
+
+                        </div>
 
                     </div>
 
 
-
+                    <div class="publisher_info shadow">
+                        <div class="publisher-container">
+                            <img :src="require('@/assets/images/avatar-mock.jpg')" alt="Foto do Publisher"
+                                class="publisher-photo">
+                            <h2 class="publisher-name">Nome do Publisher</h2>
+                            <p class="publisher-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Molestias, aspernatur exercitationem inventore quae dolorum sed excepturi.</p>
+                            <p class="publisher-time">2 anos na plataforma</p>
+                            <div class="publisher-actions">
+                                <button class="action-button whatsapp">WhatsApp</button>
+                                <button class="action-button email">Email</button>
+                                <button class="action-button contato">Contato</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
 
         </div>
@@ -244,7 +135,11 @@ import 'leaflet.markercluster';
 import IconPin from "@/components/icons/IconPin.vue";
 import Hammer from 'hammerjs';
 import 'leaflet-routing-machine';
-// import CardAmenities from '@/components/CardAmenities.vue';
+import HouseBasicInfo from '@/components/HouseBasicInfo.vue';
+
+
+
+import CardAmenities from '@/components/CardAmenities.vue';
 
 export default {
 
@@ -259,7 +154,7 @@ export default {
 
         var map = L.map('map').setView([-23.7781, -45.3587], 11);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoiem93eWUiLCJhIjoiY2xqeDAwM2F5MDFoMDNlcGx3c2RqZ3ZldyJ9.BgqylKNWVF6Io-dSx4o54Q', {
             maxZoom: 19,
         }).addTo(map);
 
@@ -314,6 +209,25 @@ export default {
 
     },
     methods: {
+        generateBeaches() {
+            const beachNames = [
+                "Praia do Bonete",
+                "Praia de Castelhanos",
+                "Praia do Curral",
+                "Praia da Feiticeira",
+                "Praia Grande",
+                "Praia do Jabaquara",
+                "Praia da Armação",
+                "Praia do Pinto",
+                "Praia da Fome",
+                "Praia do Saco da Capela"
+            ];
+
+            this.beaches = beachNames.map(beach => ({
+                name: beach,
+                widthPercentage: Math.floor(Math.random() * 101)
+            }));
+        },
         onImageLoaded() {
             // Quando a imagem é carregada, ative o efeito flash
             this.isFlashing = true;
@@ -476,7 +390,8 @@ export default {
     components: {
         DefaultLayout,
         IconPin,
-        // CardAmenities
+        HouseBasicInfo,
+        CardAmenities
     },
     data() {
         return {
@@ -488,9 +403,12 @@ export default {
             intervalIdProgressBar: null,
             dist_curral: null,
             isFlashing: false,
+            beaches: []
         };
     },
     created() {
+        this.generateBeaches();
+
         window.scrollTo(0, 0);
 
         this.card = data.find(item => item.id === this.$route.params.id);
@@ -539,6 +457,33 @@ export default {
     border-radius: 0.7em;
 }
 
+
+#middle_section {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #info_wrapper {
     display: flex;
     flex-direction: row;
@@ -554,7 +499,7 @@ export default {
     border-radius: 0.5em;
     flex-direction: column;
     flex: 1 0 75%;
-    height: 35em;
+    height: 49em;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
     position: relative;
 }
@@ -567,8 +512,14 @@ export default {
 }
 
 
-#extra_info {
-    margin-top: 1em;
+.extra_info {
+    display: flex;
+    flex-direction: column;
+    align-items: first baseline;
+    justify-content: start;
+    background-color: #fff;
+    border-radius: 0.5em;
+    margin-right: 1em;
     padding: 1em;
 }
 
@@ -578,10 +529,10 @@ export default {
     flex-direction: column;
     bottom: 1em;
     left: 2em;
-    z-index: 1;
     color: #fff;
     position: absolute;
     padding: 10px;
+    z-index: 3;
 }
 
 #title {
@@ -596,6 +547,15 @@ export default {
     margin-top: -0.3em;
 }
 
+.houses_tittle {
+    font-size: 1.4em;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: black;
+    margin-bottom: 0.7em;
+    margin-top: 1.9em;
+}
+
 
 #aditional_info {
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
@@ -604,8 +564,6 @@ export default {
     flex: 1 0 24%;
     padding: 1em;
     border-radius: 0.7em;
-    /* background: linear-gradient(45deg, navy, dodgerblue); */
-
     background-color: rgb(73, 71, 71);
 }
 
@@ -623,12 +581,12 @@ export default {
     bottom: 0;
     left: 0;
     width: 100%;
-    /* Cobrir toda a largura da imagem */
     height: 100%;
-    /* Cobrir toda a altura da imagem */
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.426), transparent);
-    z-index: 1;
-    /* Colocar abaixo do texto, mas acima da imagem */
+    background: linear-gradient(to top,
+            rgba(0, 0, 0, 0.89),
+            rgba(0, 0, 0, 0.114),
+            transparent);
+    z-index: 2;
 }
 
 .gallary_overlay {
@@ -646,9 +604,7 @@ export default {
 #description {
     font-size: 1.2em;
     color: rgb(78, 78, 78);
-    line-height: 1.3em;
-    font-weight: 100;
-
+    line-height: 1.5em;
 }
 
 
@@ -702,39 +658,6 @@ export default {
 
 
 
-#icons_blocks_wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 1em;
-    border-radius: 1em;
-    flex-wrap: wrap;
-    background-color: rgb(255, 255, 255);
-    gap: 0.5em;
-}
-
-.separator {
-    width: 2em;
-    height: 0.8em;
-    background-color: var(--nice-green);
-    margin: 20px auto;
-    /* Isso centraliza o separador e dá um pouco de espaço acima e abaixo */
-}
-
-.vertical_separator {
-    width: 1px;
-    height: 4em;
-    background: linear-gradient(to bottom, rgba(224, 224, 224, 0), rgba(224, 224, 224, 1), rgba(224, 224, 224, 0));
-}
-
-
-.separator2 {
-    width: 6em;
-    height: 0.1em;
-    background-color: white;
-    margin: 20px auto;
-}
 
 .icon-label {
     display: flex;
@@ -746,26 +669,7 @@ export default {
 }
 
 
-.icon_and_info_wrapper {
-    color: var(--cor-base);
-    justify-content: flex-start;
-    width: 5em;
-    align-items: flex-start;
-    padding: 0.8em;
-    border-radius: 0.4em;
-}
 
-.icon {
-    margin-right: 0.3em;
-    color: rgb(255, 255, 255);
-}
-
-.bottom_content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-}
 
 
 #main_row {
@@ -839,8 +743,8 @@ export default {
     margin-left: 0.5em;
     cursor: pointer;
     object-fit: cover;
-    width: 8em;
-    height: 8em;
+    width: 6em;
+    height: 6em;
 }
 
 .image_container {
@@ -849,11 +753,32 @@ export default {
     height: 100%;
 }
 
-.gallery-image {
+
+
+.gallery-image-container {
     border-radius: 0.5em;
+    overflow: hidden;
+    /* Isso garante que a imagem não ultrapasse os limites do container */
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.gallery-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    animation: slideImage 10s forwards;
+    position: absolute;
+    top: 0;
+    /* Começa movendo a imagem para cima para que ela não seja vista */
+}
+
+@keyframes slideImage {
+    to {
+        transform: scale(1.14);
+        /* Move a imagem de volta à sua posição original */
+    }
 }
 
 .image-wide {
@@ -865,29 +790,28 @@ export default {
 }
 
 .progress-bar {
-    height: 7px;
-    background-color: #fff;
-    filter: brightness(200%); /* Tornando a cor/imagem duas vezes mais brilhante */
+    height: 10px;
+    background-color: #ffffff84;
+    filter: brightness(200%);
+    /* Tornando a cor/imagem duas vezes mais brilhante */
     /* A cor que preferir para a barra de progresso */
     position: absolute;
     top: 0;
+    z-index: 1;
 }
 
 
-
-
-
-
-
-
-
-.property-table {
+#table-container{
     width: 100%;
+}
+.property-table {
+    width: 100% !important;
     border-collapse: collapse;
     color: var(--cor-text-base)
 }
 
 .property-table tr {
+    width: 100%;
 
     /* Cor de fundo para as linhas */
 }
@@ -1006,6 +930,10 @@ export default {
     .not_display_on_mobile {
         display: none;
     }
+
+    #middle_section {
+        flex-direction: column;
+    }
 }
 
 
@@ -1035,5 +963,146 @@ export default {
     to {
         opacity: 0;
     }
+}
+
+
+.beaches-container {
+    width: 100%;
+    /* or whatever you prefer */
+    margin: 0 auto;
+}
+
+
+
+.beach-item {
+    margin-bottom: 10px;
+}
+
+.beach-name {
+    font-weight: 600;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+}
+
+.beach-distance {
+    margin-left: 0.5em;
+    font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+}
+
+.beach-bar-behind {
+    width: 100%;
+    background: #eee8e8;
+    height: 22px;
+    position: relative;
+}
+
+
+.beach-bar-container {
+    height: 100%;
+    width: 100%;
+    border-radius: 1em;
+    overflow: hidden;
+}
+
+
+.beach-bar {
+    background: #d4cbc5;
+    border-radius: 1em;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+
+
+
+
+
+
+.shadow {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.publisher_info {
+    font-family: 'Arial', sans-serif;
+    max-width: 400px;
+    height: auto;
+    display: block;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: white;
+    height: fit-content;
+}
+
+.publisher-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.publisher-photo {
+    width: 10em;
+    height: 10em;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.publisher-name {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.publisher-description {
+    font-size: 14px;
+    color: #888;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.publisher-time {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.publisher-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.action-button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.whatsapp {
+    background-color: #25D366;
+    color: white;
+}
+
+.email {
+    background-color: #007BFF;
+    color: white;
+}
+
+.contato {
+    background-color: #f1f1f1;
+    color: #333;
+}
+
+.action-button:hover {
+    opacity: 0.9;
 }
 </style>

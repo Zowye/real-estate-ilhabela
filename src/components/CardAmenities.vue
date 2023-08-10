@@ -2,8 +2,9 @@
     <div class="card-amenities">
       <div class="chip" v-for="amenity in amenities" :key="amenity">
         <div class="amenity-wrapper">
-          <img :src="getAmenityIcon(amenity)" :alt="amenity" class="amenity-icon" />
-          <span class="amenity-name">{{ amenity }}</span>
+
+          <img v-if="getAmenityIcon(amenity)" :src="getAmenityIcon(amenity)" :alt="amenity" class="amenity-icon" />
+          <span v-if="getAmenityIcon(amenity)" class="amenity-name">{{ amenity }}</span>
         </div>
       </div>
     </div>
@@ -22,7 +23,7 @@
         try {
           return require(`@/assets/images/amenities_icons/${amenity.toLowerCase().replace(/ /g, '_')}.png`);
         } catch (error) {
-          return require('@/assets/images/amenities_icons/default.png');
+          return null;//require('@/assets/images/amenities_icons/default.png');
         }
       },
     },
@@ -45,8 +46,8 @@
   }
   
   .amenity-icon {
-    width: 24px;
-    height: 24px;
+    width: 34px;
+    height: 34px;
     cursor: pointer;
   }
   

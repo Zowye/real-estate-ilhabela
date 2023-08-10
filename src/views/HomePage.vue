@@ -146,6 +146,7 @@ export default {
                       </div>
                       <div class="marker-info-container">
                       <div>
+                      <CardStars :rating="featured_data.stars_count" />
                       <div class="marker-address">${address[0]} ${address[1]}</div>
                       <div class="marker-address neigh">${address[2]}</div>
                       </div>
