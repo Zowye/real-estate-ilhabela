@@ -36,7 +36,7 @@
                 </div>
                 <CardCommonInfo />
                 <div class="price">R$ {{ card.formattedPrice }} {{ card.suffix }} </div>
-                <div class="description">{{ truncateDescription(card.description_full) }}</div>
+                <p class="description">{{ truncateDescription(card.description_full) }}</p>
                 <div class="amenities">
                     <CardAmenities :amenities="card.amenities" />
                 </div>
@@ -250,7 +250,7 @@ export default {
 .price {
     font-family: 'Francois One', sans-serif;
     font-size: 1.5em;
-    color: var(--cor-pastel);
+    color: var(--cor-base);
 }
 
 .description {
@@ -347,7 +347,7 @@ export default {
 
 .ver-mais-button2 {
     display: inline-block;
-    background-color: var(--cor-pastel);
+    background-color: var(--cor-base);
     color: #333;
     border: none;
     border-radius: 4px;

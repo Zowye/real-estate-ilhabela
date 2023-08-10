@@ -85,20 +85,14 @@ export default {
 </script>
 <style>
 
-.mobile-header, .desktop-header {
-  z-index: 10;
-}
-
 .mobile-header {
-  /* ... existing styles for mobile header ... */
   display: none;
-  /* Hide the mobile header by default */
+  z-index: 10;
 }
 
 
 .desktop-header {
   position: absolute;
-  z-index: 19;
   display: flex;
   align-items: center;
   height: 4em;
@@ -107,8 +101,8 @@ export default {
   margin-bottom: 40px;
   background-color: var(--header-background);
   color:var(--cor-base);
-  /* box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1); */
-  box-shadow: 0px 4px 15px rgb(0 0 0 / 8%) 0 1px 0;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
+  z-index: 10;
 }
 
 

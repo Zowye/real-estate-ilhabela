@@ -1,5 +1,38 @@
 <template>
+    <div v-if="FullScreenSlideShowActive" class="full-screen-slideshow-overlay">
+        <button @click="FullScreenSlideShowActive = false">Close</button>
+
+        <div class="full-screen-slideshow-content">
+            <div class="slide-show-main-image-container">
+                <div class="image-container">
+                    <img :src="card_images[currentIndex]" loading="lazy" alt="Property Image"
+                        @click="changeCurrentIndex(index)" @load="onImageLoaded" />
+                    <div class="image-overlay">
+                        {{ currentIndex + 1 }} de {{ card_images.length }}
+                    </div>
+                </div>
+                <div class="slide-show-subtitles"> {{ photo_subtitles[currentIndex] }}</div>
+            </div>
+
+
+
+        </div>
+
+        <div id="gallary-full-screen">
+            <div class="gallary_overlay-full-screen"></div>
+
+            <div class="gallary_container_full_screen">
+                <div v-for="(image, index) in card_images" :key="index" ref="image" @click="changeCurrentIndex(index)">
+                    <img :src="image" alt="Property Image" />
+                </div>
+            </div>
+        </div>
+    </div>
     <DefaultLayout>
+
+
+
+
         <div id="wrapper_house_explorer">
             <div id="breadcrumbs" class="breadcrumbs-container">
                 <a @click="goToHome">Home</a> <span class="icon"><i class="fas fa-chevron-right"
@@ -12,8 +45,9 @@
             <div id="main_row">
 
                 <div id="info_wrapper">
-
                     <div id="main_info">
+                        <button class="slide-show-button" @click="FullScreenSlideShowActive = true">FULL SCREEN
+                            SLIDESHOW</button>
                         <div class="image_overlay" ref="touchArea"></div>
                         <div class="progress-bar" :style="{ width: progressBarWidth + '%' }"></div>
 
@@ -96,7 +130,7 @@
 
 
                         <div>
-  
+
 
                         </div>
 
@@ -146,6 +180,7 @@ export default {
 
 
     mounted() {
+        window.addEventListener("keydown", this.handleKeydown);
         this.hammer = new Hammer(this.$refs.touchArea);
         this.hammer.on('swipeleft', this.swipeLeft);
         this.hammer.on('swiperight', this.swipeRight);
@@ -209,6 +244,30 @@ export default {
 
     },
     methods: {
+        generateRandomLorem() {
+            const loremArray = [
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                "Vivamus lacinia odio vitae vestibulum.",
+                "Donec in efficitur leo, sed lacinia risus.",
+                "Maecenas non purus quis tellus pellentesque tincidunt.",
+                "Nulla facilisi. Proin mollis, ante vitae hendrerit vestibulum.",
+                "In nec eleifend ex, pellentesque dapibus sapien."
+            ];
+            const randomIndex = Math.floor(Math.random() * loremArray.length);
+            return loremArray[randomIndex];
+        },
+
+        create_photo_subtitles() {
+            let SZ = this.card_images.length;
+            for (let i = 0; i < SZ; i++) {
+                this.photo_subtitles.push(this.generateRandomLorem());
+            }
+        },
+        handleKeydown(event) {
+            if (event.key === "Escape" || event.keyCode === 27) {
+                this.FullScreenSlideShowActive = false;
+            }
+        },
         generateBeaches() {
             const beachNames = [
                 "Praia do Bonete",
@@ -377,6 +436,8 @@ export default {
         },
     },
     beforeUnmount() {
+        window.removeEventListener("keydown", this.handleKeydown);
+
         this.hammer.off('swipeleft', this.swipeLeft);
         this.hammer.off('swiperight', this.swipeRight);
 
@@ -403,10 +464,14 @@ export default {
             intervalIdProgressBar: null,
             dist_curral: null,
             isFlashing: false,
-            beaches: []
+            beaches: [],
+            FullScreenSlideShowActive: false,
+            photo_subtitles: []
         };
     },
     created() {
+
+
         this.generateBeaches();
 
         window.scrollTo(0, 0);
@@ -429,7 +494,12 @@ export default {
             this.card.formattedPrice = formattedPrice;
             this.card.suffix = suffix;
         }
+
+        this.create_photo_subtitles();
+
     }
+
+
 
 };
 
@@ -481,7 +551,18 @@ export default {
 
 
 
-
+.slide-show-button {
+    cursor: pointer;
+    top: 1em;
+    right: 1em;
+    background-color: #000000;
+    border: none;
+    z-index: 3;
+    padding: 1em;
+    color: white;
+    border-radius: 0.5em;
+    position: absolute;
+}
 
 
 #info_wrapper {
@@ -729,13 +810,53 @@ export default {
     position: relative;
 }
 
+
+#gallary-full-screen {
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+}
+
+
+.gallary_container_full_screen {
+    margin-top: 1em;
+    box-sizing: border-box;
+    border-radius: 1em;
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    width: 100%;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.gallary_container_full_screen img {
+    border-radius: 0.5em;
+    margin-left: 0.5em;
+    cursor: pointer;
+    object-fit: cover;
+    width: 6em;
+    height: 6em;
+}
+
+.gallary_overlay-full-screen {
+    position: absolute;
+    user-select: none;
+    pointer-events: none;
+    right: 0;
+    width: 100px;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.9));
+}
+
 .gallary_container::-webkit-scrollbar {
     display: none;
 }
 
 .image_container {
     margin-right: 10px;
-    /* Se você quiser algum espaço entre as imagens */
 }
 
 .gallary_container img {
@@ -763,6 +884,11 @@ export default {
     height: 100%;
     position: relative;
 }
+
+
+
+
+
 
 .gallery-image {
     width: 100%;
@@ -801,9 +927,10 @@ export default {
 }
 
 
-#table-container{
+#table-container {
     width: 100%;
 }
+
 .property-table {
     width: 100% !important;
     border-collapse: collapse;
@@ -934,6 +1061,11 @@ export default {
     #middle_section {
         flex-direction: column;
     }
+
+    .slide-show-main-image-container {
+        max-width: 95%;
+    }
+
 }
 
 
@@ -1104,5 +1236,74 @@ export default {
 
 .action-button:hover {
     opacity: 0.9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* --------------------- SlideShowFUllScreen --------------------- */
+
+.full-screen-slideshow-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.97);
+    z-index: 1111;
+    flex-direction: column;
+}
+
+.full-screen-slideshow-content {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide-show-main-image-container {
+    border-radius: 0.5em;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.slide-show-main-image-container img {
+    object-fit: contain;
+}
+
+.slide-show-subtitles {
+    display: block;
+    color: white;
+    background-color: black;
+    padding: 1em;
+}
+
+
+.image-container {
+    position: relative;
+}
+
+.image-overlay {
+    position: absolute;
+    bottom: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 </style>

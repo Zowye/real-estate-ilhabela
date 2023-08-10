@@ -276,7 +276,7 @@ export default {
     color: var(--cor-text-base);
     line-height: 1em;
     margin-bottom: 0.7em;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 1em;
 }
 
@@ -296,7 +296,7 @@ export default {
     display: inline-block;
     font-weight: 200;
     margin-top: 0.5em;
-    padding: 0.35em 0.85em;
+    padding: 0.2em 0.85em;
     color: white;
     border-radius: 1.5em;
     font-size: 0.90em;
