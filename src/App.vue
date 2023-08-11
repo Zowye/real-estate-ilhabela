@@ -49,12 +49,22 @@ export default {
 
 h1 {
   font-family: Playfair, sans-serif;
-  font-weight: 400;
-  font-size: 2.4em;
-  color: var(--cor-base);
+  font-weight: 700;
+  font-size: 2em;
+  color: black;
   margin-bottom: 0.5em;
   margin-top: 0.5em;
 }
+
+h2 {
+  font-family: Playfair, sans-serif;
+  font-weight: 700;
+  font-size: 1.5em;
+  color: black;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
 
 * {
   font-family: Playfair, sans-serif;

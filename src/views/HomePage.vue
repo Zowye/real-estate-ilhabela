@@ -41,6 +41,10 @@ import { mapState, mapActions } from 'vuex';
 
 import data from '@/data.json';
 
+import { h, render } from 'vue';
+import PopupComponent from '@/components/MapCard.vue'; // Seu componente
+
+
 
 export default {
   data() {
@@ -71,9 +75,11 @@ export default {
 
       return [formattedPrice, suffix];
     },
-    showExtraInfo(id, marker) {
-      const popupContent = `<div>Este é o id da casa: ${id}</div>`;
-      marker.bindPopup(popupContent).openPopup();
+    renderVueComponentToString(component, propsData) {
+      const container = document.createElement('div');
+      const vnode = h(component, propsData);
+      render(vnode, container);
+      return container.innerHTML;
     },
     createCustomIcon(price) {
       return L.divIcon({
@@ -134,28 +140,12 @@ export default {
 
             // Função para mostrar o popup
             const displayPopup = () => {
+              const propsForPopup = {
+                house: house,
+              };
 
-              const routeUrl = this.$router.resolve({ name: 'HouseExplorer', params: { id: house.id } }).href;
-              const address = this.fixAddressInfo(house.street, house.streetNumber, house.neighborhood);
-              const popupContent = `
-                  <div class="popup-content">
-                    <div id="title">Casa no ${address[2]}</div>
-                      <div class="flex-row">
-                      <div class="small-media-popup-marker">
-                      <img src="${this.fixMediaInfo(house.medias)}">
-                      </div>
-                      <div class="marker-info-container">
-                      <div>
-                      <CardStars :rating="featured_data.stars_count" />
-                      <div class="marker-address">${address[0]} ${address[1]}</div>
-                      <div class="marker-address neigh">${address[2]}</div>
-                      </div>
-                      <a class="btn-marker-pop" href="${routeUrl}">VER DETALHES</a>
-                      </div>
-                    </div>
-                  </div>`;
+              const popupContent = this.renderVueComponentToString(PopupComponent, propsForPopup);
               marker.bindPopup(popupContent).openPopup();
-
               this.app_map.setView(lat_lon, this.app_map.getZoom());
 
             };
@@ -249,18 +239,8 @@ export default {
   font-weight: 300;
   border-radius: 1em;
   padding: 0.2em 0.5em;
-
 }
 
-::v-deep .popup-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-sizing: border-box;
-  width: fit-content;
-  justify-content: start;
-  align-items: start;
-}
 
 ::v-deep .small-media-popup-marker img {
   max-width: 15em;
@@ -295,14 +275,18 @@ export default {
 
 ::v-deep .leaflet-popup-content-wrapper {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
   flex: 1;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
 }
 
 ::v-deep .leaflet-popup-content {
   min-width: max-content;
   white-space: nowrap;
+  padding: 0em;
 }
 
 ::v-deep .neigh {
@@ -319,7 +303,6 @@ export default {
 ::v-deep .flex-row {
   display: flex;
   flex-direction: row;
-
 }
 
 ::v-deep #title {
