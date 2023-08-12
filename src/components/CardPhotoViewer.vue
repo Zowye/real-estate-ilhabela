@@ -17,7 +17,6 @@
                 {{ status_level }}
             </button>
         </div>
-
     </div>
 </template>
   
@@ -114,10 +113,9 @@ export default {
 
 
 .viewer {
-    width: 100%;
+    max-width: 100%;
     height: 100%;
     position: relative;
-    /* box-shadow: 0 0 20px #0000005f; */
 }
 
 .viewer img {

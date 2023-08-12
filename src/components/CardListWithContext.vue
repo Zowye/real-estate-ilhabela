@@ -2,6 +2,8 @@
     <div id="wrapper_card_list_full">
         <div id="main_wrapper">
             <div id="wrapper_cards">
+
+                <div class="section-separator"></div>
                 <h2>Mais casas no {{ neigh }}</h2>
 
                 <div class="card-list">
@@ -151,7 +153,21 @@ export default {
 
 
 <style scoped>
+
+
+
+.section-separator {
+    width: 100%;
+    content: "";
+    display: block;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(255, 253, 253, 0), rgb(200, 199, 199), rgba(224, 224, 224, 0));
+    margin-top: 5em;
+    margin-bottom: 2em;
+}
+
 #wrapper_cards {
+    width: 100%;
     margin-top: 1em;
     display: flex;
     flex-direction: column;
@@ -185,13 +201,19 @@ export default {
 
 /* Estilos para os cards */
 .card-list {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1em;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+}
+
+.card-list .CardSmallWithContext {
+    min-width: 200px;
+    max-width: 300px;
 }
 
 #main_wrapper {
+    width: 100%;
     display: flex;
     flex-direction: row;
 }

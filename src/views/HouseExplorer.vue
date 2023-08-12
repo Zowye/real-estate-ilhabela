@@ -1,6 +1,6 @@
 <template>
     <div v-if="FullScreenSlideShowActive" class="full-screen-slideshow-overlay">
-        <button @click="FullScreenSlideShowActive = false">Close</button>
+        <button @click="FullScreenSlideShowActive = false" class="btn-close">Close</button>
 
         <div class="full-screen-slideshow-content">
             <div class="slide-show-main-image-container">
@@ -246,6 +246,15 @@ export default {
             // Aqui você pode adicionar código para lidar com o erro, por exemplo mostrando uma mensagem ao usuário
         }
 
+    },
+    watch: {
+        FullScreenSlideShowActive(newVal) { // "newVal" ou "isActive" é simplesmente o novo valor de "FullScreenSlideShowActive"
+            if (newVal) { // Se "FullScreenSlideShowActive" for verdadeiro
+                document.body.style.overflow = 'hidden'; // Impede a rolagem do conteúdo do corpo
+            } else {
+                document.body.style.overflow = ''; // Retorna o comportamento padrão de rolagem
+            }
+        }
     },
     methods: {
         flyToBeach(lat, lon) {
@@ -574,11 +583,6 @@ export default {
     display: flex;
     flex-direction: row;
 }
-
-
-
-
-
 
 
 
@@ -1099,11 +1103,23 @@ export default {
     }
 
     #middle_section {
+        width: 95%;
         flex-direction: column;
     }
 
     .slide-show-main-image-container {
         max-width: 95%;
+    }
+
+    .publisher_info {
+        background-color: #007BFF;
+        margin-top: 1em;
+        width: 100%;
+    }
+
+    .extra_info {
+        margin-right: 0em;
+        padding: 1em;
     }
 
 }
@@ -1204,7 +1220,6 @@ export default {
 
 .publisher_info {
     font-family: 'Arial', sans-serif;
-    max-width: 400px;
     height: auto;
     display: block;
     padding: 20px;
@@ -1347,5 +1362,19 @@ export default {
     color: #fff;
     padding: 5px 10px;
     border-radius: 5px;
+}
+
+
+.btn-close {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    border: none;
+    cursor: pointer;
+    width: 14em;
+    background-color: #000000;
+    color: white;
+    padding: 2em;
+    z-index: 1000;
 }
 </style>
