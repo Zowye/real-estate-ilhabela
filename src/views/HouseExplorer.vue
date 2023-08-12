@@ -508,11 +508,11 @@ export default {
             beachMarker: null,
             currentRoute: null,
             beaches_map: [
-                { name: 'Praia do Veloso', lat: -23.8214, lon: -45.3582 },
-                { name: 'Praia do Curral', lat: -23.8067, lon: -45.3744 },
-                { name: 'Praia de Siriúba', lat: -23.8173, lon: -45.3299 },
-                { name: 'Praia Grande', lat: -23.8128, lon: -45.3706 },
-                { name: 'Praia da Feiticeira', lat: -23.8139, lon: -45.3622 }
+                { name: 'Praia do Veloso', lat: -23.87050416336501, lon: -45.43526673576338 },
+                { name: 'Praia do Curral', lat: -23.867829645530886,lon: -45.432361003955855 },
+                { name: 'Praia de Siriúba', lat: -23.754469120621565, lon: -45.34964520269949 },
+                { name: 'Praia Grande', lat: -23.857863247135793, lon: -45.41661985020065 },
+                { name: 'Praia da Feiticeira', lat: -23.845364733291042, lon: -45.40884735084273 }
             ]
 
         };
