@@ -7,6 +7,11 @@
                 <div class="card-list">
                     <CardSmallWithContext v-for="card in items" :key="card.id" :card="card" />
                 </div>
+                <div id="pagination">
+                    <button @click="prevPage" :disabled="currentPage <= 1">Anterior</button>
+                    <span>Página {{ currentPage }}</span>
+                    <button @click="nextPage">Próximo</button>
+                </div>
             </div>
         </div>
     </div>
@@ -30,8 +35,11 @@ export default {
         return {
             items: [],
             selectedCard: null,
+            currentPage: 1, // Página atual
+            itemsPerPage: 10 // Quantidade de itens por página
         };
     },
+
     props: {
         cardWidth: {
             type: String,
@@ -39,10 +47,55 @@ export default {
         },
         neigh: {
             type: String,
-            default: "Bairro"
+            default: "Villa"
         }
     },
     methods: {
+        nextPage() {
+            this.currentPage++;
+            this.loadItems();
+        },
+        prevPage() {
+            if (this.currentPage > 1) {
+                this.currentPage--;
+                this.loadItems();
+            }
+        },
+        loadItems() {
+
+            const start = (this.currentPage - 1) * this.itemsPerPage;
+            const end = start + this.itemsPerPage;
+
+
+            this.items = data
+                .filter(item => item.neighborhood === this.neigh)
+                .slice(start, end)  // use the dynamic start and end
+                .map(item => {
+
+                    const card_images = item.medias.map(
+                        media => media.url
+                            .replace("{action}", "fit-in")
+                            .replace("{width}", "870")
+                            .replace("{height}", "653")
+                    )
+                        .filter(url => !url.includes('youtube') && !url.includes('youtu'));
+
+                    // Fixing Pricing Information
+                    let [formattedPrice, suffix] = this.formatPrice(item.pricingInfos[0].price)
+                    item.formattedPrice = formattedPrice;
+                    item.suffix = suffix;
+
+
+                    item.status_level = this.getRandomStatusLevel();
+                    item.title = this.gerarTituloAleatorio();
+                    item.streetNumber = item.streetNumber === null || item.streetNumber === undefined || item.streetNumber === "" ? "s/n" : item.streetNumber;
+                    item.street = item.street === null || item.street === undefined || item.street === "" ? "Sem Endereço" : item.street.replace("Avenida", "Av.").replace("Alameda", "Al.");
+                    item.neighborhood = item.neighborhood === null || item.neighborhood === undefined || item.neighborhood === "" ? "Sem Endereço" : item.neighborhood;
+                    item.price = item.pricingInfos[0].price
+
+                    return { ...item, card_images: card_images };
+                });
+        },
         ...mapMutations(['TOGGLE_ACTIVE_MAP']),
 
         gerarTituloAleatorio() {
@@ -81,42 +134,17 @@ export default {
 
     },
     computed: {
-        ...mapState(['activeMap'])
+        ...mapState(['activeMap']),
+        hasNextPage() {
+            return (this.currentPage * this.itemsPerPage) < data.filter(item => item.neighborhood === this.neigh).length;
+        }
     },
 
 
     created() {
-        const offset = 10;
-        const startIndex = Math.floor(Math.random() * (data.length - offset + 1));
-        const endIndex = startIndex + offset;
-
-        this.items = data
-            .slice(startIndex, endIndex)
-            .map(item => {
-
-                const card_images = item.medias.map(
-                    media => media.url
-                        .replace("{action}", "fit-in")
-                        .replace("{width}", "870")
-                        .replace("{height}", "653")
-                )
-                    .filter(url => !url.includes('youtube') && !url.includes('youtu'));
-
-                // Fixing Pricing Information
-                let [formattedPrice, suffix] = this.formatPrice(item.pricingInfos[0].price)
-                item.formattedPrice = formattedPrice;
-                item.suffix = suffix;
+        this.loadItems();
 
 
-                item.status_level = this.getRandomStatusLevel();
-                item.title = this.gerarTituloAleatorio();
-                item.streetNumber = item.streetNumber === null || item.streetNumber === undefined || item.streetNumber === "" ? "s/n" : item.streetNumber;
-                item.street = item.street === null || item.street === undefined || item.street === "" ? "Sem Endereço" : item.street.replace("Avenida", "Av.").replace("Alameda", "Al.");
-                item.neighborhood = item.neighborhood === null || item.neighborhood === undefined || item.neighborhood === "" ? "Sem Endereço" : item.neighborhood;
-                item.price = item.pricingInfos[0].price
-
-                return { ...item, card_images: card_images };
-            });
     }
 };
 </script>
@@ -129,6 +157,30 @@ export default {
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    margin-bottom: 1em;
+}
+
+#pagination {
+    margin-top: 2em;
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#pagination button {
+    padding: 1em 3em;
+    border: none;
+    color: white;
+    font-weight: 300;
+    border-radius: 0.5em;
+    background-color: var(--cor-base);
+    cursor: pointer;
+}
+
+#pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 /* Estilos para os cards */
