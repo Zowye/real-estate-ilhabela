@@ -162,6 +162,7 @@
                 </div>
             </div>
 
+            <CardListWithContext :neigh="card.neighborhood" />
         </div>
 
     </DefaultLayout>
@@ -177,13 +178,10 @@ import IconPin from "@/components/icons/IconPin.vue";
 import Hammer from 'hammerjs';
 import 'leaflet-routing-machine';
 import HouseBasicInfo from '@/components/HouseBasicInfo.vue';
-
-
-
+import CardListWithContext from '@/components/CardListWithContext.vue';
 import CardAmenities from '@/components/CardAmenities.vue';
 
 export default {
-
 
 
     mounted() {
@@ -251,31 +249,7 @@ export default {
     },
     methods: {
         flyToBeach(lat, lon) {
-            //     duration: 2
-            // });
-
-            // // Remove previous marker if exists
-            // if (this.beachMarker) {
-            //     this.map.removeLayer(this.beachMarker);
-            // }
-
-            // Create a marker on the beach's coordinates
-            // this.beachMarker = L.marker([lat, lon]).addTo(this.map);
-
             this.createMarkerAndRoute(this.coords[0], this.coords[1], lat, lon, this.map);
-
-            // Calculate distance between the property and the beach
-            // if (this.card && this.card.point) {
-            //     let propertyLocation = L.latLng(this.card.point.lat, this.card.point.lon);
-            //     let beachLocation = L.latLng(lat, lon);
-            //     let distance = propertyLocation.distanceTo(beachLocation); // returns distance in meters
-
-            //     // Convert distance to kilometers with 2 decimal points
-            //     let distanceInKm = (distance / 1000).toFixed(2);
-
-            //     // Bind a popup to the marker to show the distance
-            //     this.beachMarker.bindPopup(`Distance to property: ${distanceInKm} km`).openPopup();
-            // }
         },
         generateRandomLorem() {
             const loremArray = [
@@ -384,11 +358,6 @@ export default {
                 this.changeCurrentIndex(this.currentIndex - 1);
             }
         },
-        // changeCurrentIndex(index) {
-        //     this.currentIndex = index;
-        //     this.$refs.image[index].scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'center' });
-        //     this.startProgressBar(); // Reinicia a barra de progresso sempre que a imagem é alterada manualmente
-        // },
         changeCurrentIndex(index) {
             this.currentIndex = index;
             let imgElement = this.$refs.image[index];
@@ -488,7 +457,8 @@ export default {
         DefaultLayout,
         IconPin,
         HouseBasicInfo,
-        CardAmenities
+        CardAmenities,
+        CardListWithContext
     },
     data() {
         return {
@@ -509,7 +479,7 @@ export default {
             currentRoute: null,
             beaches_map: [
                 { name: 'Praia do Veloso', lat: -23.87050416336501, lon: -45.43526673576338 },
-                { name: 'Praia do Curral', lat: -23.867829645530886,lon: -45.432361003955855 },
+                { name: 'Praia do Curral', lat: -23.867829645530886, lon: -45.432361003955855 },
                 { name: 'Praia de Siriúba', lat: -23.754469120621565, lon: -45.34964520269949 },
                 { name: 'Praia Grande', lat: -23.857863247135793, lon: -45.41661985020065 },
                 { name: 'Praia da Feiticeira', lat: -23.845364733291042, lon: -45.40884735084273 }
