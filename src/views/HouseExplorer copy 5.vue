@@ -1,34 +1,32 @@
 <template>
-    <div v-if="FullScreenSlideShowActive" class="full-screen-slideshow-overlay">
-        <button @click="FullScreenSlideShowActive = false">Close</button>
+    <DefaultLayout>
 
-        <div class="full-screen-slideshow-content">
-            <div class="slide-show-main-image-container">
-                <div class="image-container">
-                    <img :src="card_images[currentIndex]" loading="lazy" alt="Property Image"
-                        @click="changeCurrentIndex(index)" @load="onImageLoaded" />
-                    <div class="image-overlay">
-                        {{ currentIndex + 1 }} de {{ card_images.length }}
+        <div v-if="FullScreenSlideShowActive" class="full-screen-slideshow-overlay">
+            <button @click="FullScreenSlideShowActive = false">Close</button>
+
+            <div class="full-screen-slideshow-content">
+                <div class="slide-show-main-image-container">
+                    <div class="image-container">
+                        <img :src="card_images[currentIndex]" loading="lazy" alt="Property Image"
+                            @click="changeCurrentIndex(index)" @load="onImageLoaded" />
+                        <div class="image-overlay">
+                            {{ currentIndex + 1 }} de {{ card_images.length }}
+                        </div>
+                    </div>
+                    <div class="slide-show-subtitles"> {{ photo_subtitles[currentIndex] }}</div>
+                </div>
+            </div>
+
+            <div id="gallary-full-screen">
+                <div class="gallary_overlay-full-screen"></div>
+
+                <div class="gallary_container_full_screen">
+                    <div v-for="(image, index) in card_images" :key="index" ref="image" @click="changeCurrentIndex(index)">
+                        <img :src="image" alt="Property Image" />
                     </div>
                 </div>
-                <div class="slide-show-subtitles"> {{ photo_subtitles[currentIndex] }}</div>
-            </div>
-
-
-
-        </div>
-
-        <div id="gallary-full-screen">
-            <div class="gallary_overlay-full-screen"></div>
-
-            <div class="gallary_container_full_screen">
-                <div v-for="(image, index) in card_images" :key="index" ref="image" @click="changeCurrentIndex(index)">
-                    <img :src="image" alt="Property Image" />
-                </div>
             </div>
         </div>
-    </div>
-    <DefaultLayout>
 
 
 
@@ -44,125 +42,122 @@
 
             <div id="main_row">
 
-                <div id="info_wrapper">
-                    <div id="main_info">
-                        <button class="slide-show-button" @click="FullScreenSlideShowActive = true">FULL SCREEN
-                            SLIDESHOW</button>
-                        <div class="image_overlay" ref="touchArea"></div>
-                        <div class="progress-bar" :style="{ width: progressBarWidth + '%' }"></div>
+                <div id="left-content">
+                    <div id="simple-slide-show">
+                        <div id="main_info">
+                            <button class="slide-show-button" @click="FullScreenSlideShowActive = true">FULL SCREEN
+                                SLIDESHOW</button>
+                            <div class="image_overlay" ref="touchArea"></div>
+                            <div class="progress-bar" :style="{ width: progressBarWidth + '%' }"></div>
 
-                        <div class="image_content">
+                            <div class="image_content">
 
-                            <div class="house_infos">
-                                <ul>
-                                    <li class="limegreen">Novo</li>
-                                    <li class="yellow">Postado em: 12/06/2023</li>
-                                    <li class="orange">Trending</li>
-                                    <li class="white">Apartamento</li>
-                                </ul>
-                            </div>
-                            <div class="same_line">
-                                <div id="title">Casa no {{ card.neighborhood }}</div>
-                                <div class="price_house_explorer"> R$ {{ card.formattedPrice }} {{ card.suffix }}</div>
-                            </div>
-                            <div id="topInfos" class="inner_cardcard_padding">
-                                <IconPin :color_icon="['black', 'white']" />
-                                <span id="address">{{ card.street }}, {{ card.streetNumber }}</span>
-                            </div>
-
-                        </div>
-                        <div :class="overlayClass"></div>
-
-                        <div class="gallery-image-container">
-                            <div :class="overlayClass"></div>
-                            <img :src="card_images[currentIndex]" class="gallery-image" loading="lazy" alt="Property Image"
-                                @click="changeCurrentIndex(index)" @load="onImageLoaded" />
-                        </div>
-                    </div>
-                </div>
-                <div id="gallary">
-                    <div class="gallary_overlay"></div>
-
-                    <div class="gallary_container">
-                        <div v-for="(image, index) in card_images" :key="index" ref="image"
-                            @click="changeCurrentIndex(index)">
-                            <img :src="image" alt="Property Image" />
-                        </div>
-                    </div>
-                </div>
-                <div id="map">
-                    <div id="beach-buttons">
-                        <button v-for="beach in beaches_map" :key="beach.name" @click="flyToBeach(beach.lat, beach.lon)">
-                            {{ beach.name }}
-                        </button>
-                    </div>
-                </div>
-
-                <div id="middle_section">
-                    <div class="extra_info shadow">
-
-                        <HouseBasicInfo />
-
-                        <div id="description">
-                            <div class="houses_tittle">Descrição</div>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing corporis, quae, nemo sunt
-                            commodi error optio
-                            rem
-                            magni ipsam. Ea pariatur sed provident? Ducimus, placeat, rem voluptas iure corrupti et quae
-                            doloremque
-                            sapiente voluptatem quos at dolores repellat pariatur voluptatum recusandae?
-                        </div>
-                        <div class="amenities">
-                            <CardAmenities :amenities="card.amenities" />
-                        </div>
-
-                        <div class="houses_tittle">Distâncias</div>
-                        <div class="beaches-container">
-                            <div v-for="beach in beaches" :key="beach.name" class="beach-item">
-                                <spam class="beach-name">{{ beach.name }}</spam>
-
-
-                                <div class="beach-bar-container">
-
-                                    <div class="beach-bar-behind">
-
-                                        <div :style="{ width: beach.widthPercentage + '%' }" class="beach-bar">
-                                            <spam class="beach-distance"> {{ beach.widthPercentage }} km</spam>
-                                        </div>
-                                    </div>
+                                <div class="house_infos">
+                                    <ul>
+                                        <li class="limegreen">Novo</li>
+                                        <li class="yellow">Postado em: 12/06/2023</li>
+                                        <li class="orange">Trending</li>
+                                        <li class="white">Apartamento</li>
+                                    </ul>
+                                </div>
+                                <div class="same_line">
+                                    <div id="title">Casa no {{ card.neighborhood }}</div>
+                                    <div class="price_house_explorer"> R$ {{ card.formattedPrice }} {{ card.suffix }}</div>
+                                </div>
+                                <div id="topInfos" class="inner_cardcard_padding">
+                                    <IconPin :color_icon="['Red', 'transparent']" />
+                                    <span id="address">{{ card.street }}, {{ card.streetNumber }}</span>
                                 </div>
 
                             </div>
+                            <div :class="overlayClass"></div>
+
+                            <div class="gallery-image-container">
+                                <div :class="overlayClass"></div>
+                                <img :src="card_images[currentIndex]" class="gallery-image" loading="lazy"
+                                    alt="Property Image" @click="changeCurrentIndex(index)" @load="onImageLoaded" />
+
+
+                            </div>
+
+
+
+                        </div>
+                        <div id="gallary">
+                            <div class="gallary_overlay"></div>
+
+                            <div class="gallary_container">
+                                <div v-for="(image, index) in card_images" :key="index" ref="image"
+                                    @click="changeCurrentIndex(index)">
+                                    <img :src="image" alt="Property Image" />
+                                </div>
+                            </div>
                         </div>
 
-
-                        <div>
-
-
-                        </div>
 
                     </div>
 
 
-                    <div class="publisher_info shadow">
-                        <div class="publisher-container">
-                            <img :src="require('@/assets/images/avatar-mock.jpg')" alt="Foto do Publisher"
-                                class="publisher-photo">
-                            <h2 class="publisher-name">Nome do Publisher</h2>
-                            <p class="publisher-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                Molestias, aspernatur exercitationem inventore quae dolorum sed excepturi.</p>
-                            <p class="publisher-time">2 anos na plataforma</p>
-                            <div class="publisher-actions">
-                                <button class="action-button whatsapp">WhatsApp</button>
-                                <button class="action-button email">Email</button>
-                                <button class="action-button contato">Contato</button>
+                    <div id="map"></div>
+
+                    <div id="right-content">
+                        <div class="extra_info shadow">
+
+                            <HouseBasicInfo />
+
+                            <div id="description">
+                                <div class="houses_tittle">Descrição</div>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing corporis, quae, nemo sunt
+                                commodi error optio
+                                rem
+                                magni ipsam. Ea pariatur sed provident? Ducimus, placeat, rem voluptas iure corrupti et quae
+                                doloremque
+                                sapiente voluptatem quos at dolores repellat pariatur voluptatum recusandae?
                             </div>
+                            <div class="amenities">
+                                <CardAmenities :amenities="card.amenities" />
+                            </div>
+
+                            <div class="houses_tittle">Distâncias</div>
+                            <!-- <div class="beaches-container">
+    <div v-for="beach in beaches" :key="beach.name" class="beach-item">
+        <spam class="beach-name">{{ beach.name }}</spam>
+
+
+        <div class="beach-bar-container">
+
+            <div class="beach-bar-behind">
+
+                <div :style="{ width: beach.widthPercentage + '%' }" class="beach-bar">
+                    <spam class="beach-distance"> {{ beach.widthPercentage }} km</spam>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
                         </div>
+
                     </div>
                 </div>
             </div>
 
+
         </div>
+        <div class="publisher_info shadow">
+            <div class="publisher-container">
+                <img :src="require('@/assets/images/avatar-mock.jpg')" alt="Foto do Publisher" class="publisher-photo">
+                <h2 class="publisher-name">Nome do Publisher</h2>
+                <p class="publisher-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Molestias, aspernatur exercitationem inventore quae dolorum sed excepturi.</p>
+                <p class="publisher-time">2 anos na plataforma</p>
+                <div class="publisher-actions">
+                    <button class="action-button whatsapp">WhatsApp</button>
+                    <button class="action-button email">Email</button>
+                    <button class="action-button contato">Contato</button>
+                </div>
+            </div>
+        </div>
+
 
     </DefaultLayout>
 </template>
@@ -194,13 +189,12 @@ export default {
         this.startSlideshow();
         this.startProgressBar();
 
-        this.map = L.map('map', { zoomControl: true, zoom: 1, zoomAnimation: false, fadeAnimation: true, markerZoomAnimation: true }).setView([-23.7781, -45.3587], 11);
-
-        var map = this.map;
+        var map = L.map('map').setView([-23.7781, -45.3587], 11);
 
         L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoiem93eWUiLCJhIjoiY2xqeDAwM2F5MDFoMDNlcGx3c2RqZ3ZldyJ9.BgqylKNWVF6Io-dSx4o54Q', {
             maxZoom: 19,
         }).addTo(map);
+
 
         try {
 
@@ -208,6 +202,7 @@ export default {
                 let lat = this.card.point.lat; // latitude
                 let lon = this.card.point.lon; // longitude
 
+                this.createMarkerAndRoute(lat, lon, map);
 
                 // inicia no zoom 10
                 map.setView([lat, lon], 10);
@@ -218,8 +213,6 @@ export default {
                         duration: 2
                     });
                 }, 800);
-
-                this.coords = [lat, lon]
             } else {
                 // Latitude and/or longitude is null, use default coordinates (centre of Ilhabela)
                 let defaultLat = -23.7781;
@@ -228,8 +221,12 @@ export default {
 
                 marker.bindPopup('Localização aproximada').openPopup();
 
+                this.createMarkerAndRoute(defaultLat, defaultLon, map);
 
-                this.coords = [defaultLat, defaultLon]
+
+
+                // Removed the second marker addition
+                // L.marker([defaultLat, defaultLon]).addTo(map).openPopup();
 
                 map.setView([defaultLat, defaultLon], 10);
 
@@ -238,7 +235,6 @@ export default {
                         duration: 2
                     });
                 }, 800);
-
 
                 console.error("Latitude and/or longitude is null, default coordinates used.");
             }
@@ -250,33 +246,6 @@ export default {
 
     },
     methods: {
-        flyToBeach(lat, lon) {
-            //     duration: 2
-            // });
-
-            // // Remove previous marker if exists
-            // if (this.beachMarker) {
-            //     this.map.removeLayer(this.beachMarker);
-            // }
-
-            // Create a marker on the beach's coordinates
-            // this.beachMarker = L.marker([lat, lon]).addTo(this.map);
-
-            this.createMarkerAndRoute(this.coords[0], this.coords[1], lat, lon, this.map);
-
-            // Calculate distance between the property and the beach
-            // if (this.card && this.card.point) {
-            //     let propertyLocation = L.latLng(this.card.point.lat, this.card.point.lon);
-            //     let beachLocation = L.latLng(lat, lon);
-            //     let distance = propertyLocation.distanceTo(beachLocation); // returns distance in meters
-
-            //     // Convert distance to kilometers with 2 decimal points
-            //     let distanceInKm = (distance / 1000).toFixed(2);
-
-            //     // Bind a popup to the marker to show the distance
-            //     this.beachMarker.bindPopup(`Distance to property: ${distanceInKm} km`).openPopup();
-            // }
-        },
         generateRandomLorem() {
             const loremArray = [
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -329,50 +298,47 @@ export default {
                 this.isFlashing = false;
             }, 1000);
         },
-        createMarkerAndRoute(lat, lon, latPOI, lonPOI, map) {
-            // Se existe uma rota anterior, remova-a
-            if (this.currentRoute) {
-                this.map.removeControl(this.currentRoute);
-            }
+        createMarkerAndRoute(lat, lon, map) {
+            let marker = L.marker([lat, lon]).addTo(map);
 
-            // Se existe um marcador de POI anterior, remova-o
-            if (this.poiMarker) {
-                this.map.removeLayer(this.poiMarker);
-            }
-
-            this.poiMarker = L.marker([latPOI, lonPOI]).addTo(map);
             let popupContent = 'Localização Aproximada';
-            this.poiMarker.bindPopup(popupContent).openPopup();
+            let latCurral = -23.866154643306626;
+            let lonCurral = -45.43172210701251;
 
-            // Restante do código...
-            this.currentRoute = L.Routing.control({
-                waypoints: [
-                    L.latLng(lat, lon),
-                    L.latLng(latPOI, lonPOI)  // Coordenadas da Praia
-                ],
-                routeWhileDragging: false,
-                show: false,
-                lineOptions: {
-                    styles: [
-                        { color: 'black', opacity: 1, weight: 2, dashArray: '5,10' }
-                    ]
-                }
-            }).addTo(map);
+            marker.bindPopup(popupContent).openPopup();
 
-            // Restante do código...
-            map.fitBounds(this.currentRoute.getWaypoints().map(function (wp) { return wp.latLng; }));
+            marker.on('click', function () {
+                let control = L.Routing.control({
+                    waypoints: [
+                        L.latLng(lat, lon),
+                        L.latLng(latCurral, lonCurral)  // Coordenadas da Praia do Curral
+                    ],
+                    routeWhileDragging: false,
+                    show: false
+                }).addTo(map);
+
+                map.fitBounds(control.getWaypoints().map(function (wp) { return wp.latLng; }));
+            });
+
             map.setView([lat, lon], 10);
+
             setTimeout(function () {
-                map.flyTo([lat, lon], 12, {
-                    duration: 1
+                map.flyTo([lat, lon], 13, {
+                    duration: 2
                 });
             }, 800);
 
-            let point1 = L.latLng(latPOI, lonPOI);
+
+
+
+            let point1 = L.latLng(latCurral, lonCurral);
             let point2 = L.latLng(lat, lon);
+
             let distance = point1.distanceTo(point2);
-            this.dist_curral = distance.toFixed(0);
+            this.dist_curral = distance.toFixed(0)
+            console.log(`A distância até a praia do curral é de ${distance} metros`)
         },
+
 
         swipeLeft() {
             if (this.currentIndex < this.card_images.length - 1) {
@@ -492,7 +458,6 @@ export default {
     },
     data() {
         return {
-            map: null,
             card_images: [],
             card: null,
             currentIndex: 0,
@@ -503,18 +468,7 @@ export default {
             isFlashing: false,
             beaches: [],
             FullScreenSlideShowActive: false,
-            photo_subtitles: [],
-            coords: null,
-            beachMarker: null,
-            currentRoute: null,
-            beaches_map: [
-                { name: 'Praia do Veloso', lat: -23.8214, lon: -45.3582 },
-                { name: 'Praia do Curral', lat: -23.8067, lon: -45.3744 },
-                { name: 'Praia de Siriúba', lat: -23.8173, lon: -45.3299 },
-                { name: 'Praia Grande', lat: -23.8128, lon: -45.3706 },
-                { name: 'Praia da Feiticeira', lat: -23.8139, lon: -45.3622 }
-            ]
-
+            photo_subtitles: []
         };
     },
     created() {
@@ -564,46 +518,9 @@ export default {
 <style scoped>
 /* @import '~@fortawesome/fontawesome-free/css/all.min.css'; */
 
-#map {
-    height: auto;
-    min-height: 35em;
-    width: 100%;
-    box-sizing: border-box;
-    margin-top: 1em;
-    flex: 1 0 24%;
-    padding: 1em;
-    border-radius: 0.7em;
-    position: relative;
-    /* Set parent to be a reference for positioning of children */
-
-}
-
-#beach-buttons {
-    position: absolute;
-    top: 50%;
-    left: 10px;
-    z-index: 1000;
-    padding: 0.5em;
-    border-radius: 0.5em;
-    transform: translateY(-50%);
-}
-
-#beach-buttons button {
-    cursor: pointer;
-    display: block;
-    padding: 1em;
-    border: none;
-    margin: 5px 0;
-}
 
 
 
-
-#middle_section {
-    margin-top: 1em;
-    display: flex;
-    flex-direction: row;
-}
 
 
 
@@ -636,22 +553,86 @@ export default {
 }
 
 
-#info_wrapper {
+
+/* -------------------- MAIN STRUCTURE */
+
+#main_row {
+    width: 100%;
+    border-radius: 2em;
     display: flex;
     flex-direction: row;
+    align-content: flex-start;
+    z-index: 1;
+}
+
+#left-content,
+#right-content {
+    flex: 1 1 50%;
+    width: 50%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
     gap: 1em;
     position: relative;
-    flex-wrap: wrap;
+
 }
+
+#simple-slide-show {
+    height: 50%;
+    min-height: 40em;
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+
+#left-content {
+    margin-right: 1em;
+}
+
+#right-content {
+    margin-top: 1em;
+}
+
+#map {
+    height: 50%;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1em;
+    border-radius: 0.7em;
+}
+
+
+.extra_info {
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    background-color: #fff;
+    border-radius: 0.5em;
+    padding: 1em;
+}
+
+
+
+#gallary {
+    width: 100%;
+    position: relative;
+}
+
+
+/* -------------------- END OF MAIN STRUCTURE */
+
+
+
 
 #main_info {
     margin-top: 1em;
     box-sizing: border-box;
-    /* padding: 1em; */
     border-radius: 0.5em;
     flex-direction: column;
     flex: 1 0 75%;
-    height: 30em;
+    height: 100%;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
     position: relative;
 }
@@ -664,16 +645,6 @@ export default {
 }
 
 
-.extra_info {
-    display: flex;
-    flex-direction: column;
-    align-items: first baseline;
-    justify-content: start;
-    background-color: #fff;
-    border-radius: 0.5em;
-    margin-right: 1em;
-    padding: 1em;
-}
 
 
 .image_content {
@@ -744,11 +715,11 @@ export default {
 .gallary_overlay {
     user-select: none;
     pointer-events: none;
-    /* Adicionar esta linha */
     position: absolute;
     right: 0;
+    bottom: 10%;
     width: 100px;
-    height: 100%;
+    height: 72%;
     background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.9));
 }
 
@@ -824,14 +795,7 @@ export default {
 
 
 
-#main_row {
-    width: 100%;
-    border-radius: 2em;
-    display: flex;
-    flex-direction: column;
-    align-content: flex-start;
-    z-index: 1;
-}
+
 
 #breadcrumbs {
     border-radius: 2em;
@@ -877,9 +841,7 @@ export default {
     padding: 10px;
 }
 
-#gallary {
-    position: relative;
-}
+
 
 
 #gallary-full-screen {

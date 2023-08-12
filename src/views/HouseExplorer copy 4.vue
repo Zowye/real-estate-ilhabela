@@ -10,9 +10,7 @@
             </div>
 
             <div id="main_row">
-
                 <div id="info_wrapper">
-                    <div id="map"></div>
 
                     <div id="main_info" v-if="card">
                         <div class="image_overlay" ref="touchArea"></div>
@@ -168,55 +166,6 @@
                             magni ipsam. Ea pariatur sed provident? Ducimus, placeat, rem voluptas iure corrupti et quae
                             doloremque
                             sapiente voluptatem quos at dolores repellat pariatur voluptatum recusandae?</div>
-                        <!-- <div class="amenities" v-if="amenities">
-                            <CardAmenities :amenities="card.amenities" />
-                        </div> -->
-
-                        <!-- <div>
-                            <h1>Property Details</h1>
-                            <table class="property-table">
-                                <tr class="row-light">
-                                    <td><strong>Distancia até Praia do Curral</strong></td>
-                                    <td>{{ dist_curral }} metros</td>
-                                </tr>
-                                <tr class="row-dark">
-                                    <td><strong>Price:</strong></td>
-                                    <td>R$ {{ card.formattedPrice }} {{ card.suffix }}</td>
-                                </tr>
-                                <tr class="row-light">
-                                    <td><strong>Address:</strong></td>
-                                    <td>{{ card.street }}, {{ card.streetNumber }}, {{ card.neighborhood }}, {{ card.city
-                                    }}, {{
-    card.state }}, {{ card.country }}</td>
-                                </tr>
-                                <tr class="row-dark">
-                                    <td><strong>Zip Code:</strong></td>
-                                    <td>{{ card.zipCode }}</td>
-                                </tr>
-                                <tr class="row-light">
-                                    <td><strong>Usable Area:</strong></td>
-                                    <td>{{ card.usableAreas[0] }} sqm</td>
-                                </tr>
-                                <tr class="row-dark">
-                                    <td><strong>Yearly IPTU:</strong></td>
-                                    <td>R$ {{ card.pricingInfos[0].yearlyIptu }}</td>
-                                </tr>
-                                <tr class="row-light">
-                                    <td><strong>Monthly Condo Fee:</strong></td>
-                                    <td>R$ {{ card.pricingInfos[0].monthlyCondoFee }}</td>
-                                </tr>
-                                <tr class="row-dark">
-                                    <td><strong>Usage Types:</strong></td>
-                                    <td>{{ card.usageTypes.join(', ') }}</td>
-                                </tr>
-                                <tr class="row-light">
-                                    <td><strong>Unit Types:</strong></td>
-                                    <td>{{ card.unitTypes.join(', ') }}</td>
-                                </tr>
-                            </table>
-
-                        </div> -->
-
                     </div>
 
                 </div>

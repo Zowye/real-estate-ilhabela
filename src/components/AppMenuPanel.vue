@@ -26,7 +26,7 @@
                   <div class="right">
                     <div>{{ card_fav.street }}</div>
                     <div>{{ card_fav.neighborhood }}</div>
-                    <div style="font-weight: 900;">R$ {{ card_fav.price }}</div>
+                    <div style="font-weight: 700;">R$ {{ card_fav.price }}</div>
                     <button class="close-button-card-fav" @click.stop="removeFromFavorites(card_fav)">
                       <i class="fas fa-times"></i>
                     </button>
@@ -297,6 +297,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  color: black;
   align-items: start;
 }
 

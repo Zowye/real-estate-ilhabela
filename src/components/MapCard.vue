@@ -23,11 +23,13 @@
         </ul>
 
         <div class="map_card_price">R$ {{ formatedPrice[0] }} {{ formatedPrice[1] }}</div>
-      </div>
-      <div class="address_card">
+        <div class="address_card">
         <IconPin :color_icon="['#bb1111', 'white']" />
-        <p>Lorem Ipsum, 1245, Porto Grande</p>
+        <p>{{ localHouse.street }} {{ localHouse.streetNumber }}</p>
       </div>
+      </div>
+
+
       <button class="btn-check-more">VER MAIS</button>
     </div>
 
@@ -86,13 +88,11 @@ export default {
   border-radius: 1em;
   display: flex;
   flex-direction: row;
-  height: 20em;
+  height: 22em;
 }
 
 .address_card {
   display: flex;
-  /* margin-top: 0em; */
-  flex-direction: row;
   justify-content: start;
   align-items: center;
 }
@@ -112,13 +112,15 @@ export default {
 #image_container_map_card img {
   border-top-left-radius: 1em;
   border-bottom-left-radius: 1em;
-  width: 20em;
+  width: 22em;
   object-fit: cover;
-  height: 20em;
+  height: 22em;
 }
 
 #info_container_map_card {
   padding: 1em;
+  padding-right: 3em;
+
 }
 
 .house_infos ul {
@@ -156,12 +158,12 @@ export default {
 
 
 .btn-check-more {
-  width: 100%;
+  width: 10em;
   cursor: pointer;
   color: white;
   border-radius: 0.2em;
   border: none;
-  background-color: var(--cor-base);
+  background-color: black;
   padding: 0.75em;
   transition: all 200ms;
 }
