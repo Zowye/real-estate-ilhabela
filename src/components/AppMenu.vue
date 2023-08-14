@@ -12,6 +12,8 @@
       </li>
       <li><router-link to="/about" class="menu-item">Sobre Nós</router-link></li>
       <li><router-link to="/contact" class="menu-item">Contato</router-link></li>
+      <li><router-link to="/super_filter" class="menu-item special-button"><i class="fa fa-search" aria-hidden="true"></i> Busca Avançada</router-link></li>
+
     </ul>
   </nav>
 </template>
@@ -51,6 +53,14 @@ export default {};
   display: inline-block;
 }
 
+.special-button{
+  background-color: var(--cor-base);
+  color: white;
+  padding: 0.5em;
+  font-size: 0.85em;
+  border-radius: 0.95em;
+}
+
 .dropdown-content {
   display: none;
   position: absolute;
@@ -67,7 +77,7 @@ export default {};
 }
 
 .dropdown-content .submenu-item {
-  
+
   text-transform: none;
   display: block;
   padding: 10px 15px;

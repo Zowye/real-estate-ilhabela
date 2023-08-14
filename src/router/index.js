@@ -7,6 +7,7 @@ import AboutPage from '../views/AboutPage.vue';
 import ContactPage from '../views/ContactPage.vue';
 import HouseExplorer from '../views/HouseExplorer.vue';
 import TestGraphQL from '../views/TestGraphQL.vue';
+import SuperFilter from '../views/SuperFilter.vue';
 
 
 const routes = [
@@ -49,6 +50,11 @@ const routes = [
         path: '/test',
         name: 'TestGraphQL',
         component: TestGraphQL
+    },
+    {
+        path: '/super_filter',
+        name: 'SuperFilter',
+        component: SuperFilter
     }
 ];
 

@@ -377,6 +377,7 @@ export default {
   justify-content: start;
   width: 100%;
   align-items: center;
+  margin-bottom: 2em;
 }
 
 .amenity-wrapper {
