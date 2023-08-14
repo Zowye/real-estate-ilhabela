@@ -3,7 +3,7 @@
     <div class="chip" v-for="amenity in amenities" :key="amenity">
       <div class="amenity-wrapper" :class="{ 'selected': selectedAmenities.includes(amenity) }"
         :style="{ '--image-bg': `url(${getAmenityImagePath(amenity)})` }" @click="toggleAmenitySelection(amenity)">
-        <div class="amenity_name" :class="{ 'selectedName': selectedAmenities.includes(amenity) }">{{
+        <div class="amenity_name shadow" :class="{ 'selectedName': selectedAmenities.includes(amenity) }">{{
           getPresentationName(amenity) }}</div>
       </div>
     </div>
@@ -317,8 +317,11 @@ export default {
         BUILTIN_WARDROBE: {
           presentationName: "Guarda-roupa Embutido",
           image: "builtin_wardrobe.jpg"
+        },
+        ELEVATOR:{
+          presentationName: "Elevador",
+          image: "elevator.jpg"
         }
-
 
       }
     };
@@ -413,7 +416,7 @@ export default {
 
 .amenity_name {
   /* background-color: rgba(255, 255, 255, 0.8); */
-  color: #000000;
+  color: #ffffff;
   position: absolute;
   padding: 4px 8px;
   text-align: center;
@@ -421,8 +424,9 @@ export default {
   bottom: -1em;
   transition: all 400ms;
   z-index: 19;
-  background-color: antiquewhite;
+  background-color: rgb(0, 0, 0);
   border-radius: 0.5em;
+  box-shadow: 1px 4px 8px rgba(255, 0, 0, 0.4);
 }
 
 .amenity-icon {
@@ -447,6 +451,11 @@ export default {
 
 .amenity-wrapper:hover .amenity-name {
   opacity: 1;
+}
+
+
+.shadow {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 </style>
   

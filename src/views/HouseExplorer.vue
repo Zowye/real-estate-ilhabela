@@ -71,8 +71,9 @@
                         <div class="gallery-image-container_x" v-if="imageDetails && imageDetails.length > 0">
                             <div :class="overlayClass"></div>
                             <div class="image-wrapper" v-for="(image, index) in galleryImages" :key="index">
-                                <img :src="image" loading="lazy" alt="Property Image" />
+                                <img :src="image" loading="lazy" alt="Property Image" @click="FullScreenSlideShowActive = true" />
                             </div>
+                            <div class="photos-size">{{ card_images.length }} imagens</div>
                         </div>
                     </div>
                 </div>
@@ -992,6 +993,7 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    cursor: pointer;
 }
 
 .image-wrapper:nth-child(2) {
@@ -1456,6 +1458,7 @@ img[aspect-ratio="portrait"]:nth-of-type(1) {
 }
 
 .image-overlay {
+    user-select: none;
     position: absolute;
     bottom: 10px;
     background-color: rgba(0, 0, 0, 0.6);
@@ -1475,6 +1478,17 @@ img[aspect-ratio="portrait"]:nth-of-type(1) {
     background-color: #000000;
     color: white;
     padding: 2em;
+    z-index: 1000;
+}
+
+.photos-size{
+    position: absolute;
+    padding: 0.5em;
+    background-color: rgba(0, 0, 0, 0.66);
+    color: white;
+    bottom: 0.5em;
+    border-radius: 0.5em;
+    right: 0.5em;
     z-index: 1000;
 }
 </style>
