@@ -44,7 +44,7 @@
 
             <div id="main_row">
 
-                <div id="info_wrapper default_section">
+                <div id="info_wrapper">
                     <div id="main_info">
                         <button class="slide-show-button" @click="FullScreenSlideShowActive = true">FULL SCREEN
                             SLIDESHOW</button>
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div id="gallary">
+                <div id="gallary">
                     <div class="gallary_overlay"></div>
 
                     <div class="gallary_container">
@@ -89,7 +89,7 @@
                             <img :src="image" alt="Property Image" />
                         </div>
                     </div>
-                </div> -->
+                </div>
                 <div id="map">
                     <div id="beach-buttons">
                         <button v-for="beach in beaches_map" :key="beach.name" @click="flyToBeach(beach.lat, beach.lon)">
@@ -104,19 +104,19 @@
                         <HouseBasicInfo />
 
                         <div id="description">
-                            <h2>Descrição</h2>
-                            <p> Lorem ipsum dolor sit amet, consectetur adipisicing corporis, quae, nemo sunt
-                                commodi error optio
-                                rem magni ipsam. Ea pariatur sed provident? Ducimus, placeat, rem voluptas iure corrupti et
-                                quae
-                                doloremque
-                                sapiente voluptatem quos at dolores repellat pariatur voluptatum recusandae? Lorem ipsum,
-                                dolor sit amet consectetur adipisicing elit. Veritatis, libero.</p>
+                            <div class="houses_tittle">Descrição</div>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing corporis, quae, nemo sunt
+                            commodi error optio
+                            rem
+                            magni ipsam. Ea pariatur sed provident? Ducimus, placeat, rem voluptas iure corrupti et quae
+                            doloremque
+                            sapiente voluptatem quos at dolores repellat pariatur voluptatum recusandae?
+                        </div>
+                        <div class="amenities">
+                            <CardAmenities :amenities="card.amenities" />
                         </div>
 
-
-
-                        <h2>Distâncias</h2>
+                        <div class="houses_tittle">Distâncias</div>
                         <div class="beaches-container">
                             <div v-for="beach in beaches" :key="beach.name" class="beach-item">
                                 <spam class="beach-name">{{ beach.name }}</spam>
@@ -140,21 +140,17 @@
 
 
                         </div>
-                        <div class="default-section-style full-width">
-                        <h2>Features</h2>
-                        <CardAmenitiesLarge :amenities="card.amenities" />
-                    </div>
-                    </div>
- 
 
-                    <div class="publisher_info shadow default-section-style">
+                    </div>
+
+
+                    <div class="publisher_info shadow">
                         <div class="publisher-container">
                             <img :src="require('@/assets/images/avatar-mock.jpg')" alt="Foto do Publisher"
                                 class="publisher-photo">
                             <h2 class="publisher-name">Nome do Publisher</h2>
                             <p class="publisher-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                 Molestias, aspernatur exercitationem inventore quae dolorum sed excepturi.</p>
-
                             <p class="publisher-time">2 anos na plataforma</p>
                             <div class="publisher-actions">
                                 <button class="action-button whatsapp">WhatsApp</button>
@@ -162,13 +158,10 @@
                                 <button class="action-button contato">Contato</button>
                             </div>
                         </div>
-                        <div class="default-separator"></div>
-
-
                     </div>
-
                 </div>
             </div>
+
             <CardListWithContext :neigh="card.neighborhood" />
         </div>
 
@@ -186,7 +179,7 @@ import Hammer from 'hammerjs';
 import 'leaflet-routing-machine';
 import HouseBasicInfo from '@/components/HouseBasicInfo.vue';
 import CardListWithContext from '@/components/CardListWithContext.vue';
-import CardAmenitiesLarge from '@/components/CardAmenitiesLarge.vue';
+import CardAmenities from '@/components/CardAmenities.vue';
 
 export default {
 
@@ -473,7 +466,7 @@ export default {
         DefaultLayout,
         IconPin,
         HouseBasicInfo,
-        CardAmenitiesLarge,
+        CardAmenities,
         CardListWithContext
     },
     data() {
@@ -550,17 +543,6 @@ export default {
 <style scoped>
 /* @import '~@fortawesome/fontawesome-free/css/all.min.css'; */
 
-
-.default-separator {
-    border-color: var(--gray-80);
-    border-width: 0 0 1px;
-    margin: 2em 2em;
-    border-style: solid;
-    width: 80%;
-}
-
-
-
 #map {
     height: auto;
     min-height: 35em;
@@ -594,9 +576,7 @@ export default {
 }
 
 
-.full-width{
-    width: 100%;
-}
+
 
 #middle_section {
     margin-top: 1em;
@@ -744,6 +724,13 @@ export default {
     width: 100px;
     height: 100%;
     background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.9));
+}
+
+
+#description {
+    font-size: 1.2em;
+    color: rgb(78, 78, 78);
+    line-height: 1.5em;
 }
 
 
@@ -1236,12 +1223,9 @@ export default {
     height: auto;
     display: block;
     padding: 20px;
-    height: fit-content;
-}
-
-.default-section-style {
     border-radius: 8px;
     background-color: white;
+    height: fit-content;
 }
 
 .publisher-container {

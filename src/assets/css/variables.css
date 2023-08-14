@@ -16,7 +16,7 @@
   --color-font-dropdown-filter: rgb(0, 0, 0);
   --ms-option-color-pointed: #ffffff;
 
-  
+
 
   /* BASE FONTS */
   --font-text: Playfair, sans-serif;
@@ -72,6 +72,56 @@
   --black-or-white-inverse-theme: black;
 
 
+  --gray-5: #121212;
+  --gray-10: #191919;
+  --gray-15: #232323;
+  --gray-20: #333;
+  --gray-30: #545454;
+  --gray-50: #757575;
+  --gray-70: #bababa;
+  --gray-80: #e0e0e0;
+  --gray-90: #f3f3f3;
+  --gray-95: #f2f2f2;
+
+  --white: #fff;
+  --beige-90: #f2f1ec;
+  --beige-80: #e7e3da;
+  --beige-60: #beb59d;
+  --beige-50: #a99e7e;
+  --yellow-90: #fff7e1;
+  --yellow-80: #fee39a;
+  --yellow-70: #f7d36e;
+  --yellow-60: #fdc735;
+  --brand-yellow: #f2b203;
+  --brand-pink: #fcc;
+  --red-80: #f8a1a3;
+  --brand-red: #ff5d5d;
+  --red-50: #d53939;
+  --red-40: #b5262b;
+  --red-60-dark-mode: #e06666;
+  --purple-90: #f2ecf9;
+  --purple-80: #dfd3ee;
+  --purple-70-dark-mode: #b8a3d8;
+  --purple-70: #ae92d3;
+  --brand-purple: #7446af;
+  --purple-30: #52327c;
+  --purple-20: #301d49;
+  --green-90: #eafaf4;
+  --green-80: #c9f2e3;
+  --green-70: #84e9bd;
+  --brand-green-dark-mode: #84e9bd;
+  --brand-green: #34e0a1;
+  --green-40: #0fd28a;
+  --green-30: #00aa6c;
+  --green-10: #004f32;
+  --brand-cream: #faf1ed;
+  --cream-80: #dcd4d1;
+  --primary-warning: #f73;
+  --primary-danger: #c00;
+  --primary-danger-dark-mode: #e06666;
+  --michelin-red: #bd2333;
+  --scrimImage: blur(4px);
+  --shadowLarge: 0 2px 54px 0
 }
 
 
@@ -80,7 +130,7 @@
 
   --ms-tag-bg: var(--app-bg-color);
   --ms-tag-font-size: 0.875rem;
-  --ms-tag-radius:1em;
+  --ms-tag-radius: 1em;
   --ms-border-width: 0px;
   --ms-tag-font-weight: 200;
   --ms-tag-color: #ffffff;

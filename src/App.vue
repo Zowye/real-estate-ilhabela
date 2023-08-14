@@ -68,15 +68,14 @@ h2 {
 
 * {
   font-family: Playfair, sans-serif;
-  user-zoom:fixed;
+  user-zoom: fixed;
 }
 
 p {
   margin-top: 0.2em;
-  font-size: 1.1em;
-  line-height: 1.3em;
-  font-family: var(--font-text);
-  color: var(--cor-base)
+  font-size: 1em;
+  line-height: 1.2em;
+  color: #888;
 }
 
 body {
