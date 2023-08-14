@@ -28,6 +28,8 @@
     <DefaultLayout>
 
 
+
+
         <div id="wrapper_house_explorer">
             <div id="breadcrumbs" class="breadcrumbs-container">
                 <a @click="goToHome">Home</a> <span class="icon"><i class="fas fa-chevron-right"
@@ -40,7 +42,7 @@
             <div id="main_row">
 
                 <div id="info_wrapper default_section">
-                    <div id="main_info_x">
+                    <div id="main_info">
                         <button class="slide-show-button" @click="FullScreenSlideShowActive = true">FULL SCREEN
                             SLIDESHOW</button>
                         <div class="image_overlay" ref="touchArea"></div>
@@ -68,11 +70,10 @@
                         </div>
                         <div :class="overlayClass"></div>
 
-                        <div class="gallery-image-container_x" v-if="imageDetails && imageDetails.length > 0">
+                        <div class="gallery-image-container">
                             <div :class="overlayClass"></div>
-                            <div class="image-wrapper" v-for="(image, index) in galleryImages" :key="index">
-                                <img :src="image" loading="lazy" alt="Property Image" />
-                            </div>
+                            <img :src="card_images[currentIndex]" class="gallery-image" loading="lazy" alt="Property Image"
+                                @click="changeCurrentIndex(index)" @load="onImageLoaded" />
                         </div>
                     </div>
                 </div>
@@ -137,11 +138,11 @@
 
                         </div>
                         <div class="default-section-style full-width">
-                            <h2>Features</h2>
-                            <CardAmenitiesLarge :amenities="card.amenities" />
-                        </div>
+                        <h2>Features</h2>
+                        <CardAmenitiesLarge :amenities="card.amenities" />
                     </div>
-
+                    </div>
+ 
 
                     <div class="publisher_info shadow default-section-style">
                         <div class="publisher-container">
@@ -188,9 +189,6 @@ export default {
 
 
     mounted() {
-
-        this.loadImageDetails();
-
         window.addEventListener("keydown", this.handleKeydown);
         this.hammer = new Hammer(this.$refs.touchArea);
         this.hammer.on('swipeleft', this.swipeLeft);
@@ -263,45 +261,6 @@ export default {
         }
     },
     methods: {
-        loadImageDetails() {
-            const imageUrls = this.card.medias.slice(0, 20).map(
-                media => media.url
-                    .replace("{action}", "fit-in")
-                    .replace("{width}", "870")
-                    .replace("{height}", "653")
-            ).filter(url => !url.includes('youtube') && !url.includes('youtu'));
-
-            const imagePromises = imageUrls.map(url => {
-                return new Promise((resolve, reject) => {
-                    const img = new Image();
-                    img.src = url;
-                    img.onload = () => {
-                        const width = img.width;
-                        const height = img.height;
-                        const aspectRatio = width > height ? "landscape" : "portrait";
-                        const imageDetail = {
-                            "image-format": `${height} x ${width}`,
-                            "aspect-ratio": aspectRatio,
-                            media: url
-                        };
-                        resolve(imageDetail);
-                    };
-                    img.onerror = (err) => {
-                        reject(err);
-                    };
-                });
-            });
-
-            Promise.all(imagePromises)
-                .then(details => {
-                    this.imageDetails = details;
-                    console.log(details);
-                })
-                .catch(err => {
-                    console.error("Error loading an image: ", err);
-                });
-
-        },
         flyToBeach(lat, lon) {
             this.createMarkerAndRoute(this.coords[0], this.coords[1], lat, lon, this.map);
         },
@@ -403,17 +362,13 @@ export default {
         },
 
         swipeLeft() {
-            if (this.currentIndex + 8 < this.imageDetails.length) {
-                this.currentIndex += 8;
-            } else {
-                this.currentIndex = 0; // resetar para o começo se não houver mais 8 imagens restantes
+            if (this.currentIndex < this.card_images.length - 1) {
+                this.changeCurrentIndex(this.currentIndex + 1);
             }
         },
         swipeRight() {
-            if (this.currentIndex - 8 > 0) {
-                this.currentIndex -= 8;
-            } else {
-                this.currentIndex = 0; // resetar para o começo se não houver mais 8 imagens restantes
+            if (this.currentIndex > 0) {
+                this.changeCurrentIndex(this.currentIndex - 1);
             }
         },
         changeCurrentIndex(index) {
@@ -494,16 +449,6 @@ export default {
 
     },
     computed: {
-        galleryImages() {
-            if (!this.imageDetails) return [];
-
-            let images = [];
-            for (let i = 0; i < 8; i++) {
-                let index = (this.currentIndex + i) % this.imageDetails.length;
-                images.push(this.imageDetails[index].media);
-            }
-            return images;
-        },
         overlayClass() {
             return this.isFlashing ? 'overlay flash' : 'overlay';
         },
@@ -532,7 +477,6 @@ export default {
         return {
             map: null,
             card_images: [],
-            imageDetails: [],
             card: null,
             currentIndex: 0,
             progressBarWidth: 100,
@@ -566,7 +510,8 @@ export default {
         this.card = data.find(item => item.id === this.$route.params.id);
 
         if (this.card) {
-            this.card_images = this.card.medias.slice(0, 100).map(
+            this.card_images = this.card.medias.slice(0, 50).map(
+
                 media => media.url
                     .replace("{action}", "fit-in")
                     .replace("{width}", "870")
@@ -584,6 +529,9 @@ export default {
         this.create_photo_subtitles();
 
     }
+
+
+
 };
 
 </script>
@@ -643,7 +591,7 @@ export default {
 }
 
 
-.full-width {
+.full-width{
     width: 100%;
 }
 
@@ -687,6 +635,17 @@ export default {
     flex-wrap: wrap;
 }
 
+#main_info {
+    margin-top: 1em;
+    box-sizing: border-box;
+    /* padding: 1em; */
+    border-radius: 0.5em;
+    flex-direction: column;
+    flex: 1 0 75%;
+    height: 30em;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
+    position: relative;
+}
 
 #topInfos {
     justify-content: flex-start;
@@ -932,7 +891,7 @@ export default {
     border-radius: 0.5em;
     margin-left: 0.5em;
     cursor: pointer;
-    object-fit: contain;
+    object-fit: cover;
     width: 6em;
     height: 6em;
 }
@@ -955,78 +914,32 @@ export default {
     margin-right: 10px;
 }
 
-
-
-
-
-#main_info_x {
-    margin-top: 1em;
-    box-sizing: border-box;
-    /* padding: 1em; */
+.gallary_container img {
     border-radius: 0.5em;
-    flex-direction: column;
-    flex: 1 0 75%;
-    max-height: 36em;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
-    position: relative;
-    overflow: hidden;
-}
-
-.gallery-image-container_x {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-gap: 5px;
-    height: 36em;
-    width: 100%;
-}
-
-.image-wrapper {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    /* Isso garante que a imagem não exceda o wrapper */
-}
-
-.image-wrapper img {
-    width: 100%;
-    height: 100%;
+    margin-left: 0.5em;
+    cursor: pointer;
     object-fit: cover;
+    width: 6em;
+    height: 6em;
 }
 
-.image-wrapper:nth-child(2) {
-    grid-area: 1 / 1 / span 2 / span 2;
-}
-
-.image-wrapper:nth-child(3) {
-    grid-area: 1 / 3 / span 1 / span 1;
-}
-
-.image-wrapper:nth-child(4) {
-    grid-area: 2 / 3 / span 1 / span 1;
-}
-
-.image-wrapper:nth-of-type(5) {
-    grid-area: 2 / 4 / span 1 / span 1;
-}
-
-.image-wrapper:nth-of-type(6) {
-    grid-area: 2 / 5 / span 1 / span 1;
-}
-
-.image-wrapper:nth-of-type(7) {
-    grid-area: 2 / 5 / span 1 / span 1;
+.image_container {
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 
 
-
-img[aspect-ratio="portrait"]:nth-of-type(1) {
-    content: "oie";
-    background-color: #007BFF;
-    border-radius: 2em;
-    grid-area: 2 / 4 / span 2 / span 1;
+.gallery-image-container {
+    border-radius: 0.5em;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    position: relative;
 }
+
+
 
 
 

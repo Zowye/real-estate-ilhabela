@@ -17,6 +17,10 @@ export default {
     return {
       selectedAmenities: [],
       amenitiesDictionary: {
+        FREEZER: {
+    presentationName: "Freezer",
+    image: "freezer.jpg"
+  },
         BALCONY: {
           presentationName: "Varanda",
           image: "balcony.jpg"
