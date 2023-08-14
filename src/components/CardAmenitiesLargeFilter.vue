@@ -356,7 +356,7 @@ export default {
 }
 
 .selected {
-  border: 0.2em solid rgb(138, 235, 93);
+  border: 0.2em solid var(--cor-base);
 }
 
 .amenity-wrapper.selected {

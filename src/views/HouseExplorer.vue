@@ -68,7 +68,7 @@
                         </div>
                         <div :class="overlayClass"></div>
 
-                        <div class="gallery-image-container_x" v-if="imageDetails && imageDetails.length > 0">
+                        <div class="gallery-image-container_x" v-if="(imageDetails.length > 8)">
                             <div :class="overlayClass"></div>
                             <div class="image-wrapper" v-for="(image, index) in galleryImages" :key="index">
                                 <img :src="image" loading="lazy" alt="Property Image" @click="FullScreenSlideShowActive = true" />
