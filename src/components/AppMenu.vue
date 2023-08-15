@@ -12,7 +12,7 @@
       </li>
       <li><router-link to="/about" class="menu-item">Sobre Nós</router-link></li>
       <li><router-link to="/contact" class="menu-item">Contato</router-link></li>
-      <li><router-link to="/super_filter" class="menu-item special-button"><i class="fa fa-search" aria-hidden="true"></i> Busca Avançada</router-link></li>
+      <li><router-link to="/super_filter" class="menu-item special-button"><i class="fa fa-search margin" aria-hidden="true"></i> Busca Avançada</router-link></li>
 
     </ul>
   </nav>
@@ -33,6 +33,11 @@ export default {};
 
 .menu-item {
   margin-right: 2em;
+}
+
+.margin{
+  margin-right: 1em;
+  margin-left: 0.5em;
 }
 
 .menu-item,

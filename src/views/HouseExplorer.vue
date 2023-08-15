@@ -1,17 +1,22 @@
 <template>
     <div v-if="FullScreenSlideShowActive" class="full-screen-slideshow-overlay">
-        <button @click="FullScreenSlideShowActive = false" class="btn-close">Close</button>
+        <button @click="nextImage()" class="btn-next"><i class="fa fa-greater-than"></i></button>
+        <button @click="FullScreenSlideShowActive = false" class="btn-close"><i class="fa fa-window-close"
+                aria-hidden="true"></i>
+        </button>
+        <button @click="previousImage()" class="btn-previous"><i class="fa fa-less-than"></i></button>
 
         <div class="full-screen-slideshow-content">
             <div class="slide-show-main-image-container">
                 <div class="image-container">
                     <img :src="card_images[currentIndex]" loading="lazy" alt="Property Image"
                         @click="changeCurrentIndex(index)" @load="onImageLoaded" />
-                    <div class="image-overlay">
-                        {{ currentIndex + 1 }} de {{ card_images.length }}
-                    </div>
+
                 </div>
                 <div class="slide-show-subtitles"> {{ photo_subtitles[currentIndex] }}</div>
+                <div class="image-overlay">
+                    {{ currentIndex + 1 }} de {{ card_images.length }}
+                </div>
             </div>
         </div>
 
@@ -68,10 +73,11 @@
                         </div>
                         <div :class="overlayClass"></div>
 
-                        <div class="gallery-image-container_x" v-if="(imageDetails.length > 8)">
+                        <div class="gallery-image-container_x" v-if="imageDetails.length > 0">
                             <div :class="overlayClass"></div>
                             <div class="image-wrapper" v-for="(image, index) in galleryImages" :key="index">
-                                <img :src="image" loading="lazy" alt="Property Image" @click="FullScreenSlideShowActive = true" />
+                                <img :src="image" loading="lazy" alt="Property Image"
+                                    @click="FullScreenSlideShowActive = true" />
                             </div>
                             <div class="photos-size">{{ card_images.length }} imagens</div>
                         </div>
@@ -87,13 +93,7 @@
                         </div>
                     </div>
                 </div> -->
-                <div id="map">
-                    <div id="beach-buttons">
-                        <button v-for="beach in beaches_map" :key="beach.name" @click="flyToBeach(beach.lat, beach.lon)">
-                            {{ beach.name }}
-                        </button>
-                    </div>
-                </div>
+
 
                 <div id="middle_section">
                     <div class="extra_info shadow">
@@ -137,6 +137,14 @@
 
 
                         </div>
+                        <div id="map">
+                            <div id="beach-buttons">
+                                <button v-for="beach in beaches_map" :key="beach.name"
+                                    @click="flyToBeach(beach.lat, beach.lon)">
+                                    {{ beach.name }}
+                                </button>
+                            </div>
+                        </div>
                         <div class="default-section-style full-width">
                             <h2>Features</h2>
                             <CardAmenitiesLarge :amenities="card.amenities" />
@@ -165,6 +173,8 @@
                     </div>
 
                 </div>
+
+
             </div>
             <CardListWithContext :neigh="card.neighborhood" />
         </div>
@@ -264,6 +274,18 @@ export default {
         }
     },
     methods: {
+        nextImage() {
+            if (this.currentIndex == this.card_images.length - 1) {
+                this.currentIndex = 0;
+            }
+            this.currentIndex++;
+        },
+        previousImage() {
+            if (this.currentIndex == 0) {
+                this.currentIndex = 0;
+            }
+            this.currentIndex--;
+        },
         loadImageDetails() {
             const imageUrls = this.card.medias.slice(0, 20).map(
                 media => media.url
@@ -272,36 +294,30 @@ export default {
                     .replace("{height}", "653")
             ).filter(url => !url.includes('youtube') && !url.includes('youtu'));
 
-            const imagePromises = imageUrls.map(url => {
-                return new Promise((resolve, reject) => {
-                    const img = new Image();
-                    img.src = url;
-                    img.onload = () => {
-                        const width = img.width;
-                        const height = img.height;
-                        const aspectRatio = width > height ? "landscape" : "portrait";
-                        const imageDetail = {
-                            "image-format": `${height} x ${width}`,
-                            "aspect-ratio": aspectRatio,
-                            media: url
-                        };
-                        resolve(imageDetail);
+            this.imageDetails = []; // Inicializar ou reiniciar
+
+            imageUrls.forEach(url => {
+                const img = new Image();
+                img.src = url;
+
+                img.onload = () => {
+                    const width = img.width;
+                    const height = img.height;
+                    const aspectRatio = width > height ? "landscape" : "portrait";
+                    const imageDetail = {
+                        "image-format": `${height} x ${width}`,
+                        "aspect-ratio": aspectRatio,
+                        media: url
                     };
-                    img.onerror = (err) => {
-                        reject(err);
-                    };
-                });
+
+                    // Adicionar o detalhe da imagem diretamente no array
+                    this.imageDetails.push(imageDetail);
+                };
+
+                img.onerror = (err) => {
+                    console.error("Error loading the image: ", err);
+                };
             });
-
-            Promise.all(imagePromises)
-                .then(details => {
-                    this.imageDetails = details;
-                    console.log(details);
-                })
-                .catch(err => {
-                    console.error("Error loading an image: ", err);
-                });
-
         },
         flyToBeach(lat, lon) {
             this.createMarkerAndRoute(this.coords[0], this.coords[1], lat, lon, this.map);
@@ -910,7 +926,7 @@ export default {
 
 #gallary-full-screen {
     top: 0;
-    width: 100%;
+    width: 90%;
     overflow: hidden;
     position: absolute;
 }
@@ -968,6 +984,7 @@ export default {
     flex-direction: column;
     flex: 1 0 75%;
     max-height: 36em;
+    height: 36em;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
     position: relative;
     overflow: hidden;
@@ -1413,7 +1430,7 @@ img[aspect-ratio="portrait"]:nth-of-type(1) {
     top: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.97);
+    background-color: rgba(0, 0, 0, 0.99);
     z-index: 1111;
     flex-direction: column;
 }
@@ -1460,28 +1477,45 @@ img[aspect-ratio="portrait"]:nth-of-type(1) {
 .image-overlay {
     user-select: none;
     position: absolute;
-    bottom: 10px;
+    top: -1em;
     background-color: rgba(0, 0, 0, 0.6);
     color: #fff;
+    align-items: center;
     padding: 5px 10px;
     border-radius: 5px;
 }
 
 
-.btn-close {
+.btn-close,
+.btn-next,
+.btn-previous {
     position: absolute;
-    top: 50%;
-    right: 0;
     border: none;
     cursor: pointer;
-    width: 14em;
     background-color: #000000;
     color: white;
-    padding: 2em;
     z-index: 1000;
+    font-size: 2em;
 }
 
-.photos-size{
+.btn-close {
+    right: 0;
+}
+
+.btn-next {
+    right: 0;
+    top: 50%;
+    padding: 1em;
+}
+
+.btn-previous {
+    left: 0;
+    top: 50%;
+    padding: 1em;
+}
+
+
+.photos-size {
     position: absolute;
     padding: 0.5em;
     background-color: rgba(0, 0, 0, 0.66);
