@@ -8,6 +8,8 @@ import ContactPage from '../views/ContactPage.vue';
 import HouseExplorer from '../views/HouseExplorer.vue';
 import TestGraphQL from '../views/TestGraphQL.vue';
 import SuperFilter from '../views/SuperFilter.vue';
+import SignUp from '../views/SignUp.vue';
+import RegisterProperty from '../views/RegisterProperty.vue';
 
 
 const routes = [
@@ -55,6 +57,16 @@ const routes = [
         path: '/super_filter',
         name: 'SuperFilter',
         component: SuperFilter
+    },
+    {
+        path: '/sign_up',
+        name: 'SignUp',
+        component: SignUp
+    },
+    {
+        path: '/register_property',
+        name: 'RegisterProperty',
+        component: RegisterProperty
     }
 ];
 

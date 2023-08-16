@@ -12,6 +12,7 @@
       </li>
       <li><router-link to="/about" class="menu-item">Sobre Nós</router-link></li>
       <li><router-link to="/contact" class="menu-item">Contato</router-link></li>
+      <li><router-link to="/register_property" class="menu-item">Registrar Casa</router-link></li>
       <li><router-link to="/super_filter" class="menu-item special-button"><i class="fa fa-search margin" aria-hidden="true"></i> Busca Avançada</router-link></li>
 
     </ul>

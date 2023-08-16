@@ -78,6 +78,14 @@ p {
   color: #888;
 }
 
+.default-separator {
+    border-color: var(--gray-80);
+    border-width: 0 0 1px;
+    margin: 2em 2em;
+    border-style: solid;
+    width: 80%;
+}
+
 body {
   display: flex;
   flex-direction: column;

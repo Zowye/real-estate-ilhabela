@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import CardsListSpecial from '@/components/CardsListSpecial.vue';
 import CardsList from '@/components/CardsList.vue';
 import AppFilter from '@/components/AppFilter.vue';
@@ -38,6 +37,7 @@ import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import 'leaflet.markercluster';
 import { mapState, mapActions } from 'vuex';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 
 import data from '@/data.json';
 
@@ -228,7 +228,7 @@ export default {
 
 <style scoped>
 .top-avoider {
-  margin-top: 4em;
+  margin-top: 0em;
 }
 
 ::v-deep .marker-price-label {
@@ -332,7 +332,6 @@ export default {
   height: 100vh;
   background-color: rgb(185, 185, 185);
   border-radius: 0.6em 0.6em 0.6em 0.6em;
-
 }
 
 .card-list-container {

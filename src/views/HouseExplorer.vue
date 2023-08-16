@@ -9,8 +9,7 @@
         <div class="full-screen-slideshow-content">
             <div class="slide-show-main-image-container">
                 <div class="image-container">
-                    <img :src="card_images[currentIndex]" loading="lazy" alt="Property Image"
-                        @click="changeCurrentIndex(index)" @load="onImageLoaded" />
+                    <img :src="card_images[currentIndex]" loading="lazy" alt="Property Image" @load="onImageLoaded" />
 
                 </div>
                 <div class="slide-show-subtitles"> {{ photo_subtitles[currentIndex] }}</div>
@@ -73,7 +72,7 @@
                         </div>
                         <div :class="overlayClass"></div>
 
-                        <div class="gallery-image-container_x" v-if="imageDetails.length > 0">
+                        <div class="gallery-image-container_x" v-if="imageDetails.length > 7">
                             <div :class="overlayClass"></div>
                             <div class="image-wrapper" v-for="(image, index) in galleryImages" :key="index">
                                 <img :src="image" loading="lazy" alt="Property Image"
@@ -113,24 +112,7 @@
 
 
 
-                        <h2>Distâncias</h2>
-                        <div class="beaches-container">
-                            <div v-for="beach in beaches" :key="beach.name" class="beach-item">
-                                <spam class="beach-name">{{ beach.name }}</spam>
 
-
-                                <div class="beach-bar-container">
-
-                                    <div class="beach-bar-behind">
-
-                                        <div :style="{ width: beach.widthPercentage + '%' }" class="beach-bar">
-                                            <spam class="beach-distance"> {{ beach.widthPercentage }} km</spam>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
 
 
                         <div>
@@ -169,7 +151,24 @@
                         </div>
                         <div class="default-separator"></div>
 
+                        <h2>Distâncias</h2>
+                        <div class="beaches-container">
+                            <div v-for="beach in beaches" :key="beach.name" class="beach-item">
+                                <spam class="beach-name">{{ beach.name }}</spam>
 
+
+                                <div class="beach-bar-container">
+
+                                    <div class="beach-bar-behind">
+
+                                        <div :style="{ width: beach.widthPercentage + '%' }" class="beach-bar">
+                                            <spam class="beach-distance"> {{ beach.widthPercentage }} km</spam>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -617,13 +616,7 @@ export default {
 /* @import '~@fortawesome/fontawesome-free/css/all.min.css'; */
 
 
-.default-separator {
-    border-color: var(--gray-80);
-    border-width: 0 0 1px;
-    margin: 2em 2em;
-    border-style: solid;
-    width: 80%;
-}
+
 
 
 
@@ -656,6 +649,7 @@ export default {
     display: block;
     padding: 1em;
     border: none;
+    border-radius: 0.5em;
     margin: 5px 0;
 }
 
@@ -777,14 +771,15 @@ export default {
 
 
 .image_overlay {
+    user-select: none;
     border-radius: 0.6em;
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 45%;
     background: linear-gradient(to top,
-            rgba(0, 0, 0, 0.89),
+            rgb(0, 0, 0),
             rgba(0, 0, 0, 0.114),
             transparent);
     z-index: 2;
@@ -987,14 +982,14 @@ export default {
     height: 36em;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .gallery-image-container_x {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    grid-gap: 5px;
+    grid-gap: 2px;
     height: 36em;
     width: 100%;
 }
@@ -1003,7 +998,6 @@ export default {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    /* Isso garante que a imagem não exceda o wrapper */
 }
 
 .image-wrapper img {
@@ -1041,9 +1035,6 @@ export default {
 
 
 img[aspect-ratio="portrait"]:nth-of-type(1) {
-    content: "oie";
-    background-color: #007BFF;
-    border-radius: 2em;
     grid-area: 2 / 4 / span 2 / span 1;
 }
 
@@ -1314,18 +1305,11 @@ img[aspect-ratio="portrait"]:nth-of-type(1) {
 
 .beach-bar {
     background: #d4cbc5;
-    border-radius: 1em;
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
 }
-
-
-
-
-
-
 
 
 .shadow {
@@ -1411,13 +1395,6 @@ img[aspect-ratio="portrait"]:nth-of-type(1) {
 .action-button:hover {
     opacity: 0.9;
 }
-
-
-
-
-
-
-
 
 
 

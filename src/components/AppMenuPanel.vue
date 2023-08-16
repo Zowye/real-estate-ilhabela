@@ -56,7 +56,7 @@
           </button>
         </div>
       </li>
-      <li><button class="button-menu-panel">LOGIN</button></li>
+      <li><router-link to="/sign_up" class="menu-item"><button class="button-menu-panel">CADASTRE-SE </button></router-link></li>
 
     </ul>
   </nav>
