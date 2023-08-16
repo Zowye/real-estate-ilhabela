@@ -6,10 +6,29 @@
       <div class="registration-form">
         <h2>Cadastro de Propriedade</h2>
         <div class="form-group">
-          <label for="property-address">Endereço:</label>
+          <label for="property-address">
+            <span>
+              <IconPin :color_icon="['#ee0000', 'white']" />
+            </span>
+            <span>Endereço:</span>
+          </label>
           <input type="search" placeholder="Insira seu endereço" aria-label="Search" aria-describedby="button-addon2"
             ref="addressInput" for="property-address">
+        </div>
 
+        <div id="map-register-property"></div>
+
+        <div id="upload-images-wrapper">
+          <button @click="triggerFileInput">Carregar Fotos</button>
+          <input class="hiddenFileInput" type="file" ref="fileInput" accept="image/*" multiple @change="handleFiles">
+
+          <div class="upload-container">
+            <div v-for="(file, index) in files" :key="index" class="image-preview">
+              <img :src="file.url" alt="Uploaded Image" class="thumbnail">
+              <input type="text" v-model="file.description" placeholder="Adicione uma descrição">
+              <button class="remove-photo-button" @click="removeFile(index)">Remover</button>
+            </div>
+          </div>
         </div>
 
         <div v-if="address.street">
@@ -36,12 +55,6 @@
           <strong>Latitude:</strong> {{ address.latitude }}<br>
           <strong>Longitude:</strong> {{ address.longitude }}<br>
         </div>
-
-
-
-
-        <div id="map-register-property"></div>
-
       </div>
 
 
@@ -54,15 +67,45 @@
 <script>
 /* global google */
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import IconPin from "@/components/icons/IconPin.vue";
 import { onMounted, ref } from 'vue';
 import googlePlaces from '../composables/googlePlaces';
 import L from 'leaflet';
 
 export default {
   components: {
+    IconPin,
     DefaultLayout
   },
   setup() {
+
+
+
+    // Image Loading Logic -------
+    const fileInput = ref(null);
+    const files = ref([]);
+
+    function triggerFileInput() {
+      console.log("triggerFileInput chamado!");
+      fileInput.value.click();
+    }
+
+    function handleFiles(event) {
+      const fileList = event.target.files;  // Use o objeto de evento diretamente
+      for (let i = 0; i < fileList.length; i++) {
+        const reader = new FileReader();
+        reader.readAsDataURL(fileList[i]);
+        reader.onload = (e) => {
+          files.value.push({ url: e.target.result, description: '' });
+        };
+      }
+    }
+
+    function removeFile(index) {
+      files.value.splice(index, 1);
+    }
+
+
 
     const addressInput = ref(null);
     const link = "https://maps.googleapis.com/maps/api/js?key=AIzaSyChxPVeTxWpkmvuFNgez4o5fSi8UFjR8HU&libraries=places";
@@ -141,7 +184,8 @@ export default {
         city,
         country,
         latitude,
-        longitude
+        longitude,
+
       };
 
 
@@ -154,7 +198,7 @@ export default {
         app_map.removeLayer(marker);
       }
       marker = L.marker([latitude, longitude]).addTo(app_map);
-      app_map.setView([latitude, longitude], 12); 
+      app_map.setView([latitude, longitude], 12);
 
     }
 
@@ -167,16 +211,11 @@ export default {
         await googlePlaces(link);
         new google.maps.places.Autocomplete(addressInput.value);
 
-
         const autocomplete = new google.maps.places.Autocomplete(addressInput.value);
         google.maps.event.addListener(autocomplete, 'place_changed', function () {
           const place = autocomplete.getPlace();
           processAddressDetails(place);
-
-
-
         });
-
 
       } catch (error) {
         console.error("Erro ao carregar o script do Google Places.");
@@ -185,8 +224,12 @@ export default {
 
     return {
       address,
-
-      addressInput
+      fileInput,
+      files,
+      addressInput,
+      triggerFileInput,
+      handleFiles,
+      removeFile
     }
   }
 }
@@ -195,14 +238,16 @@ export default {
 
 <style>
 #register-container {
+  margin-top: 4em;
+  width: 50%;
   padding: 1em;
-  width: 80%;
 }
 
 .registration-form {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 100%;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
@@ -320,13 +365,67 @@ button:disabled {
 }
 
 
-
-
 #map-register-property {
   position: relative;
   width: 100%;
   height: 30em;
   background-color: rgb(185, 185, 185);
   border-radius: 0.6em 0.6em 0.6em 0.6em;
+}
+
+
+@media (max-width: 767px) {
+  #register-container {
+    width: 90%;
+  }
+}
+
+
+#upload-images-wrapper {
+  border: none;
+  margin-top: 1em;
+  width: 100%;
+}
+
+.upload-container {
+  margin-top: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.thumbnail {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 0.5em;
+  object-fit: cover;
+}
+
+.image-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 10px;
+}
+
+
+.remove-photo-button {
+  padding: 10px 15px;
+  background-color: #df5555;
+  color: white;
+  border-radius: 0.5em;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.remove-photo-button:hover {
+  background-color: #ba4747;
+}
+
+
+.hiddenFileInput {
+  display: none;
 }
 </style>

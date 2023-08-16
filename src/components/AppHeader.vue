@@ -91,6 +91,7 @@ export default {
 }
 
 
+
 .desktop-header {
   position: absolute;
   display: flex;
