@@ -48,7 +48,7 @@
                         <button class="slide-show-button" @click="FullScreenSlideShowActive = true">FULL SCREEN
                             SLIDESHOW</button>
                         <div class="image_overlay" ref="touchArea"></div>
-                        <div class="progress-bar" :style="{ width: progressBarWidth + '%' }"></div>
+                        <div class="progress-bar-slider" :style="{ width: progressBarWidth + '%' }"></div>
 
                         <div class="image_content">
 
@@ -1066,7 +1066,7 @@ img[aspect-ratio="portrait"]:nth-of-type(1) {
     grid-row: span 2;
 }
 
-.progress-bar {
+.progress-bar-slider {
     height: 10px;
     background-color: #ffffff84;
     filter: brightness(200%);
